@@ -2,6 +2,7 @@ import Papa, { parse } from "papaparse";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Tile from './components/Tile'
+import Optional from './components/Optional'
 import {Button ,Container, Grid} from '@material-ui/core'
 import logo from './logo/PNG-Blue.png';
 
@@ -12,6 +13,8 @@ function App() {
   const [parseData, setParseData] = useState([]);
   const [countBreach,setCountBreach]=useState(0);
   const [toggleTile,setToggleTile] = useState(false);
+  const [optional, setOptional] = useState(false); 
+  const [emailBreach , setEmailBreach] = useState([]);
   let count = 0 ;
 
   const csvData = (e) => {
@@ -26,28 +29,40 @@ function App() {
     });
   };
 
-  useEffect(()=>{
+  useEffect(async ()=>{
     
     let apiKey = { "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45" }; //api key
     
     //loop each dataif has 
-     parseData.map(async (data) => {
-
+    await parseData.map(async (data) => {
+         
           let url = `/api/v3/breachedaccount/${data["0"]}?truncateResponse=false`;
-
+          //console.log(`${url}`);
           await axios.get(url, { headers: apiKey  })
                      .then(async res=>{
-                       count = await count + 1;
+                      console.log(url);
+                      console.log(res);
+                       const inputEmail = { email : data};
+                       const newRes = {...res.data,...inputEmail}
+                       count =  count + 1;
                        await setCountBreach(count); //set count w/ positive output
+                       await setEmailBreach(oldArray => [...oldArray,newRes]);
+                       
                      })
-                     .catch(err=>console.log(err));
+                     .catch()
                      
-    
+                     
+          
     });
 
     
    
   },[parseData])
+
+  const clickMe = () =>{
+    setToggleTile(false);
+    setOptional(true);
+  }
  
   return (
     
@@ -63,7 +78,9 @@ function App() {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            {toggleTile && <Tile count={countBreach}/>}
+            {toggleTile && <Tile count={countBreach} clickMe={clickMe}/>}
+            {optional&& <Optional emailBreach={emailBreach}/>}
+            
           </Grid>
       </Grid>
       

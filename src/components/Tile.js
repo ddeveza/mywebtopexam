@@ -3,10 +3,10 @@ import "./Tile.css"
 import { Paper , Grid, Container, Typography } from '@material-ui/core';
 import logo from '../logo/hibp cropped.png'
 
-function Tile({count}) {
+function Tile({count,clickMe}) {
     return (
        
-            <Container maxWidth="sm" >
+            <Container maxWidth="sm" onClick ={clickMe}>
                 <Paper m={200}>
                     <Grid container direction="column" alignItems="center" >
                         <Grid item  > 
