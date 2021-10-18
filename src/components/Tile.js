@@ -9,10 +9,15 @@ function Tile({count,clickMe}) {
             <Container maxWidth="sm" onClick ={clickMe}>
                 <Paper m={200}>
                     <Grid container direction="column" alignItems="center" >
-                        <Grid item  > 
-                            <h3> Number of Breached </h3>
-                            <h3> Email Accounts</h3>
-                        </Grid>
+                        <Grid item  container  direction='column' justifyContent="center" alignItems="center" > 
+                                <Grid item  >
+                                <span className='breachText'>  Number of Breached </span>
+                                </Grid>
+                                <Grid item >
+                                    <span className='breachText'>  Email  Accounts </span>
+                                </Grid>
+                        </Grid> 
+                       
                        
                         <Grid item > 
                             <span className="Count">{count} </span>
@@ -23,11 +28,11 @@ function Tile({count,clickMe}) {
 
                     <Grid  container  direction="row"  justifyContent="flex-end"  alignItems="center">
                             <Grid item  > 
-                               <h2>Power by </h2>
+                               <span className='powerBy'>Power by</span>
                             </Grid>
 
                             <Grid item   >   
-                               <img src={logo} alt="hipb" width="80" height="40"/>
+                               <img className='hipb' src={logo} alt="hipb" />
                            </Grid>
                         
                     </Grid>

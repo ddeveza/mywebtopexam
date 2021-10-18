@@ -12,7 +12,9 @@ span.Count {
     font-size: 100px;
 }
 
-
+.MuiPaper-root {
+    color: rgb(83 76 76 / 87%)!important;
+}
 .MuiGrid-item {
     margin: 0!important;
     box-sizing: border-box!important;
@@ -27,5 +29,39 @@ h3{
     margin:0;
     margin-top: 5px;
     padding:0;
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+   
+}
+.MuiPaper-rounded {
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+img {
+   
+    max-width: 100%;
+    max-height: 100%;
+    
+
+}
+
+.hipb {
+    width: 100px;
+}
+
+.webTop {
+    width : 200px;
+}
+
+.powerBy {
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    
+}
+
+.breachText {
+    font-size: 30px;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
 }

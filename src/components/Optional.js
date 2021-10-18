@@ -20,7 +20,23 @@ function Optional({emailBreach}) {
       
       
       
-         setForward(forward+1);
+         setForward(forward=>{
+
+            if (forward < dataLength-1) {
+                console.log(forward);
+                return forward+1;
+            }else {
+                setToggleFor(false);
+                setToggleBack(true);
+                setReverse(forward);
+
+            }
+
+         }
+            
+            
+            
+        );
        
         
         
@@ -28,19 +44,32 @@ function Optional({emailBreach}) {
     };
     const reverseClick = () => {
                 
-                setReverse(forward-1);
+
+    
+                setReverse(reverse => {
+                    if (reverse <= 0 ) {
+                        setToggleFor(true);
+                        setToggleBack(false);
+                        setForward(reverse);
+                    }
+                    else return reverse-1;
+                
+                
+                });
+               
             
             
     };
     
     return (
         <Container >
-           
-           <img src={imgForward}  onClick={forwardClick}/>
-             
+            
+          {toggleFor && <img src={imgForward}  onClick={forwardClick}/>}
+          {toggleBack && <img src={imgBack}  onClick={reverseClick}/>}
 
             {emailBreach.map((eachEmailBreach,index)=>{
-                if (index == forward ){
+                
+                if (index == forward || index==reverse){
                 let email = eachEmailBreach.email[0];
                 let CompromiseDatas = eachEmailBreach[0].DataClasses;
                 let Description = eachEmailBreach[0].Description;
@@ -58,6 +87,7 @@ function Optional({emailBreach}) {
               } 
             })}
             
+             
           
 
         </Container>

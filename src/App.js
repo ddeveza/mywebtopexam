@@ -15,7 +15,7 @@ function App() {
   const [toggleTile,setToggleTile] = useState(false);
   const [optional, setOptional] = useState(false); 
   const [emailBreach , setEmailBreach] = useState([]);
-  let count = 0 ;
+  
 
   const csvData = (e) => {
     const file = e.target.files[0];
@@ -44,8 +44,8 @@ function App() {
                       console.log(res);
                        const inputEmail = { email : data};
                        const newRes = {...res.data,...inputEmail}
-                       count =  count + 1;
-                       await setCountBreach(count); //set count w/ positive output
+                       
+                       await setCountBreach(oldCount => oldCount+1); //set count w/ positive output
                        await setEmailBreach(oldArray => [...oldArray,newRes]);
                        
                      })
@@ -69,7 +69,7 @@ function App() {
     <Container>
       <Grid container alignItems="center" spacing={2}>
           <Grid item xs={8}>
-            <img src={logo} alt="Logo" width="200" height="100"/>
+            <img className="webTop" src={logo} alt="Logo" />
           </Grid>
           <Grid item xs={4}  container direction="column" alignItems="flex-end" >
             <Button variant="contained" component="label" >
