@@ -4,7 +4,8 @@ import axios from "axios";
 import Tile from './components/Tile'
 import Optional from './components/Optional'
 import {Button ,Container, Grid} from '@material-ui/core'
-import logo from './logo/PNG-Blue.png';
+import logo from './logo/Assets/BeCloudSafe Logo Cropped.png';
+import '../src/App.css'
 
 
 
@@ -38,18 +39,25 @@ function App() {
          
           let url = `/api/v3/breachedaccount/${data["0"]}?truncateResponse=false`;
           //console.log(`${url}`);
-          await axios.get(url, { headers: apiKey  })
-                     .then(async res=>{
-                      console.log(url);
-                      console.log(res);
-                       const inputEmail = { email : data};
-                       const newRes = {...res.data,...inputEmail}
-                       
-                       await setCountBreach(oldCount => oldCount+1); //set count w/ positive output
-                       await setEmailBreach(oldArray => [...oldArray,newRes]);
-                       
-                     })
-                     .catch()
+       
+
+
+           await setTimeout(async () => {
+
+                    await axios.get(url, { headers: apiKey  })
+                    .then(async res=>{
+                    console.log(url);
+                    console.log(res);
+                      const inputEmail = { email : data};
+                      const newRes = {...res.data,...inputEmail}
+                      
+                      setCountBreach(oldCount => oldCount+1); //set count w/ positive output
+                      setEmailBreach(oldArray => [...oldArray,newRes]);
+                      
+                    })
+                    .catch()
+              
+            }, 1000);
                      
                      
           
@@ -60,14 +68,14 @@ function App() {
   },[parseData])
 
   const clickMe = () =>{
-    setToggleTile(false);
-    setOptional(true);
+    //setToggleTile(false);
+    //setOptional(true);
   }
  
   return (
     
     <Container>
-      <Grid container alignItems="center" spacing={2}>
+      <Grid container alignItems="center" spacing={2}  direction="row">
           <Grid item xs={8}>
             <img className="webTop" src={logo} alt="Logo" />
           </Grid>
@@ -77,12 +85,73 @@ function App() {
                 <input type="file" onChange={csvData} onClick={()=>setToggleTile(true)} hidden/>
             </Button>
           </Grid>
-          <Grid item xs={12}>
-            {toggleTile && <Tile count={countBreach} clickMe={clickMe}/>}
-            {optional&& <Optional emailBreach={emailBreach}/>}
-            
-          </Grid>
       </Grid>
+        <div className="listOfTiles">
+          <Grid  container  justifyContent="center" alignItems="stretch" spacing={{ xs: 10, md: 5 }} > 
+                
+                <Grid item sm={4} md={4}>
+                  {toggleTile && <Tile 
+                                      count={countBreach} 
+                                      clickMe={clickMe} 
+                                      title={'Number of Email , Breached Account'} 
+                                      boolHipb = {true}/>}
+
+                  {optional&& <Optional 
+                                      emailBreach={emailBreach}/>}
+                  
+                </Grid>
+                <Grid item sm={4} md={4}>
+                  {toggleTile && <Tile 
+                                    count={countBreach} 
+                                    percentSign = {true}
+                                    title={'Microsoft, Secure Score'} 
+                                    boolHipb = {false} />}
+                
+                  
+                </Grid>
+                <Grid item sm={4} md={4}>
+                  {toggleTile && <Tile count={countBreach} 
+                                       clickMe={clickMe} 
+                                       title={'Number of Breach, Phone Numbers'} 
+                                       boolHipb = {true}/>}
+
+                  
+                  
+                </Grid>
+                <Grid item sm={4} md={4}>
+                  {toggleTile && <Tile count={countBreach} 
+                                       
+                                       title={'Number of Global, Administrator Accounts'} 
+                                       boolHipb = {false}/>}
+
+                  
+                  
+                </Grid>
+                <Grid item sm={4} md={4}>
+                  {toggleTile && <Tile  
+                                       count={countBreach} 
+                                       title={'Number of, Dormants Account'} 
+                                       boolHipb = {false}/>}
+
+                  
+                  
+                </Grid>
+                <Grid item sm={4} md={4}>
+                  {toggleTile && <Tile 
+                                       
+                                       count={countBreach}
+                                       percentSign = {true}
+                                       title={'Percentage of ,Accounts Using MFA'} 
+                                       boolHipb = {false}/>}
+
+                  
+                  
+                </Grid>
+
+          </Grid>
+         
+        </div>
+      
       
      
     </Container>
