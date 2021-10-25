@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700;400;700&display=swap');
+
 .MuiButton-contained {
     color: white!important;
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
@@ -10,6 +12,8 @@
 
 .MuiPaper-elevation1 {
     box-shadow: 4px 3px 10px 1px rgb(34 82 125 / 51%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)!important;
+    max-height: 100% !important;
+    height: 188px !important;
 }
 
 span.Count {
@@ -18,6 +22,7 @@ span.Count {
 
 .MuiPaper-root {
     color: rgb(83 76 76 / 87%)!important;
+    padding: 5px;
 }
 
 
@@ -28,13 +33,14 @@ h3{
     margin:0;
     margin-top: 5px;
     padding:0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    font-family: 'Lato', sans-serif !important;
+    
    
 }
 .MuiPaper-rounded {
     border-radius: 4px;
     cursor: pointer;
-    padding: 7px;
+  
 }
 
 img {
@@ -46,7 +52,9 @@ img {
 }
 
 .hipb {
-    width: 100px;
+    max-width: 100%;
+    width: 80px;
+  
 }
 
 .webTop {
@@ -54,14 +62,14 @@ img {
 }
 
 .powerBy {
-    font-size: 20px;
+    font-size: 15px;
     font-family: 'Open Sans', sans-serif;
     
 }
 
 .breachText {
-    font-size: 20px;
-    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif !important;
     text-transform: uppercase;
     text-align: center;
 }

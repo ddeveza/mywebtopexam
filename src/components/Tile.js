@@ -31,9 +31,10 @@ function Tile({count,clickMe,title,boolHipb,percentSign}) {
                        
                     </Grid>
 
-                    <Grid  container  direction="row"  justifyContent="flex-end"  alignItems="center">
+                    <Grid  container  direction="row"  justifyContent="flex-end"  alignItems="center" spacing={1}>
+                           
                             <Grid item  > 
-                               <span className='powerBy'>{boolHipb && 'Power by'}</span>
+                               <span className='powerBy'>{boolHipb && 'Powered by'}</span>
                             </Grid>
 
                             <Grid item   >   

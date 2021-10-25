@@ -90,11 +90,11 @@ function App() {
         <div className="listOfTiles">
           <Grid  container spacing={8} > 
                 
-                <Grid item xs={12}  sm={4}  m={4}>
+                <Grid item xs={12}  sm={4}  m={6} >
                   {toggleTile && <Tile 
                                       count={countBreach} 
                                       clickMe={clickMe} 
-                                      title={'Number of Email , Breached Account'} 
+                                      title={'Number of Breached , Email Account'} 
                                       boolHipb = {true}/>}
 
                   {optional&& <Optional 
