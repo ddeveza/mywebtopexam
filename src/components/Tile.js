@@ -1,12 +1,12 @@
 import React from 'react'
 import "./Tile.css"
-import { Paper , Grid, Container } from '@material-ui/core';
+import { Paper , Grid } from '@material-ui/core';
 import logo from '../logo/hibp cropped.png'
 
 function Tile({count,clickMe,title,boolHipb,percentSign}) {
 
     const [title1,title2] = title.split(',');
-    console.log(title);
+    //console.log(title);
 
     return (
        

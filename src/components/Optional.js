@@ -1,7 +1,7 @@
 import React ,{useState}from 'react'
 import imgForward from '../logo/icons8-forward.png';
 import imgBack from '../logo/icons8-back.png';
-import { Paper , Grid, Container, Typography } from '@material-ui/core';
+import {  Container } from '@material-ui/core';
 
 
 
@@ -64,12 +64,12 @@ function Optional({emailBreach}) {
     return (
         <Container >
             
-          {toggleFor && <img src={imgForward}  onClick={forwardClick}/>}
-          {toggleBack && <img src={imgBack}  onClick={reverseClick}/>}
+          {toggleFor && <img src={imgForward}  onClick={forwardClick} alt="forward"/>}
+          {toggleBack && <img src={imgBack}  onClick={reverseClick} alt="reverse"/>}
 
             {emailBreach.map((eachEmailBreach,index)=>{
                 
-                if (index == forward || index==reverse){
+                if (index === forward || index===reverse){
                 let email = eachEmailBreach.email[0];
                 let CompromiseDatas = eachEmailBreach[0].DataClasses;
                 let Description = eachEmailBreach[0].Description;

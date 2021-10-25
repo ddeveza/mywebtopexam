@@ -31,19 +31,19 @@ function App() {
     });
   };
 
-  useEffect(async ()=>{
+  useEffect( ()=>{
     
     let apiKey = { "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45" }; //api key
     
     //loop each dataif has 
-    await parseData.map(async (data) => {
+    parseData.map(async (data) => {
          
           let url = `/api/v3/breachedaccount/${data["0"]}?truncateResponse=false`;
           //console.log(`${url}`);
        
 
 
-           await setTimeout(async () => {
+            setTimeout(async () => {
 
                     await axios.get(url, { headers: apiKey  })
                     .then(async res=>{
@@ -55,11 +55,11 @@ function App() {
                       setEmailBreach(oldArray => [...oldArray,newRes]);
                       
                     })
-                    .catch()
+                    .catch( err => console.log(err))
               
-            }, 1000);
+            }, 3000);
                      
-                     
+                  
           
     });
 
@@ -92,25 +92,25 @@ function App() {
                <Grid item container  spacing={2} justifyContent="flex-end" direction='row' >
            
                       <Grid item>
-                            <Button variant="contained" component="label" >
+                            <Button variant="contained" component="label" className='scan-button'>
                                 <span>Scan</span>
                                 <input type="file" onChange={csvData} onClick={()=>setToggleTile(true)} hidden/>
                             </Button>
                       </Grid>
                       <Grid item>
-                            <Button variant="contained" component="label" >
-                                <span>Home</span>
+                            <Button variant="outlined"  >
+                                Home
                                 
                             </Button>
                       </Grid>
                       <Grid item>
-                            <Button variant="contained" component="label" >
-                                <span>Recommendation</span>
+                            <Button variant="outlined" >
+                                Recommendation
                                 
                             </Button>
                       </Grid>
                       <Grid item>
-                            <Button variant="contained" component="label" >
+                            <Button variant="contained" component="label" className='scan-button'>
                                 <span>Log Out</span>
                                 
                             </Button>
