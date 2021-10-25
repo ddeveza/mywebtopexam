@@ -74,8 +74,8 @@ function App() {
  
   return (
     
-    <Container>
-      <Grid container alignItems="center" spacing={2}  direction="row">
+    <>
+      <Grid container alignItems="center" direction="row">
           <Grid item xs={8}>
             <img className="webTop" src={logo} alt="Logo" />
           </Grid>
@@ -86,10 +86,11 @@ function App() {
             </Button>
           </Grid>
       </Grid>
+      <Container>
         <div className="listOfTiles">
-          <Grid  container  justifyContent="center" alignItems="stretch" spacing={{ xs: 10, md: 5 }} > 
+          <Grid  container spacing={8} > 
                 
-                <Grid item sm={4} md={4}>
+                <Grid item xs={12}  sm={4}  m={4}>
                   {toggleTile && <Tile 
                                       count={countBreach} 
                                       clickMe={clickMe} 
@@ -100,7 +101,7 @@ function App() {
                                       emailBreach={emailBreach}/>}
                   
                 </Grid>
-                <Grid item sm={4} md={4}>
+                <Grid item  xs={12}  sm={4}  m={4}>
                   {toggleTile && <Tile 
                                     count={countBreach} 
                                     percentSign = {true}
@@ -109,7 +110,7 @@ function App() {
                 
                   
                 </Grid>
-                <Grid item sm={4} md={4}>
+                <Grid item xs={12}  sm={4}  m={4}>
                   {toggleTile && <Tile count={countBreach} 
                                        clickMe={clickMe} 
                                        title={'Number of Breach, Phone Numbers'} 
@@ -118,7 +119,7 @@ function App() {
                   
                   
                 </Grid>
-                <Grid item sm={4} md={4}>
+                <Grid item xs={12}  sm={4}  m={4}>
                   {toggleTile && <Tile count={countBreach} 
                                        
                                        title={'Number of Global, Administrator Accounts'} 
@@ -127,7 +128,7 @@ function App() {
                   
                   
                 </Grid>
-                <Grid item sm={4} md={4}>
+                <Grid item xs={12}  sm={4}  m={4}>
                   {toggleTile && <Tile  
                                        count={countBreach} 
                                        title={'Number of, Dormants Account'} 
@@ -136,7 +137,7 @@ function App() {
                   
                   
                 </Grid>
-                <Grid item sm={4} md={4}>
+                <Grid item xs={12}  sm={4}  m={4}>
                   {toggleTile && <Tile 
                                        
                                        count={countBreach}
@@ -151,10 +152,10 @@ function App() {
           </Grid>
          
         </div>
-      
+        </Container>
       
      
-    </Container>
+  </>
      
      
   
