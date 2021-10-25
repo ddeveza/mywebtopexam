@@ -72,4 +72,6 @@ img {
     font-family: 'Lato', sans-serif !important;
     text-transform: uppercase;
     text-align: center;
+    font-weight: 700px;
+    letter-spacing: 3px;
 }
