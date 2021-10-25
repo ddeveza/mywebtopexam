@@ -10,6 +10,7 @@ import '../src/App.css'
 
 
 
+
 function App() {
   const [parseData, setParseData] = useState([]);
   const [countBreach,setCountBreach]=useState(0);
@@ -46,8 +47,7 @@ function App() {
 
                     await axios.get(url, { headers: apiKey  })
                     .then(async res=>{
-                    console.log(url);
-                    console.log(res);
+                    
                       const inputEmail = { email : data};
                       const newRes = {...res.data,...inputEmail}
                       
@@ -75,17 +75,54 @@ function App() {
   return (
     
     <>
-      <Grid container alignItems="center" direction="row">
-          <Grid item xs={8}>
+      <Grid container direction='row'>
+          <Grid item xs={4}>
             <img className="webTop" src={logo} alt="Logo" />
           </Grid>
-          <Grid item xs={4}  container direction="column" alignItems="flex-end" >
-            <Button variant="contained" component="label" >
-                <span>Scan</span>
-                <input type="file" onChange={csvData} onClick={()=>setToggleTile(true)} hidden/>
-            </Button>
+          <Grid item xs={8} container direction='column' justifyContent="flex-end" spacing={2}>
+                      <Grid item container justifyContent="flex-end">
+                            <Grid item>
+                                Welcome  , Jason Ferguson
+                            </Grid>
+                            <Grid item>
+                                <img  src='' alt="avatar phot"/>
+                            </Grid>
+                            
+                      </Grid>
+               <Grid item container  spacing={2} justifyContent="flex-end" direction='row' >
+           
+                      <Grid item>
+                            <Button variant="contained" component="label" >
+                                <span>Scan</span>
+                                <input type="file" onChange={csvData} onClick={()=>setToggleTile(true)} hidden/>
+                            </Button>
+                      </Grid>
+                      <Grid item>
+                            <Button variant="contained" component="label" >
+                                <span>Home</span>
+                                
+                            </Button>
+                      </Grid>
+                      <Grid item>
+                            <Button variant="contained" component="label" >
+                                <span>Recommendation</span>
+                                
+                            </Button>
+                      </Grid>
+                      <Grid item>
+                            <Button variant="contained" component="label" >
+                                <span>Log Out</span>
+                                
+                            </Button>
+                      </Grid>
+        
+      
+                </Grid>
+
+
           </Grid>
-      </Grid>
+         
+    </Grid>
       <Container>
         <div className="listOfTiles">
           <Grid  container spacing={8} > 
