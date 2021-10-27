@@ -37,7 +37,7 @@ export const msalConfig = {
               
               //sessionStorage.clear();
               alert("Unable to acquire your token from Microsoft. Please login again.")
-              window.location.replace("https://login.microsoftonline.com/common");
+              window.location.replace(`${baseURL}`);
             }
             if (message.indexOf("msal:loginSuccess") !== -1) {
               //window.location.replace(`${baseURL}/members`);
