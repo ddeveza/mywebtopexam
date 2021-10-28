@@ -3,18 +3,21 @@ import LoginForm from "./components/LoginForm";
 import MainContainer from "./components/MainContainer";
 
 
+import { useIsAuthenticated } from "@azure/msal-react";
 
 
 
 function App() {
 
+
+  const isMsAuth = useIsAuthenticated();
  
   return (
     
    
      <div>
-       <LoginForm/>
-       {/* <MainContainer/> */}
+       {!isMsAuth ?  <LoginForm/> :  <MainContainer/> }
+      
      </div>
      
   

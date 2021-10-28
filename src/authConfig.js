@@ -12,9 +12,9 @@ import { baseURL } from "./utility/reusableFunctions";
  */
 export const msalConfig = {
   auth: {
-    clientId: "3f280d8c-bd43-47bc-9d3c-2d4c0661764c",
+    clientId: "85b7e9db-e53e-49cd-8843-cb2a7d969448",
     authority: "https://login.microsoftonline.com/common",
-    redirectUri: "https://login.microsoftonline.com/common"
+    redirectUri: `${baseURL}`
   },
   cache: {
     cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -64,11 +64,13 @@ export const msalConfig = {
  */
 export const loginRequest = {
   //scopes: ["User.Read", "Openid", "Profile"]
-  scopes: ["Calendars.Read", "Group.ReadWrite.All", "openid", "profile", "Tasks.ReadWrite", "User.Read", "User.ReadBasic.All"]
+  // scopes: ["Calendars.Read", "Group.ReadWrite.All", "openid", "profile", "Tasks.ReadWrite", "User.Read", "User.ReadBasic.All"]
+  scopes: ["AuditLog.Read.All", "Directory.Read.All", "SecurityEvents.Read.All", "SecurityEvents.ReadWrite.All", "openid", "profile", "email", "User.Read", "User.ReadBasic.All"]
 };
 
 export const tokenRequest = {
-  scopes: ["Calendars.Read", "Group.ReadWrite.All", "openid", "profile", "Tasks.ReadWrite", "User.Read", "User.ReadBasic.All"]
+  // scopes: ["Calendars.Read", "Group.ReadWrite.All", "openid", "profile", "Tasks.ReadWrite", "User.Read", "User.ReadBasic.All"]
+  scopes: ["AuditLog.Read.All", "Directory.Read.All", "SecurityEvents.Read.All", "SecurityEvents.ReadWrite.All", "openid", "profile", "email", "User.Read", "User.ReadBasic.All"]
 };
 
 /**
@@ -87,14 +89,14 @@ export const graphConfig = {
   addMember: `https://graph.microsoft.com/v1.0/groups/[group-id]/members/$ref`,
   getMembers: `https://graph.microsoft.com/v1.0/groups/[group-id]/members`,
   getMemberPhoto: `https://graph.microsoft.com/v1.0/users/[user-id]/photos/64x64/$value`,
-  getPlans: `https://graph.microsoft.com/v1.0/groups/[group-id]/planner/plans`,
-  getBuckets: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]/buckets",
-  postBucket: "https://graph.microsoft.com/v1.0/planner/buckets",
-  postPlan: "https://graph.microsoft.com/v1.0/planner/plans",
-  postTask: "https://graph.microsoft.com/v1.0/planner/tasks",
-  updateTask: "https://graph.microsoft.com/v1.0/planner/tasks/[task-id]",
-  updatePlan: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]",
-  postTaskDetails: "https://graph.microsoft.com/v1.0/planner/tasks/[task-id]/details"
+ // getPlans: `https://graph.microsoft.com/v1.0/groups/[group-id]/planner/plans`,
+  // getBuckets: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]/buckets",
+  // postBucket: "https://graph.microsoft.com/v1.0/planner/buckets",
+  // postPlan: "https://graph.microsoft.com/v1.0/planner/plans",
+  // postTask: "https://graph.microsoft.com/v1.0/planner/tasks",
+  // updateTask: "https://graph.microsoft.com/v1.0/planner/tasks/[task-id]",
+  // updatePlan: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]",
+  // postTaskDetails: "https://graph.microsoft.com/v1.0/planner/tasks/[task-id]/details"
 };
 
 /**

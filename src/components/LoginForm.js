@@ -1,7 +1,7 @@
 import React from 'react'
 import {Image } from 'react-bootstrap';
 import Logo from '../logo/Assets/BeCloudSafe Logo Cropped.png'
-import MSButton from '../logo/Assets/images/ms-signin_light.png'
+import MSButton from '../logo/Assets/ms-symbollockup_signin_dark.png'
 import './LoginForm.css';
 import {Paper , Button} from '@material-ui/core'
 
