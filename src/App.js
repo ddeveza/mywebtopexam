@@ -4,19 +4,46 @@ import MainContainer from "./components/MainContainer";
 
 
 import { useIsAuthenticated } from "@azure/msal-react";
+import {useEffect,useState} from 'react'
+import {getUserProfile} from './graph'
 
 
 
 function App() {
+  
+ const isMsAuth = useIsAuthenticated();
+ const [Name, setName] = useState("")
+const getName = async () => {
+  //console.log('Im Here')
+  const {displayName} = await getUserProfile()
+  return displayName;
+}
+
+ if (isMsAuth) {
 
 
-  const isMsAuth = useIsAuthenticated();
+    
+ getName().then(res => {
+    setName(res);
+   
+ });
+ 
+    
+   
+    //console.log(account);
+ }
+
+ 
+ 
+  
+
  
   return (
     
    
      <div>
-       {!isMsAuth ?  <LoginForm/> :  <MainContainer/> }
+      
+       {!isMsAuth ?  <LoginForm/> :  <MainContainer user={Name}/> }
       
      </div>
      

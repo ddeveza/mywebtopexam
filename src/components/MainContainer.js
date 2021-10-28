@@ -9,7 +9,13 @@ import logo from '../logo/Assets/BeCloudSafe Logo Cropped.png';
 import delay from 'delay';
 import './Tile.css';
 
-function MainContainer() {
+function MainContainer({user}) {
+
+
+
+  console.log(user);
+
+
     const [parseData, setParseData] = useState([]);
     const [countBreach,setCountBreach]=useState(0);
     const [toggleTile,setToggleTile] = useState(false);
@@ -76,7 +82,7 @@ function MainContainer() {
           <Grid item xs={8} container direction='column' justifyContent="flex-end" spacing={2}>
                       <Grid item container justifyContent="flex-end">
                             <Grid item>
-                                Welcome  , Jason Ferguson
+                                Welcome  , {user}
                             </Grid>
                             <Grid item>
                                 <img  src='' alt="avatar phot"/>
