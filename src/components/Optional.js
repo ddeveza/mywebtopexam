@@ -84,7 +84,9 @@ function Optional({emailBreach}) {
                         </>
                     
                 )
-              } 
+              } else {
+                  return 0;
+              }
             })}
             
              

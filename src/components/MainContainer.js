@@ -1,5 +1,5 @@
 import React from 'react'
-import Papa, { parse } from "papaparse";
+import Papa  from "papaparse";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Tile from '../components/Tile'
@@ -9,7 +9,7 @@ import logo from '../logo/Assets/BeCloudSafe Logo Cropped.png';
 import delay from 'delay';
 import './Tile.css';
 
-function MainContainer({user}) {
+function MainContainer({user,numOfBreachEmail}) {
 
 
 
@@ -19,7 +19,7 @@ function MainContainer({user}) {
     const [parseData, setParseData] = useState([]);
     const [countBreach,setCountBreach]=useState(0);
     const [toggleTile,setToggleTile] = useState(false);
-    const [optional, setOptional] = useState(false); 
+   const [optional, setOptional] = useState(false); 
     const [emailBreach , setEmailBreach] = useState([]);
     
   
@@ -129,7 +129,7 @@ function MainContainer({user}) {
                 
                 <Grid item xs={4}  sm={4}  m={6} >
                   {toggleTile && <Tile 
-                                      count={countBreach} 
+                                      count={numOfBreachEmail} 
                                       
                                       title={'Number of Breached , Email Account'} 
                                       boolHipb = {true}/>}

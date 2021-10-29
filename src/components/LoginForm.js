@@ -6,17 +6,17 @@ import './LoginForm.css';
 import {Paper , Button} from '@material-ui/core'
 
 import { useMsal } from "@azure/msal-react";
-import { loginRequest, graphConfig } from "../authConfig";
-import { useIsAuthenticated } from "@azure/msal-react";
+import { loginRequest } from "../authConfig";
+
 
 function LoginForm() {
     const { instance } = useMsal();
    
-    const isMsAuth = useIsAuthenticated();
+    
   
     const __handleMsLogin = async (loginType) => {
         if (loginType === "popup") {
-            localStorage.clear();
+           // localStorage.clear();
           await instance
             .loginPopup(loginRequest)
             .then((response) => {
