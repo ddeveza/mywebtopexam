@@ -12,6 +12,7 @@ import { getUserProfile , getAllUsers ,countBreachEmail } from '../graph';
 import delay from 'delay';
 import './Tile.css';
 import { fakeData } from '../logo/Assets/fakeData';
+import Swal from 'sweetalert2'
 
 function MainContainer() {
 
@@ -20,7 +21,7 @@ function MainContainer() {
   const [numOfBreachEmail,setNumOfBreachEmail] = useState(0);
 
   if(isAuthenticated) {
-
+   
     getUserProfile()
       .then(res=>setUser(res.displayName))
       .catch(err => console.log('Unable to get the User Profile'));
@@ -29,9 +30,22 @@ function MainContainer() {
     countBreachEmail(fakeData).then(res=>{
       setNumOfBreachEmail(res[10]); // Get the count of email breach account from 11th element of response
     });
+
+  
+
    
     
   }
+
+  useEffect(() => {
+    if(isAuthenticated){
+      Swal.fire(
+        'Welcome to BeCloudSafe!',
+        'a product by mywebtop',
+        'success'
+      )
+    }
+  }, [numOfBreachEmail])
 
 
 
@@ -113,12 +127,12 @@ function MainContainer() {
                       </Grid>
                <Grid item container  spacing={2} justifyContent="flex-end" direction='row' >
            
-                      <Grid item>
+                    {/*   <Grid item>
                             <Button variant="contained" component="label" className='scan-button'>
                                 <span>Scan</span>
                                 <input type="file" onChange={csvData} onClick={()=>setToggleTile(true)} hidden/>
                             </Button>
-                      </Grid>
+                      </Grid> */}
                       <Grid item>
                             <Button variant="outlined"  >
                                 Home
@@ -150,7 +164,7 @@ function MainContainer() {
           <Grid  container spacing={8} > 
                 
                 <Grid item xs={4}  sm={4}  m={6} >
-                  {toggleTile && <Tile 
+                  {true && <Tile 
                                       count={numOfBreachEmail} 
                                       
                                       title={'Number of Breached , Email Account'} 
@@ -161,8 +175,8 @@ function MainContainer() {
                   
                 </Grid>
                 <Grid item  xs={4}  sm={4}  m={4}>
-                  {toggleTile && <Tile 
-                                    count={countBreach} 
+                  {true && <Tile 
+                                    count={0} 
                                     percentSign = {true}
                                     title={'Microsoft, Secure Score'} 
                                     boolHipb = {false} />}
@@ -170,7 +184,7 @@ function MainContainer() {
                   
                 </Grid>
                 <Grid item xs={4}  sm={4}  m={4}>
-                  {toggleTile && <Tile count={countBreach} 
+                  {true && <Tile count={countBreach} 
                                        
                                        title={'Number of Breach, Phone Numbers'} 
                                        boolHipb = {true}/>}
@@ -179,7 +193,7 @@ function MainContainer() {
                   
                 </Grid>
                 <Grid item xs={4}  sm={4}  m={4}>
-                  {toggleTile && <Tile count={countBreach} 
+                  {true && <Tile count={countBreach} 
                                        
                                        title={'Number of Global, Administrator Accounts'} 
                                        boolHipb = {false}/>}
@@ -188,8 +202,8 @@ function MainContainer() {
                   
                 </Grid>
                 <Grid item xs={4}  sm={4}  m={4}>
-                  {toggleTile && <Tile  
-                                       count={countBreach} 
+                  {true && <Tile  
+                                       count={0} 
                                        title={'Number of, Dormants Account'} 
                                        boolHipb = {false}/>}
 
@@ -197,9 +211,9 @@ function MainContainer() {
                   
                 </Grid>
                 <Grid item xs={4}  sm={4}  m={4}>
-                  {toggleTile && <Tile 
+                  {true && <Tile 
                                        
-                                       count={countBreach}
+                                       count={0}
                                        percentSign = {true}
                                        title={'Percentage of ,Accounts Using MFA'} 
                                        boolHipb = {false}/>}

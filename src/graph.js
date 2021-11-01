@@ -9,10 +9,7 @@ const instance = new PublicClientApplication(msalConfig);
  * Attaches a given access token to a MS Graph API call. Returns information about the user
  * @param accessToken
  */
-axiosRetry(axios,{
-    retries:5,
-    retryDelay:(retryCount) => retryCount * 1500
-})
+
 
 const getToken =  async () => {
   const accounts =  await instance.getAllAccounts();
@@ -90,7 +87,13 @@ export async function getUserProfile() {
     }
   }
  
+export function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
+
  export async function countBreachEmail  (data) {
+
+  
  
   const accounts =  await instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
@@ -104,8 +107,23 @@ export async function getUserProfile() {
   };
 
   const options = {
-    headers: headers
+    headers: headers,
+    'axios-retry':{
+      retries:50,
+      retryDelay:(retryCount) => {
+          console.log(`retry attemp: ${retryCount}` );
+          return retryCount * 2000;
+        },
+      retryCondition: (error) => {
+        console.log(error);
+        return error.response.status === 503;
+      }
+    }
+    
   };
+
+
+
 
    /*  let apiKey = { "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
                     "Access-Control-Allow-Origin": "*",
@@ -113,8 +131,9 @@ export async function getUserProfile() {
 
                     }; */
   const consolidateApiRequest =   data.map(async (eachData, index)=>{
-
+    
                                   const apiUrl = `api/v3/breachedaccount/${eachData}?truncateResponse=false`;
+                                  await timeout(1000);
                                   const getEachApi = axios.get(apiUrl,options).catch(err=>console.log(`${eachData} has no response` ));
                                   return (getEachApi);
          
