@@ -1,25 +1,44 @@
 import React from 'react'
 import Papa  from "papaparse";
 import { useEffect, useState } from "react";
+import {useIsAuthenticated} from '@azure/msal-react'
 import axios from "axios";
 import Tile from '../components/Tile'
+import LoginForm from '../components/LoginForm'
 import Optional from '../components/Optional'
 import {Button ,Container, Grid} from '@material-ui/core'
 import logo from '../logo/Assets/BeCloudSafe Logo Cropped.png';
+import { getUserProfile , getAllUsers ,countBreachEmail } from '../graph';
 import delay from 'delay';
 import './Tile.css';
+import { fakeData } from '../logo/Assets/fakeData';
 
-function MainContainer({user,numOfBreachEmail}) {
+function MainContainer() {
 
+  const isAuthenticated = useIsAuthenticated();
+  const [user, setUser] = useState("");
+  const [numOfBreachEmail,setNumOfBreachEmail] = useState(0);
 
+  if(isAuthenticated) {
 
-  console.log(user);
+    getUserProfile()
+      .then(res=>setUser(res.displayName))
+      .catch(err => console.log('Unable to get the User Profile'));
+
+    //getAllUsers();
+    countBreachEmail(fakeData).then(res=>{
+      setNumOfBreachEmail(res[10]); // Get the count of email breach account from 11th element of response
+    });
+   
+    
+  }
+
 
 
     const [parseData, setParseData] = useState([]);
     const [countBreach,setCountBreach]=useState(0);
     const [toggleTile,setToggleTile] = useState(false);
-   const [optional, setOptional] = useState(false); 
+    const [optional, setOptional] = useState(false); 
     const [emailBreach , setEmailBreach] = useState([]);
     
   
@@ -75,6 +94,9 @@ function MainContainer({user,numOfBreachEmail}) {
   
     return (
         <>
+
+      {!isAuthenticated ? <LoginForm/> :
+      (<>
       <Grid container direction='row'>
           <Grid item xs={4}>
             <img className="webTop" src={logo} alt="Logo" />
@@ -189,7 +211,7 @@ function MainContainer({user,numOfBreachEmail}) {
           </Grid>
          
         </div>
-        </Container>
+        </Container></>)}
       
      
   </>

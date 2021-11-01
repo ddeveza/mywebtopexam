@@ -7,11 +7,14 @@ import {Paper , Button} from '@material-ui/core'
 
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
+import {useDispatch} from 'react-redux';
+import {isAuth} from "../features/auth"
 
 
 function LoginForm() {
     const { instance } = useMsal();
-   
+    
+
     
   
     const __handleMsLogin = async (loginType) => {
@@ -22,7 +25,7 @@ function LoginForm() {
             .then((response) => {
               localStorage.clear();
               localStorage.setItem("account", JSON.stringify(response));
-              //__doMsAuthProcess();
+        
             })
             .catch((e) => {
               const error = JSON.stringify(e);

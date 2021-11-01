@@ -14,15 +14,22 @@ axiosRetry(axios,{
     retryDelay:(retryCount) => retryCount * 1500
 })
 
+const getToken =  async () => {
+  const accounts =  await instance.getAllAccounts();
+  const requestMsal = { ...loginRequest, account: accounts[0] };
+  const token =  await instance.acquireTokenSilent(requestMsal);
+
+  return token.idToken;
+}
 
 export async function getUserProfile() {
     
-    const accounts = await instance.getAllAccounts();
-    const requestMsal = { ...loginRequest, account: accounts[0] };
-    const token = await instance.acquireTokenSilent(requestMsal);
+  const accounts =  await instance.getAllAccounts();
+  const requestMsal = { ...loginRequest, account: accounts[0] };
+  const token =  await instance.acquireTokenSilent(requestMsal);
 
     
-    if (true) {
+    if (token) {
       const headers = {
         Authorization: `Bearer ${token.accessToken}`,
         "Access-Control-Allow-Origin": "*",
@@ -55,7 +62,7 @@ export async function getUserProfile() {
     const token = await instance.acquireTokenSilent(requestMsal);
 
     
-    if (true) {
+    if (token !== undefined) {
       const headers = {
         Authorization: `Bearer ${token.accessToken}`,
         "Access-Control-Allow-Origin": "*",
@@ -68,12 +75,12 @@ export async function getUserProfile() {
       let numBreachEmail = '';
       return axios
         .get(graphConfig.users, options)
-        .then((res) => {
-          console.log(res.data);
-          numBreachEmail =   countBreachEmail(fakeData);
-
-          console.log(numBreachEmail);
-          return res;
+        .then(async (res) => {
+          //console.log(res.data);
+         
+         return res.data;
+         
+          
         })
         .catch(function (error) {
           return { error: error };
@@ -82,35 +89,49 @@ export async function getUserProfile() {
       return { error: "Something went wrong during API Call" };
     }
   }
+ 
+ export async function countBreachEmail  (data) {
+ 
+  const accounts =  await instance.getAllAccounts();
+  const requestMsal = { ...loginRequest, account: accounts[0] };
+  const token =  await instance.acquireTokenSilent(requestMsal);
+  
+  const headers = {
+    Authorization: `Bearer ${token.accessToken}`,
+    "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json"
+  };
 
- export const countBreachEmail = (data) =>{
-    let apiKey = { "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
+  const options = {
+    headers: headers
+  };
+
+   /*  let apiKey = { "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
                     "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json"
 
-                    }; //api key
+                    }; */
   const consolidateApiRequest =   data.map(async (eachData, index)=>{
-   
-   
-        
-        const apiUrl = `api/v3/breachedaccount/${eachData}?truncateResponse=false`;
-         
-        const getEachApi = axios.get(apiUrl,{ headers: apiKey  }).catch(err=>console.log(`${eachData} has no response` ));
-       
-        return (getEachApi);
+
+                                  const apiUrl = `api/v3/breachedaccount/${eachData}?truncateResponse=false`;
+                                  const getEachApi = axios.get(apiUrl,options).catch(err=>console.log(`${eachData} has no response` ));
+                                  return (getEachApi);
          
     })
 
     //console.log(consolidateApiRequest);
-    let count ="";
-    axios.all(consolidateApiRequest).then(axios.spread(async (...response)=>{
-       
-      count  =  response.filter((eachData)=> eachData).length;
-      console.log(count);
-        return await count;
-    })).catch(err=> {
+    
+    return axios.all(consolidateApiRequest)
+         .then(axios.spread(async (...response)=>{
+                    let count =0;
+                    count  =   response.filter((eachData)=> eachData).length;
+                    return await [...response,count];
+        }))
+        .catch(err=> {
         
-        return console.log('not working axios all')
-    });
+            return console.log('not working axios all')
+        });
+    
     
  }

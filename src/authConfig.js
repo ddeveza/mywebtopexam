@@ -5,11 +5,13 @@
 
 import { LogLevel } from "@azure/msal-browser";
 import { baseURL } from "./utility/reusableFunctions";
+
 /**
  * Configuration object to be passed to MSAL instance on creation.
  * For a full list of MSAL.js configuration parameters, visit:
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md
  */
+
 export const msalConfig = {
   auth: {
     clientId: "85b7e9db-e53e-49cd-8843-cb2a7d969448",
@@ -41,7 +43,10 @@ export const msalConfig = {
             }
             if (message.indexOf("msal:loginSuccess") !== -1) {
               //window.location.replace(`${baseURL}/members`);
+              
               console.log("MS Login Success!");
+
+
             }
             return;
           case LogLevel.Verbose:

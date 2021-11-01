@@ -7,6 +7,15 @@ import reportWebVitals from './reportWebVitals';
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider,useIsAuthenticated } from "@azure/msal-react";
 import { msalConfig } from "./authConfig";
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import authReducer from './features/auth'
+
+const store = configureStore({
+  reducer:{
+    auth:authReducer
+  }
+})
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -14,7 +23,9 @@ ReactDOM.render(
   
 
   <MsalProvider instance={msalInstance}>
-    <App />
+    <Provider store={store}>
+        <App />
+    </Provider>
   </MsalProvider>
   ,
   document.getElementById('root')
