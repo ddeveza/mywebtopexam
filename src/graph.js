@@ -1,8 +1,6 @@
 import {graphConfig, msalConfig , loginRequest}  from '../src/authConfig';
 import { PublicClientApplication } from "@azure/msal-browser";
 import axios from "axios";
-import axiosRetry from 'axios-retry';
-import {fakeData} from '../src/logo/Assets/fakeData'
 const instance = new PublicClientApplication(msalConfig);
 //const accounts = instance.getAllAccounts();
 /**
@@ -11,13 +9,7 @@ const instance = new PublicClientApplication(msalConfig);
  */
 
 
-const getToken =  async () => {
-  const accounts =  await instance.getAllAccounts();
-  const requestMsal = { ...loginRequest, account: accounts[0] };
-  const token =  await instance.acquireTokenSilent(requestMsal);
 
-  return token.idToken;
-}
 
 export async function getUserProfile() {
     
@@ -38,7 +30,7 @@ export async function getUserProfile() {
       };
   
       return axios
-        .get(graphConfig.testingDennis, options)
+        .get(graphConfig.profile, options)
         .then((res) => {
           //console.log(res.data);
           return res.data;
@@ -92,9 +84,6 @@ export function timeout(delay) {
 }
 
  export async function countBreachEmail  (data) {
-
-  
- 
   const accounts =  await instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token =  await instance.acquireTokenSilent(requestMsal);
@@ -107,29 +96,11 @@ export function timeout(delay) {
   };
 
   const options = {
-    headers: headers,
-    'axios-retry':{
-      retries:50,
-      retryDelay:(retryCount) => {
-          console.log(`retry attemp: ${retryCount}` );
-          return retryCount * 2000;
-        },
-      retryCondition: (error) => {
-        console.log(error);
-        return error.response.status === 503;
-      }
-    }
+    headers: headers
+    
     
   };
 
-
-
-
-   /*  let apiKey = { "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json"
-
-                    }; */
   const consolidateApiRequest =   data.map(async (eachData, index)=>{
     
                                   const apiUrl = `api/v3/breachedaccount/${eachData}?truncateResponse=false`;
@@ -144,7 +115,7 @@ export function timeout(delay) {
     return axios.all(consolidateApiRequest)
          .then(axios.spread(async (...response)=>{
                     let count =0;
-                    count  =   response.filter((eachData)=> eachData).length;
+                    count  = await response.filter((eachData)=> eachData).length;
                     return await [...response,count];
         }))
         .catch(err=> {
@@ -153,4 +124,47 @@ export function timeout(delay) {
         });
     
     
+ }
+
+
+ 
+
+ export const getSecurityAPI = async () =>{
+  const accounts = await instance.getAllAccounts();
+  const requestMsal = { ...loginRequest, account: accounts[0] };
+  const token = await instance.acquireTokenSilent(requestMsal);
+
+  
+  if (token !== undefined) {
+    const headers = {
+      Authorization: `Bearer ${token.accessToken}`,
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json"
+    };
+
+    const options = {
+      headers: headers
+    };
+    
+    return axios
+      .get(graphConfig.numGlobalAdminAcct, options)
+      .then(async (res) => {
+        
+        const controlScores = await res.data.value[0].controlScores;
+        const {currentScore : MSSecureScore} = await (res.data.value[0]);
+        
+        const identityOneAdminMFA =await controlScores.filter((eachControlSource, index)=>{
+          return (eachControlSource.controlCategory === 'Identity' && (eachControlSource.controlName=== 'OneAdmin' ||eachControlSource.controlName=== 'MFARegistrationV2' ))
+        })
+        
+        return {...identityOneAdminMFA, MSSecureScore};
+        
+      })
+      .catch(function (error) {
+        return { error: error };
+      });
+  } else {
+    return { error: "Something went wrong during API Call" };
+  }
+
  }

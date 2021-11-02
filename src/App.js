@@ -6,14 +6,8 @@ function App() {
   
 
   return (
-    
-   
-   
-      
             <MainContainer/> 
      
-     
-  
   )
 }
 

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { PublicClientApplication } from "@azure/msal-browser";
-import { MsalProvider,useIsAuthenticated } from "@azure/msal-react";
+import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./authConfig";
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';

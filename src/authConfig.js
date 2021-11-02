@@ -16,7 +16,8 @@ export const msalConfig = {
   auth: {
     clientId: "85b7e9db-e53e-49cd-8843-cb2a7d969448",
     authority: "https://login.microsoftonline.com/common",
-    redirectUri: `${baseURL}`
+    redirectUri: `${baseURL}`,
+    
   },
   cache: {
     cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -68,9 +69,7 @@ export const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-  scopes: ["User.Read.All"] //for debug
-  // scopes: ["Calendars.Read", "Group.ReadWrite.All", "openid", "profile", "Tasks.ReadWrite", "User.Read", "User.ReadBasic.All"]
-  //scopes: ["AuditLog.Read.All", "Directory.Read.All", "SecurityEvents.Read.All", "SecurityEvents.ReadWrite.All", "openid", "profile", "email", "User.Read", "User.ReadBasic.All"]
+  scopes: ["AuditLog.Read.All", "Directory.Read.All", "SecurityEvents.Read.All", "SecurityEvents.ReadWrite.All", "openid", "profile", "email", "User.Read", "User.ReadBasic.All"]
 };
 
 export const tokenRequest = {
@@ -95,7 +94,11 @@ export const graphConfig = {
   getMembers: `https://graph.microsoft.com/v1.0/groups/[group-id]/members`,
   getMemberPhoto: `https://graph.microsoft.com/v1.0/users/[user-id]/photos/64x64/$value`,
   testingDennis: `https://graph.microsoft.com/beta/me`,
-  users :`https://graph.microsoft.com/v1.0/users`
+  users :`https://graph.microsoft.com/v1.0/users`,
+  currentScore:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
+  numGlobalAdminAcct:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
+  percentAcctMFA:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`
+
  // getPlans: `https://graph.microsoft.com/v1.0/groups/[group-id]/planner/plans`,
   // getBuckets: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]/buckets",
   // postBucket: "https://graph.microsoft.com/v1.0/planner/buckets",
