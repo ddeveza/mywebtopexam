@@ -15,7 +15,8 @@ import {getUserProfile,
         getAllUsers,
         countBreachEmail,
         getCurrentScore,
-        getSecurityAPI } from '../graph';
+        getSecurityAPI,
+        getDormantAcct } from '../graph';
 //End of API request functions
 
 import delay from 'delay';
@@ -31,6 +32,8 @@ function MainContainer() {
   const [numOfGlbalAccts, setNumOfGlbalAccts] = useState(0);
   const [percentMFA, setPercentMFA] = useState(0);
   const [numOfBreachEmail,setNumOfBreachEmail] = useState(0);
+  const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
+  
 
   if(isAuthenticated) {
    
@@ -65,6 +68,12 @@ function MainContainer() {
       setCurrentScore(Math.round(await res.MSSecureScore))
       setPercentMFA(Math.round(percentAcctMFA))    
           
+    });
+
+      getDormantAcct().then(async res=>{
+
+        setNumOfDormantAccount(res.length);
+
     });
 
 
@@ -237,8 +246,8 @@ function MainContainer() {
                 </Grid>
                 <Grid item xs={4}  sm={4}  m={4}>
                   {true && <Tile  
-                                       count={0} 
-                                       title={'Number of, Dormants Account'} 
+                                       count={numOfDormantAccount} 
+                                       title={'Number of Dormants Account'} 
                                        boolHipb = {false}/>}
 
                   

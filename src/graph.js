@@ -127,7 +127,6 @@ export function timeout(delay) {
  }
 
 
- 
 
  export const getSecurityAPI = async () =>{
   const accounts = await instance.getAllAccounts();
@@ -158,6 +157,57 @@ export function timeout(delay) {
         })
         
         return {...identityOneAdminMFA, MSSecureScore};
+        
+      })
+      .catch(function (error) {
+        return { error: error };
+      });
+  } else {
+    return { error: "Something went wrong during API Call" };
+  }
+
+ }
+
+
+ export const getDormantAcct = async () =>{
+  const accounts = await instance.getAllAccounts();
+  const requestMsal = { ...loginRequest, account: accounts[0] };
+  const token = await instance.acquireTokenSilent(requestMsal);
+
+  
+  if (token !== undefined) {
+    const headers = {
+      Authorization: `Bearer ${token.accessToken}`,
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json"
+    };
+
+    const options = {
+      headers: headers
+    };
+    
+    return axios
+      .get(graphConfig.dormant, options)
+      .then(async (res) => {
+        
+          const account = res.data.value;
+          
+          const dormantAccount = await account
+              .map(eachAccount => {
+                let noOfDaysFromLastSignIn = 0;
+                let signInData = eachAccount.signInActivity;
+                if (signInData !== undefined) {
+
+                      const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                      let firstDate = new Date(signInData.lastSignInDateTime);
+                      let secondDate = Date.now();
+                      noOfDaysFromLastSignIn = Math.round(Math.abs((secondDate - firstDate) / oneDay));
+                }
+                return ({...eachAccount, noOfDaysFromLastSignIn})})
+              .filter(eachAccount => (eachAccount.signInActivity !== undefined && eachAccount.noOfDaysFromLastSignIn >=30))
+            
+              
+              return dormantAccount;
         
       })
       .catch(function (error) {

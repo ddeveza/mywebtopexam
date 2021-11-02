@@ -97,8 +97,8 @@ export const graphConfig = {
   users :`https://graph.microsoft.com/v1.0/users`,
   currentScore:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
   numGlobalAdminAcct:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
-  percentAcctMFA:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`
-
+  percentAcctMFA:`https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
+  dormant:`https://graph.microsoft.com/beta/users?$select=displayName,userPrincipalName,mail,id,CreatedDateTime,signInActivity,UserType`
  // getPlans: `https://graph.microsoft.com/v1.0/groups/[group-id]/planner/plans`,
   // getBuckets: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]/buckets",
   // postBucket: "https://graph.microsoft.com/v1.0/planner/buckets",
