@@ -101,28 +101,26 @@ export function timeout(delay) {
     
   };
 
-  const consolidateApiRequest =   data.map(async (eachData, index)=>{
+  const consolidateApiRequest =   data.map( async (eachData)=>{
     
                                   const apiUrl = `api/v3/breachedaccount/${eachData}?truncateResponse=false`;
-                                  await timeout(1000);
-                                  const getEachApi = axios.get(apiUrl,options).catch(err=>console.log(`${eachData} has no response` ));
-                                  return (getEachApi);
+                                  
+                                  
+                                  let data1 = await axios.get(apiUrl,options)
+                                                         .then(async res=>await {...res.data, eachData})
+                                                         .catch(err=>console.log(`${eachData} has no response`));
+                                  await timeout(1500);
+                                  return await data1;
+                                  
+                                  
          
     })
 
-    //console.log(consolidateApiRequest);
-    
     return axios.all(consolidateApiRequest)
          .then(axios.spread(async (...response)=>{
-                    let count =0;
-                    count  = await response.filter((eachData)=> eachData).length;
-                    return await [...response,count];
-        }))
-        .catch(err=> {
-        
-            return console.log('not working axios all')
-        });
-    
+                  let breachEmails = await response.filter(breachEmail=>breachEmail !== undefined);
+                  return await breachEmails;}))
+         .catch(err=> console.log('not working axios all'));
     
  }
 

@@ -39,27 +39,29 @@ function MainContainer() {
    
     getUserProfile()
       .then(async res=>{
-         // await console.log('GetUserProfile')
-         // await console.log(res);
+         //await console.log('GetUserProfile')
+         //await console.log(res);
           return  setUser(res.displayName)
           
         })
       .catch(err => console.log('Unable to get the User Profile'));
 
     getAllUsers().then(async res=>{
-      //await console.log('getAllUsers')
-      //await console.log(res);
+    //  await console.log('getAllUsers')
+    //  await console.log(res);
     })
   
 
     countBreachEmail(fakeData).then(async res=>{
       //await console.log('BreachEmail')
-      //await console.log(res);
-      return setNumOfBreachEmail(res[10]); // Get the count of email breach account from 11th element of response
+      await console.log(res);
+      return setNumOfBreachEmail(res.length); // Get the count of email breach account from 11th element of response
     });
 
  
     getSecurityAPI().then(async (res)=>{
+     // await console.log('getSecurityAPI')
+     // await console.log(res);
       const {count : numGlobalAcct} = await res[0];
       const {scoreInPercentage : percentAcctMFA} = await res[1];
       
@@ -70,10 +72,12 @@ function MainContainer() {
           
     });
 
-      getDormantAcct().then(async res=>{
-
-        setNumOfDormantAccount(res.length);
-
+    getDormantAcct().then(async res=>{
+      
+  // await console.log('getDormantAcct')
+  // await console.log(res);
+      setNumOfDormantAccount(res.length)
+    
     });
 
 
