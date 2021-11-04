@@ -9,7 +9,6 @@ import LoginForm from '../components/LoginForm'
 import SignOut from '../components/SignOut'
 import {Button ,Container, Grid} from '@material-ui/core'
 import logo from '../logo/Assets/BeCloudSafe Logo Cropped.png';
-import {useIsAuthenticated} from '@azure/msal-react'
 import MainContainerLogic from './action/MainContainerLogic';
 
 import './Tile.css';
@@ -37,7 +36,7 @@ function MainContainer() {
         'success'
       )
     
-  }, [])
+  }, [isAuthenticated])
 
     return (
         <>

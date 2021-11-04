@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Tile.css"
+//import "./Tile.css"
 import { Paper , Grid } from '@material-ui/core';
 import logo from '../logo/hibp cropped.png'
 import MainChild from './ChildComponents/MainChild';
@@ -9,7 +9,7 @@ import TileLogic from './action/TileLogic';
 
 
 
-function Tile({count,clickMe,title,boolHipb,percentSign}) {
+function Tile({count,title,boolHipb,percentSign}) {
 
     const { renderData,
             handleClose,

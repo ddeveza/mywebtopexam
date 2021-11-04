@@ -7,38 +7,12 @@ import {Paper , Button} from '@material-ui/core'
 
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
-import {useDispatch} from 'react-redux';
-import {isAuth} from "../features/auth"
+import LoginFormLogic from './action/LoginFormLogic';
 
 
 function LoginForm() {
-    const { instance } = useMsal();
-    
 
-    
-  
-    const __handleMsLogin = async (loginType) => {
-        if (loginType === "popup") {
-           // localStorage.clear();
-          await instance
-            .loginPopup(loginRequest)
-            .then((response) => {
-              localStorage.clear();
-              localStorage.setItem("account", JSON.stringify(response));
-        
-            })
-            .catch((e) => {
-              const error = JSON.stringify(e);
-              if (error.indexOf("AADSTS65004") > -1) {
-               // __consentDeclined();
-              } else if (error.indexOf("AADSTS65001") > -1) {
-               // __consentNotGranted();
-              } else {
-              }
-            });
-     
-        } 
-      };
+    const __handleMsLogin = LoginFormLogic();
     
     return (
         <div className="loginFormContainer">

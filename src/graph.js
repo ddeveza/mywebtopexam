@@ -44,7 +44,7 @@ export async function getUserProfile() {
   }
 
 
-  export async function getAllUsers() {
+export async function getAllUsers() {
     
     const accounts = await instance.getAllAccounts();
     const requestMsal = { ...loginRequest, account: accounts[0] };
@@ -61,7 +61,7 @@ export async function getUserProfile() {
       const options = {
         headers: headers
       };
-      let numBreachEmail = '';
+      
       return axios
         .get(graphConfig.users, options)
         .then(async (res) => {
@@ -83,8 +83,7 @@ export function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
 }
 
-
- export async function countBreachEmail  (data) {
+export async function countBreachEmail  (data) {
    
   const accounts =  await instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
@@ -99,29 +98,16 @@ export function timeout(delay) {
 
   const options = await{
     headers: headers
-    
-    
   };
   
   const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{
 
-                                  const apiUrl = `api/v3/breachedaccount/${userPrincipalName}?truncateResponse=false`;
-                                  let data1 = {};
-                                  await timeout(1500);
-                                return data1 = await axios.get(apiUrl,options)
-                                                         .then(async res=>{
-                                                          return await {...res.data, userPrincipalName,displayName}})
-                                                         .catch(err=>{
-                                                           //console.log(i)
-                                                           console.log(err.message)
-                                                          
-                                                          return undefined;
-                                                          });
+                                const apiUrl = `api/v3/breachedaccount/${userPrincipalName}?truncateResponse=false`;
                                  
-                                  
-                                  
-                                  
-         
+                                await timeout(1500);
+                                return await axios.get(apiUrl,options)
+                                                  .then(async res=>await {...res.data, userPrincipalName,displayName})
+                                                  .catch(err=>console.log(err.message));
     });
 
     
