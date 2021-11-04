@@ -6,13 +6,51 @@ import {useSelector} from 'react-redux'
 import MainChild from './ChildComponents/MainChild';
 import {Box,Button,Modal} from '@material-ui/core'
 
+import {setToggle} from '../features/breachedemail';
+
+
 function Tile({count,clickMe,title,boolHipb,percentSign}) {
-    const breachEmailData1 = useSelector(state=>state.breachEmail.data)
+    const breachEmailData = useSelector(state=>state.breachEmail.data)
+    const msSecureData = useSelector(state=>state.msSecure.data);
+    const globalAdminData = useSelector(state=>state.globalAdmin.data)
+    const mfaData = useSelector(state=>state.mfa.data)
+    const dormantData = useSelector(state=>state.dormant.data)
+    const [renderData1, setrenderData1] = useState({})
+    let renderData = {};
+    
     const [title1,title2] = title.split(',');
     const [toggleChildTile, setToggleChildTile] = useState(false)
     const handleClose = () => setToggleChildTile(false);
-    //console.log(breachEmailData1);
-
+    
+     switch(title2) {
+        case 'Email Account': {
+           
+            renderData =breachEmailData;
+         
+           break;
+        }
+        case 'Secure Score': {
+           renderData = msSecureData;
+           break;
+        }
+        case 'Phone Numbers':{
+            renderData = breachEmailData;
+            break
+        }
+        case'Administrator Accounts':{
+            renderData = globalAdminData;
+            break
+        }case'Accounts Using MFA':{
+            renderData = mfaData;
+            break
+        }
+        default: {
+            renderData = dormantData;
+           break;
+        }
+     } 
+     
+ 
     return (
        <>
            
@@ -48,6 +86,8 @@ function Tile({count,clickMe,title,boolHipb,percentSign}) {
                         
                     </Grid>
                 </Paper>
+
+
                 <Modal
                         open={toggleChildTile}
                         onClose={handleClose}
@@ -55,7 +95,7 @@ function Tile({count,clickMe,title,boolHipb,percentSign}) {
                         aria-describedby="modal-modal-description"
                         >
                   
-                         <MainChild /> 
+                         <MainChild data={renderData}/> 
                          
                     
                 </Modal>    

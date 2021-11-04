@@ -82,45 +82,53 @@ export async function getUserProfile() {
 export function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
 }
-let i = 0;
+
 
  export async function countBreachEmail  (data) {
-   console.log(i++);
+   
   const accounts =  await instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token =  await instance.acquireTokenSilent(requestMsal);
   
-  const headers = {
+  const headers =await {
     Authorization: `Bearer ${token.accessToken}`,
     "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json"
   };
 
-  const options = {
+  const options = await{
     headers: headers
     
     
   };
   
-  const consolidateApiRequest =   data.map( async ({userPrincipalName,displayName})=>{
+  const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{
 
                                   const apiUrl = `api/v3/breachedaccount/${userPrincipalName}?truncateResponse=false`;
-                                  
-                                  
-                                  let data1 = await axios.get(apiUrl,options)
-                                                         .then(async res=>await {...res.data, userPrincipalName,displayName})
-                                                         .catch(err=>console.log(`${userPrincipalName} email has no response`));
+                                  let data1 = {};
                                   await timeout(1500);
-                                  return await data1;
+                                return data1 = await axios.get(apiUrl,options)
+                                                         .then(async res=>{
+                                                          return await {...res.data, userPrincipalName,displayName}})
+                                                         .catch(err=>{
+                                                           //console.log(i)
+                                                           console.log(err.message)
+                                                          
+                                                          return undefined;
+                                                          });
+                                 
+                                  
                                   
                                   
          
-    })
+    });
 
+    
+     
     return axios.all(consolidateApiRequest)
-         .then(axios.spread(async (...response)=>{
-                  let breachEmails = await response.filter(breachEmail=>breachEmail !== undefined);
+         .then(axios.spread(async (...response1)=>{
+                  let breachEmails = await response1.filter(breachEmail=>breachEmail !== undefined);
                   return await breachEmails;}))
          .catch(err=> console.log('not working axios all'));
     

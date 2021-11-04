@@ -37,7 +37,7 @@ function MainContainer() {
         'success'
       )
     
-  }, [isAuthenticated])
+  }, [])
 
     return (
         <>
@@ -97,7 +97,7 @@ function MainContainer() {
                   {true && <Tile 
                                       count={numOfBreachEmail} 
                                       
-                                      title={'Number of Breached , Email Account'} 
+                                      title={'Number of Breached ,Email Account'} 
                                       boolHipb = {true}/>}
 
                
@@ -107,7 +107,7 @@ function MainContainer() {
                   {true && <Tile 
                                     count={currentScore} 
                                     percentSign = {true}
-                                    title={'Microsoft, Secure Score'} 
+                                    title={'Microsoft,Secure Score'} 
                                     boolHipb = {false} />}
                 
                   
@@ -115,7 +115,7 @@ function MainContainer() {
                 <Grid item xs={4}  sm={4}  m={4}>
                   {true && <Tile count={numOfBreachEmail} 
                                        
-                                       title={'Number of Breached, Phone Numbers'} 
+                                       title={'Number of Breached,Phone Numbers'} 
                                        boolHipb = {true}/>}
 
                   
@@ -123,7 +123,7 @@ function MainContainer() {
                 </Grid>
                 <Grid item xs={4}  sm={4}  m={4}>
                   {true && <Tile count={numOfGlbalAccts} 
-                                 title={'Number of Global, Administrator Accounts'} 
+                                 title={'Number of Global,Administrator Accounts'} 
                                  boolHipb = {false}/>}
 
                   

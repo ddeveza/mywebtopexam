@@ -3,6 +3,10 @@ import { useState } from 'react'
 import { useIsAuthenticated } from "@azure/msal-react";
 import { useDispatch } from 'react-redux';
 import { setBreachEmailData } from '../../features/breachedemail';
+import { setMFA } from '../../features/mfa';
+import { setMSSecureScore } from '../../features/mssecurescore';
+import { setGlobalAdminAcct} from '../../features/globaladminacct'
+import { setDormant } from '../../features/dormant';
 
 
 //API request functions
@@ -39,15 +43,12 @@ const MainContainerLogic = () => {
                     //console.log(response);
 
                     let data = {
-                        Title:'Breached Email Accounts',
-                        description:`These email addresses are detected as being found on websites that have been breached.
-                                     To improve your security, ensure every password you use is unique`,
-                        countOfBreachedEmail:response.length,
+                        value:response.length,
                         emails:[response]
                     }
 
                     dispatch(setBreachEmailData(data));
-                    
+
                     setNumOfBreachEmail(response.length)
 
                 })})
@@ -64,14 +65,59 @@ const MainContainerLogic = () => {
          const {count : numGlobalAcct} = await res[0];
          const {scoreInPercentage : percentAcctMFA} = await res[1];
          
+         let dataMFA = {
+             value: `${Math.trunc(percentAcctMFA)}%`,
+             securityControl:res[1].controlName,
+             description:res[1].description ,
+             status:`You have ${res[1].count} out of ${res[1].total} users registered and protected with MFA`
+         }
+         let dataMSSecureScore = {
+                value: `${Math.trunc(res.MSSecureScore)}%`,
+                securityControl:res[0].controlName,
+                description:res[0].description ,
+                status:`You currently have ${res[0].count} golbal admins`
+         }
+         let dataGlobalAdminAcct = {
+                value: numGlobalAcct,
+                securityControl:res[0].controlName,
+                description:res[0].description ,
+                status:`You currently have ${numGlobalAcct} golbal admins`
+         }
+
+
+
+         dispatch(setMFA(dataMFA));
+         dispatch(setMSSecureScore(dataMSSecureScore));
+         dispatch(setGlobalAdminAcct(dataGlobalAdminAcct));
+
          
          setNumOfGlbalAccts(numGlobalAcct)
-         setCurrentScore(Math.round(await res.MSSecureScore))
-         setPercentMFA(Math.round(percentAcctMFA))    
+         setCurrentScore(Math.trunc(await res.MSSecureScore))
+         setPercentMFA(Math.trunc(percentAcctMFA))    
              
        });
    
-        getDormantAcct().then(async res=>setNumOfDormantAccount(res.length));
+        getDormantAcct().then(async res=>{
+            
+            //let newData = res.map(eachData=>{eachData.displayName,eachData.noOfDaysFromLastSignIn,eachData.signInActivity.lastSignInDateTime})
+            const newData = res.map(data => {
+                let daysLastSignIn = data.noOfDaysFromLastSignIn;
+                let mail = data.mail;
+                let lastSignIn = data.signInActivity.lastSignInDateTime;
+                
+
+                return {mail,lastSignIn,daysLastSignIn}
+            })
+            let dataDormant = {
+                value: res.length,
+                details:newData,
+            }
+            dispatch(setDormant(dataDormant));
+            setNumOfDormantAccount(res.length)
+        
+        
+        
+        });
         return {isAuthenticated,user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
     }
 

@@ -1,10 +1,23 @@
 import React from 'react'
+import {Box} from '@material-ui/core'
 
-const TileTitle = () => {
+const TileTitle = ({title,value,about}) => {
+
+    const style = {
+        position: 'relative',
+        //transform: 'translate(-50%, -50%)',
+      
+        bgcolor: 'background.paper',
+        border: '2px solid red',
+        height: '5vh',
+        p:2,
+      };
     return (
-        <div>
-            Tile Title
-        </div>
+        <Box sx={style}>
+               {value}  {title} {about}
+        </Box>
+           
+      
     )
 }
 

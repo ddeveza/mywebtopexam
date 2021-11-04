@@ -1,6 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialValue ={Title:"",description:"",countOfBreachedEmail:0,emails:[] }
+const initialValue ={
+        Title:'Breached Email Accounts',
+        about:`These email addresses are detected as being found on websites that have been breached.
+                     To improve your security, ensure every password you use is unique`,
+        value:0,
+        emails:[],
+        toggle:false,       
+}
 
 const breachedEmailSlice = createSlice({
     name:'BreachedEmail',
@@ -14,9 +21,12 @@ const breachedEmailSlice = createSlice({
             
         
         },
+        setToggle:(state,action)=> {
+            state.data.toggle = !state.data.toggle;
+        }
     
     }
 })
 
-export const {setBreachEmailData} = breachedEmailSlice.actions;
+export const {setBreachEmailData,setToggle} = breachedEmailSlice.actions;
 export default breachedEmailSlice.reducer;

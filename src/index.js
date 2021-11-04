@@ -10,12 +10,21 @@ import { msalConfig } from "./authConfig";
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import authReducer from './features/auth'
-import breachEmailReducer from './features/breachedemail'
+import breachEmailReducer from './features/breachedemail';
+import msSecureScoreReducer from './features/mssecurescore';
+import globalAdminAcctReducer from './features/globaladminacct';
+import mfaReducer from './features/mfa';
+import dormantReducer from './features/dormant'
 
 const store = configureStore({
   reducer:{
+    
     auth:authReducer,
-    breachEmail:breachEmailReducer
+    breachEmail:breachEmailReducer,
+    msSecure: msSecureScoreReducer,
+    globalAdmin: globalAdminAcctReducer,
+    mfa:mfaReducer,
+    dormant:dormantReducer
 
   }
 })

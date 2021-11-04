@@ -1,11 +1,12 @@
 import React from 'react'
+import {Button} from '@material-ui/core'
 
 
- const TileButton = () => {
+ const TileButton = ({desc}) => {
     return (
-        <div>
-            <button>Button</button>
-        </div>
+        
+            <Button variant="contained">{desc}</Button>
+        
     )
 }
 
