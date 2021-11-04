@@ -10,10 +10,13 @@ import { msalConfig } from "./authConfig";
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import authReducer from './features/auth'
+import breachEmailReducer from './features/breachedemail'
 
 const store = configureStore({
   reducer:{
-    auth:authReducer
+    auth:authReducer,
+    breachEmail:breachEmailReducer
+
   }
 })
 

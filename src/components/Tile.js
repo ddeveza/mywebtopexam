@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Tile.css"
 import { Paper , Grid } from '@material-ui/core';
 import logo from '../logo/hibp cropped.png'
+import {useSelector} from 'react-redux'
+import MainChild from './ChildComponents/MainChild';
+import {Box,Button,Modal} from '@material-ui/core'
 
 function Tile({count,clickMe,title,boolHipb,percentSign}) {
-
+    const breachEmailData1 = useSelector(state=>state.breachEmail.data)
     const [title1,title2] = title.split(',');
-    //console.log(title);
+    const [toggleChildTile, setToggleChildTile] = useState(false)
+    const handleClose = () => setToggleChildTile(false);
+    //console.log(breachEmailData1);
 
     return (
-       
+       <>
            
-                <Paper >
+                <Paper onClick={()=>setToggleChildTile(true)}>
                     <Grid container direction="column" alignItems="center" justifyContent="center">
                         <Grid item  container  direction='column' justifyContent="center" alignItems="center" space={0}> 
                                 <Grid item  >
@@ -42,10 +47,19 @@ function Tile({count,clickMe,title,boolHipb,percentSign}) {
                            </Grid>
                         
                     </Grid>
-
-                
-                    
                 </Paper>
+                <Modal
+                        open={toggleChildTile}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        >
+                  
+                         <MainChild /> 
+                         
+                    
+                </Modal>    
+        </>
     
     )
 }

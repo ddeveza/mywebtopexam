@@ -82,8 +82,10 @@ export async function getUserProfile() {
 export function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
 }
+let i = 0;
 
  export async function countBreachEmail  (data) {
+   console.log(i++);
   const accounts =  await instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token =  await instance.acquireTokenSilent(requestMsal);
@@ -100,15 +102,15 @@ export function timeout(delay) {
     
     
   };
+  
+  const consolidateApiRequest =   data.map( async ({userPrincipalName,displayName})=>{
 
-  const consolidateApiRequest =   data.map( async (eachData)=>{
-    
-                                  const apiUrl = `api/v3/breachedaccount/${eachData}?truncateResponse=false`;
+                                  const apiUrl = `api/v3/breachedaccount/${userPrincipalName}?truncateResponse=false`;
                                   
                                   
                                   let data1 = await axios.get(apiUrl,options)
-                                                         .then(async res=>await {...res.data, eachData})
-                                                         .catch(err=>console.log(`${eachData} has no response`));
+                                                         .then(async res=>await {...res.data, userPrincipalName,displayName})
+                                                         .catch(err=>console.log(`${userPrincipalName} email has no response`));
                                   await timeout(1500);
                                   return await data1;
                                   
