@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {Grid} from '@material-ui/core'
 
 const initialValue ={
         Title:'Breached Email Accounts',
@@ -6,7 +7,8 @@ const initialValue ={
                      To improve your security, ensure every password you use is unique`,
         value:0,
         emails:[],
-        toggle:false,       
+        toggle:false,
+               
 }
 
 const breachedEmailSlice = createSlice({
@@ -23,7 +25,9 @@ const breachedEmailSlice = createSlice({
         },
         setToggle:(state,action)=> {
             state.data.toggle = !state.data.toggle;
-        }
+        },
+
+
     
     }
 })

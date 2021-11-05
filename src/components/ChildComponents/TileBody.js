@@ -1,8 +1,16 @@
 import React from 'react'
 import {Box,Grid} from '@material-ui/core'
+import { useDispatch ,useSelector} from 'react-redux';
+import BreachEmailBody from './TileBodyComponent/BreachEmailBody';
+import BreachPhoneBody from './TileBodyComponent/BreachPhoneBody';
+import SecurityAPIBody from './TileBodyComponent/SecurityAPIBody';
+import DormantBody from './TileBodyComponent/DormantBody';
+
 
 const TileBody = ({data}) => {
     
+
+  
     const style = {
         position: 'relative',
         //transform: 'translate(-50%, -50%)',
@@ -16,15 +24,45 @@ const TileBody = ({data}) => {
         
       };
 
+    let toggleBreachEmail = false ;
+    let toggleDormant = false;
+    let togglePhoneNum = false;
+    let toggleSecurityAPi = false;
 
+    switch(data.Title) {
+        case 'Breached Email Accounts' :{
+            toggleBreachEmail = true ;
+           
+           
+
+            break;
+        }
+        case 'NUMBER OF DORMANT ACCOUNTS' :{
+            toggleDormant = true;
+            break;
+        }
+        case 'Breached Phone Number' :{
+            togglePhoneNum = true;
+            break;
+        }
+        default :{
+            toggleSecurityAPi = true;
+            break;
+        }
+    }
+
+     
 
 
     return (
         <Box sx={style}>
-            <Grid container></Grid>
-            <Grid container></Grid>
-            <Grid container></Grid>
-            <Grid container></Grid>
+                {toggleBreachEmail&&<BreachEmailBody data={data}/>}
+                {togglePhoneNum&&<BreachPhoneBody   data={data}/>}
+                {toggleSecurityAPi&&<SecurityAPIBody data={data}/>}
+                {toggleDormant&&<DormantBody data={data}/>}
+           
+            
+            
         </Box>
            
        
