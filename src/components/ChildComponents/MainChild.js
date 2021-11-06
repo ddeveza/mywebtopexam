@@ -17,13 +17,7 @@ const style = {
     p:2
   };
 
-  const styleButton ={
-      position:'relative',
-      border: '2px solid red',
    
-  }
-  let value = '';
-   //This function is to check which tyle has been click.
     
 const MainChild = ({data}) => {
     return (

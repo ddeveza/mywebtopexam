@@ -107,7 +107,7 @@ export async function countBreachEmail  (data) {
                                 await timeout(1500);
                                 return await axios.get(apiUrl,options)
                                                   .then(async res=>await {...res.data, userPrincipalName,displayName})
-                                                  .catch(err=>console.log(err.message));
+                                                  .catch(err=>console.log(`${userPrincipalName} has no response`));
     });
 
     

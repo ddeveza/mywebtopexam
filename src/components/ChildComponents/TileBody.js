@@ -1,6 +1,5 @@
 import React from 'react'
-import {Box,Grid} from '@material-ui/core'
-import { useDispatch ,useSelector} from 'react-redux';
+import {Box} from '@material-ui/core'
 import BreachEmailBody from './TileBodyComponent/BreachEmailBody';
 import BreachPhoneBody from './TileBodyComponent/BreachPhoneBody';
 import SecurityAPIBody from './TileBodyComponent/SecurityAPIBody';
@@ -56,6 +55,7 @@ const TileBody = ({data}) => {
 
     return (
         <Box sx={style}>
+            
                 {toggleBreachEmail&&<BreachEmailBody data={data}/>}
                 {togglePhoneNum&&<BreachPhoneBody   data={data}/>}
                 {toggleSecurityAPi&&<SecurityAPIBody data={data}/>}

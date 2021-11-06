@@ -1,6 +1,6 @@
 
-import { useState } from 'react'
-import { useIsAuthenticated } from "@azure/msal-react";
+import { useState,useEffect,useLayoutEffect } from 'react'
+
 import { useDispatch } from 'react-redux';
 import { setBreachEmailData } from '../../features/breachedemail';
 import { setMFA } from '../../features/mfa';
@@ -17,8 +17,8 @@ import {getUserProfile,
     getDormantAcct } from '../../graph';
 //End of API request functions
 
-const MainContainerLogic = () => {
-   const isAuthenticated = useIsAuthenticated();
+const MainContainerLogic = (isAuthenticated) => {
+   
    const dispatch = useDispatch();
     const [user, setUser] = useState("");
     const [currentScore, setCurrentScore] = useState(0);
@@ -27,8 +27,7 @@ const MainContainerLogic = () => {
     const [numOfBreachEmail,setNumOfBreachEmail] = useState(0);
     const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
     
-   
-
+useLayoutEffect(()=>{
     if (isAuthenticated){
         
         getUserProfile()
@@ -118,10 +117,12 @@ const MainContainerLogic = () => {
         
         
         });
-        return {isAuthenticated,user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
+        
     }
+}, [isAuthenticated])   
 
-    return false;  
+    return {user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
+  
     
 }
 export default MainContainerLogic

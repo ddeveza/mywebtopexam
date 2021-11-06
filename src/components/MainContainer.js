@@ -10,21 +10,24 @@ import SignOut from '../components/SignOut'
 import {Button ,Container, Grid} from '@material-ui/core'
 import logo from '../logo/Assets/BeCloudSafe Logo Cropped.png';
 import MainContainerLogic from './action/MainContainerLogic';
+import { useIsAuthenticated } from "@azure/msal-react";
 
 import './Tile.css';
 
 import Swal from 'sweetalert2'
 
-function MainContainer() {
 
+function MainContainer() {
+  const isAuthenticated = useIsAuthenticated();
+  
   //Custom hooks
-  const { isAuthenticated,
+  const { 
           user,
           currentScore,
           numOfGlbalAccts,
           percentMFA,
           numOfBreachEmail,
-          numOfDormantAccount} = MainContainerLogic();
+          numOfDormantAccount} = MainContainerLogic(isAuthenticated);
   
   
 
@@ -35,6 +38,8 @@ function MainContainer() {
         'a product by mywebtop',
         'success'
       )
+
+     
     
   }, [isAuthenticated])
 
