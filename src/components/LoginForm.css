@@ -1,4 +1,7 @@
-
+body {
+  display: block;
+  margin: 0px;
+}
 .loginFormContainer {
     height: 100vh;
     display: flex;
@@ -9,10 +12,12 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+   
+   
   }
   
   #LoginForm {
-    max-width: 400px;
+    max-width:600px;
     margin: 0 auto;
     padding: 20px;
     background-color: white;

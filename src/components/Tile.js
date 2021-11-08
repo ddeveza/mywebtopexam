@@ -14,9 +14,10 @@ const useStyles = makeStyles({
         backgroundColor:'rgba(255, 255, 255, 1)',
         boxSizing:'content-box', 
         WebkitFilter:'drop-shadow(3px 2px 3px  rgb(120 196 217))',
-        padding:'20px 10px 10px 10px',
+        padding:'20px 15px 15px 10px',
         width:'20vw',
-        height:'200px'
+        height:'20vh',
+        color:'rgb(100 101 101)'
         
         
             
