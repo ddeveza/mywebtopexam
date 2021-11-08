@@ -1,6 +1,6 @@
 import React from 'react'
 import {useMsal} from '@azure/msal-react'
-import './Tile.css'
+
 import {Button } from '@material-ui/core'
 import { baseURL } from "../utility/reusableFunctions";
 

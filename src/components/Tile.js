@@ -5,7 +5,7 @@ import MainChild from './ChildComponents/MainChild';
 import {Modal} from '@material-ui/core'
 import TileLogic from './action/TileLogic';
 import {makeStyles} from '@material-ui/core'
-import { blue } from '@material-ui/core/colors';
+
 
 const useStyles = makeStyles({
     
@@ -13,8 +13,10 @@ const useStyles = makeStyles({
         
         backgroundColor:'rgba(255, 255, 255, 1)',
         boxSizing:'content-box', 
-        WebkitFilter:'drop-shadow(1px 1px 1px  rgb(120 196 217))',
+        WebkitFilter:'drop-shadow(3px 2px 3px  rgb(120 196 217))',
         padding:'20px 10px 10px 10px',
+        width:'20vw',
+        height:'200px'
         
         
             
@@ -41,7 +43,7 @@ const useStyles = makeStyles({
         fontSize:'4vw'
     },
     tileGridTitle:{
-        
+
     }
 })
 

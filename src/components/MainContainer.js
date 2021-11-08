@@ -15,8 +15,12 @@ import {makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles({
   container:{
-    maxWidth:'85%',
+    maxWidth:'80%',
     paddingTop:'180px'
+  },
+  MyWebTopLogo:{
+    maxWidth:'60%',
+    height: '100px'
   }
 })
 
@@ -48,7 +52,7 @@ function MainContainer() {
       (<>
       <Grid container direction='row'>
           <Grid item xs={4}>
-            <img className="webTop" src={logo} alt="Logo" />
+            <img className={classes.MyWebTopLogo} src={logo} alt="Logo" />
           </Grid>
           <Grid item xs={8} container direction='column' justifyContent="flex-end" spacing={2}>
                       <Grid item container justifyContent="flex-end">
