@@ -5,11 +5,11 @@
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
     background-color: #161515 !important;
 } */
-.scan-button {
+/* .scan-button {
     color: white!important;
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
     background-color: #161515 !important;
-}
+} */
 
 /* .MuiPaper-elevation1 {
     box-shadow: 12px 7px 11px 5px rgb(34 82 125 / 51%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)!important;
@@ -28,7 +28,7 @@ span.Count {
 
 
 
-h3{
+/* h3{
     font-size: 20px;
     color: #636363;
     text-align: center;
@@ -38,7 +38,7 @@ h3{
     font-family: 'Lato', sans-serif !important;
     
    
-}
+} */
 .MuiPaper-rounded {
     border-radius: 4px;
     cursor: pointer;
@@ -65,7 +65,7 @@ img {
 
 .powerBy {
     font-size: 15px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     
 }
 

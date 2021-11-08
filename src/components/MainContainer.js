@@ -11,13 +11,22 @@ import {Button ,Container, Grid} from '@material-ui/core'
 import logo from '../logo/Assets/BeCloudSafe Logo Cropped.png';
 import MainContainerLogic from './action/MainContainerLogic';
 import { useIsAuthenticated } from "@azure/msal-react";
+import {makeStyles} from '@material-ui/core';
 
-import './Tile.css';
+const useStyles = makeStyles({
+  container:{
+    maxWidth:'85%',
+    paddingTop:'180px'
+  }
+})
 
-import Swal from 'sweetalert2'
+
+
+
 
 
 function MainContainer() {
+  const classes = useStyles();
   const isAuthenticated = useIsAuthenticated();
   
   //Custom hooks
@@ -30,18 +39,7 @@ function MainContainer() {
           numOfDormantAccount} = MainContainerLogic(isAuthenticated);
   
   
-
-  useEffect(() => {
-   if(isAuthenticated)
-      Swal.fire(
-        'Welcome to BeCloudSafe!',
-        'a product by mywebtop',
-        'success'
-      )
-
-     
-    
-  }, [isAuthenticated])
+ 
 
     return (
         <>
@@ -71,13 +69,13 @@ function MainContainer() {
                             </Button>
                       </Grid> */}
                       <Grid item>
-                            <Button variant="outlined"  >
+                            <Button variant="contained" color="primary" >
                                 Home
                                 
                             </Button>
                       </Grid>
                       <Grid item>
-                            <Button variant="outlined" >
+                            <Button variant="contained" color="primary" >
                                 Recommendation
                                 
                             </Button>
@@ -93,8 +91,8 @@ function MainContainer() {
           </Grid>
          
     </Grid>
-      <Container>
-        <div className="listOfTiles">
+      <Container className={classes.container}>
+        
           <Grid  container spacing={8} > 
                 
                 <Grid item xs={4}  sm={4}  m={6} >
@@ -136,7 +134,7 @@ function MainContainer() {
                 <Grid item xs={4}  sm={4}  m={4}>
                   {true && <Tile  
                                        count={numOfDormantAccount} 
-                                       title={'Number of Dormants Account'} 
+                                       title={'Number of,Dormants Account'} 
                                        boolHipb = {false}/>}
 
                   
@@ -156,7 +154,7 @@ function MainContainer() {
 
           </Grid>
          
-        </div>
+        
         </Container></>)}
       
      

@@ -7,7 +7,7 @@ import { setMFA } from '../../features/mfa';
 import { setMSSecureScore } from '../../features/mssecurescore';
 import { setGlobalAdminAcct} from '../../features/globaladminacct'
 import { setDormant } from '../../features/dormant';
-
+import Swal from 'sweetalert2'
 
 //API request functions
 import {getUserProfile, 
@@ -28,17 +28,33 @@ const MainContainerLogic = (isAuthenticated) => {
     const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
     
 useLayoutEffect(()=>{
-    if (isAuthenticated){
+    if (isAuthenticated) {
+        getAllUsers()
+        .then(async res=>{
+
+        await countBreachEmail(res.value)
+            .then(async response=>{
+                let data = {value:response.length,emails:[response]}
+                dispatch(setBreachEmailData(data));
+                await  setNumOfBreachEmail(response.length)
+                        })})
+            .catch(err=>console.log('Unable to count breach email'))
+
+        .catch(err => console.log('Unable to get the list of users'));
+    }
+},[isAuthenticated])
+
+useEffect(()=>{
+    const getAllData = async () =>  { 
+     await getUserProfile()
+                .then(async res=>await setUser(res.displayName))
+                .catch(err => console.log('Unable to get the User Profile'));
         
-        getUserProfile()
-         .then(async res=>setUser(res.displayName))
-         .catch(err => console.log('Unable to get the User Profile'));
-   
        getAllUsers()
          .then(async res=>{
    
-            countBreachEmail(res.value)
-                .then(response=>{
+           await countBreachEmail(res.value)
+                .then(async response=>{
                     //console.log(response);
 
                     let data = {
@@ -48,7 +64,7 @@ useLayoutEffect(()=>{
 
                     dispatch(setBreachEmailData(data));
 
-                    setNumOfBreachEmail(response.length)
+                      setNumOfBreachEmail(response.length)
 
                 })})
                 .catch(err=>console.log('Unable to count breach email'))
@@ -90,16 +106,16 @@ useLayoutEffect(()=>{
          dispatch(setGlobalAdminAcct(dataGlobalAdminAcct));
 
          
-         setNumOfGlbalAccts(numGlobalAcct)
-         setCurrentScore(Math.trunc(await res.MSSecureScore))
-         setPercentMFA(Math.trunc(percentAcctMFA))    
+    await     setNumOfGlbalAccts(numGlobalAcct)
+    await    setCurrentScore(Math.trunc(res.MSSecureScore))
+    await    setPercentMFA(Math.trunc(percentAcctMFA))    
              
        });
    
-        getDormantAcct().then(async res=>{
+          getDormantAcct().then(async res=>{
             
             //let newData = res.map(eachData=>{eachData.displayName,eachData.noOfDaysFromLastSignIn,eachData.signInActivity.lastSignInDateTime})
-            const newData = res.map(data => {
+            const newData =await res.map(data => {
                 let daysLastSignIn = data.noOfDaysFromLastSignIn;
                 let mail = data.mail;
                 let lastSignIn = data.signInActivity.lastSignInDateTime;
@@ -112,17 +128,28 @@ useLayoutEffect(()=>{
                 details:newData,
             }
             dispatch(setDormant(dataDormant));
-            setNumOfDormantAccount(res.length)
+            await     setNumOfDormantAccount(res.length)
         
         
         
-        });
-        
+            });
+
+      await      Swal.fire(
+                'Welcome to BeCloudSafe!',
+                'a product by mywebtop',
+                'success'
+              )
+        }
+   
+    if (isAuthenticated){
+       getAllData();
+     
+
     }
 }, [isAuthenticated])   
 
-    return {user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
-  
+return {user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
+
     
 }
 export default MainContainerLogic

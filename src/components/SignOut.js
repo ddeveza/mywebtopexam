@@ -19,7 +19,7 @@ function SignOut() {
     
 
     return (
-        <Button variant="contained" component="label" className='scan-button' onClick={()=>signOutClickHandler(instance)}>
+        <Button variant="contained" component="label"  onClick={()=>signOutClickHandler(instance)}>
                                 <span>Log Out</span>
                                 
         </Button>

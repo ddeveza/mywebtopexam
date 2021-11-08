@@ -1,15 +1,54 @@
 import React from 'react'
-//import "./Tile.css"
-import { Paper , Grid } from '@material-ui/core';
+import { Paper , Grid, Typography } from '@material-ui/core';
 import logo from '../logo/hibp cropped.png'
 import MainChild from './ChildComponents/MainChild';
 import {Modal} from '@material-ui/core'
 import TileLogic from './action/TileLogic';
+import {makeStyles} from '@material-ui/core'
+import { blue } from '@material-ui/core/colors';
 
+const useStyles = makeStyles({
+    
+    tile:{
+        
+        backgroundColor:'rgba(255, 255, 255, 1)',
+        boxSizing:'content-box', 
+        WebkitFilter:'drop-shadow(1px 1px 1px  rgb(120 196 217))',
+        padding:'20px 10px 10px 10px',
+        
+        
+            
+    },
+    tileText :{
+        fontFamily:'Lato, sans-serif',
+        textTransform:'uppercase',
+        fontSize:'1vw',
+        letterSpacing:'1px'
+        
+    },
+    tileHIBP:{
+        fontSize:'0.8vw'
+    },
 
+    imageHIPB:{
+        
+        width: '4vw',
+        height: '3vh'
+        
+    },
+    tileValue:{
+        fontFamily:'Lato, sans-serif',
+        fontSize:'4vw'
+    },
+    tileGridTitle:{
+        
+    }
+})
 
 
 function Tile({count,title,boolHipb,percentSign}) {
+    
+    const classes = useStyles();
 
     const { renderData,
             handleClose,
@@ -23,21 +62,21 @@ function Tile({count,title,boolHipb,percentSign}) {
     return (
        <>
            
-                <Paper onClick={handleOpen}>
+                <Paper onClick={handleOpen} className={classes.tile}>
                     <Grid container direction="column" alignItems="center" justifyContent="center">
-                        <Grid item  container  direction='column' justifyContent="center" alignItems="center" space={0}> 
+                        <Grid item  container  direction='column' justifyContent="center" alignItems="center" > 
                                 <Grid item  >
-                                    <span className='breachText' >  {title1} </span>
+                                    <Typography  className={classes.tileText}>  {title1} </Typography>
                                 </Grid>
                                 <Grid item  >
-                                    <span className='breachText' >  {title2} </span>
+                                    <Typography  className={classes.tileText}>  {title2} </Typography>
                                 </Grid>
                                 
                         </Grid> 
                        
                        
                         <Grid item > 
-                            <span className="Count">{count}{percentSign && "%"} </span>
+                            <Typography className={classes.tileValue}>{count}{percentSign && "%"} </Typography>
                            
                         </Grid>
                        
@@ -46,11 +85,11 @@ function Tile({count,title,boolHipb,percentSign}) {
                     <Grid  container  direction="row"  justifyContent="flex-end"  alignItems="center" spacing={1}>
                            
                             <Grid item  > 
-                               <span className='powerBy'>{boolHipb && 'Powered by'}</span>
+                               <Typography className={classes.tileHIBP}>{boolHipb && 'Powered by'}</Typography>
                             </Grid>
 
                             <Grid item   >   
-                                {boolHipb && <img className='hipb' src={logo} alt="hipb" />}
+                                {boolHipb && <img className={classes.imageHIPB} src={logo} alt="hipb" />}
                            </Grid>
                         
                     </Grid>
