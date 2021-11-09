@@ -14,8 +14,15 @@ const useStyles = makeStyles({
   container:{
     maxWidth:'80%',
     paddingTop:'150px',
+    display:'grid',
+   
    
   },
+
+  tileContainer:{
+    gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))',
+  },
+
   MyWebTopLogo:{
     maxWidth:'80%',
     maxHeight: '80%'
@@ -118,9 +125,9 @@ function MainContainer() {
     </Grid>
       <Container className={classes.container}>
         
-          <Grid  container spacing={8}  > 
+          <Grid  container justifyContent='space-evenly'  alignItems='center' spacing={5} className={classes.tileContainer}> 
                 
-                <Grid item xs={6}  sm={4}  m={6} >
+                <Grid item >
                   {true && <Tile 
                                       count={numOfBreachEmail} 
                                       
@@ -130,7 +137,7 @@ function MainContainer() {
                
                   
                 </Grid>
-                <Grid item  xs={6}  sm={4}  m={6}>
+                <Grid item >
                   {true && <Tile 
                                     count={currentScore} 
                                     percentSign = {true}
@@ -139,7 +146,7 @@ function MainContainer() {
                 
                   
                 </Grid>
-                <Grid item xs={6}  sm={4}  m={6}>
+                <Grid item >
                   {true && <Tile count={numOfBreachEmail} 
                                        
                                        title={'Number of Breached,Phone Numbers'} 
@@ -148,7 +155,7 @@ function MainContainer() {
                   
                   
                 </Grid>
-                <Grid item xs={6}  sm={4}  m={6}>
+                <Grid item >
                   {true && <Tile count={numOfGlbalAccts} 
                                  title={'Number of Global,Administrator Accounts'} 
                                  boolHipb = {false}/>}
@@ -156,7 +163,7 @@ function MainContainer() {
                   
                   
                 </Grid>
-                <Grid item xs={6}  sm={4}  m={6}>
+                <Grid item >
                   {true && <Tile  
                                        count={numOfDormantAccount} 
                                        title={'Number of,Dormants Account'} 
@@ -165,7 +172,7 @@ function MainContainer() {
                   
                   
                 </Grid>
-                <Grid item xs={6}  sm={4}  m={6}>
+                <Grid item >
                   {true && <Tile 
                                        
                                        count={percentMFA}

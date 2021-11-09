@@ -15,10 +15,11 @@ const useStyles = makeStyles({
         boxSizing:'content-box', 
         WebkitFilter:'drop-shadow(3px 2px 3px  rgb(120 196 217))',
         padding:'20px 15px 25px 10px',
-        width:'300px',
-        height:'140px',
+        width:'370px',
+        height:'165px',
         color:'rgb(100 101 101)',
         cursor:'pointer', 
+        
        
         
         
@@ -27,26 +28,35 @@ const useStyles = makeStyles({
     tileText :{
         fontFamily:'Lato, sans-serif',
         textTransform:'uppercase',
-        fontSize:'1vw',
-        letterSpacing:'1px'
+        fontSize:'18px',
+        letterSpacing:'1px',
+        margin:'0.001em',
+     
         
     },
     tileHIBP:{
-        fontSize:'0.8vw'
+        fontFamily:'Lato, sans-serif',
+        fontSize:'14px',
+        letterSpacing:'1px'
     },
 
     imageHIPB:{
         
-        width: '4vw',
-        height: '3vh'
+        width: '80px',
+        height: '25px'
         
     },
     tileValue:{
         fontFamily:'Lato, sans-serif',
-        fontSize:'4vw'
+        fontSize:'78px',
+        paddingBottom:'1px',
+        marginBottom:'0.001em',
+        height:'100px'
     },
     tileGridTitle:{
-
+            padding:'0.1px',
+            margin:'0px',
+            
     }
 })
 
@@ -68,9 +78,9 @@ function Tile({count,title,boolHipb,percentSign}) {
        <>
            
                 <Paper onClick={handleOpen} className={classes.tile}>
-                    <Grid container direction="column" alignItems="center" justifyContent="center">
+                    <Grid container direction="column" alignItems="center" justifyContent="center" >
                         <Grid item  container  direction='column' justifyContent="center" alignItems="center" > 
-                                <Grid item  >
+                                <Grid item  className={classes.tileGridTitle}>
                                     <Typography  className={classes.tileText}>  {title1} </Typography>
                                 </Grid>
                                 <Grid item  >

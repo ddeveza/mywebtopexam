@@ -9,7 +9,7 @@ const TileTitle = ({title,value,about}) => {
       
         bgcolor: 'background.paper',
         border: '2px solid red',
-        height: '5vh',
+     
         p:2,
       };
     return (

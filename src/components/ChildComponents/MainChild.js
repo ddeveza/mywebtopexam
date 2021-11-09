@@ -6,11 +6,11 @@ import {Grid, Box} from '@material-ui/core'
 
 const style = {
     position: 'fixed',
-    top: '50%',
+    top: '55%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '60vw',
-    height: '70vh',
+    width: '900px',
+    height: '600px',
     bgcolor: 'background.paper',
     //border: '2px solid #000',
    // boxShadow: 24,
@@ -30,13 +30,7 @@ const MainChild = ({data}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TileBody data={data}/>
-                            {/* 
-                                BreachEmail<TileBody/>
-                                APISecurity<TileBody/>
-                                APIDorman  <TileBody/>
-                                Phone      <TileBody/>
-                            
-                            */}
+                           
                         </Grid>
                         <Grid  container  direction="column" alignItems="flex-end">
                             <Grid item xs={12}>

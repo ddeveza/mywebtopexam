@@ -16,7 +16,7 @@ const TileBody = ({data}) => {
         
         bgcolor: 'background.paper',
         border: '2px solid red',
-        height :'52.5vh',
+       
        // boxShadow: 24,
        
         p: 2,

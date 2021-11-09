@@ -143,7 +143,7 @@ export async function countBreachEmail  (data) {
       .get(graphConfig.numGlobalAdminAcct, options)
       .then(async (res) => {
         
-        const controlScores = await res.data.value[0].controlScores;
+        const controlScores = await res.data.value[0].controlScores.filter(eachData => eachData.controlCategory==='Identity');
         const {currentScore : MSSecureScore} = await (res.data.value[0]);
         
       /*   const identityOneAdminMFA =await controlScores.filter((eachControlSource, index)=>{
