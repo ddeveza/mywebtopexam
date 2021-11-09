@@ -29,16 +29,25 @@ const useStyles = makeStyles({
     fontSize:'1.2rem',
     color:'rgb(100 101 101)',
     letterSpacing:'1px'
-   
-    
-    
+      
   },
   userAvatar:{
     width:'5vw',
     height:'10vh',
     borderRadius:'60%'
-  }
-
+  },
+  mainBtn:{
+    minWidth:'50%',
+    maxWidth: '100%',
+    fontFamily:'Arial',
+    fontWeight:'700',
+    width : '170px',
+    color:'rgba(42, 129, 163, 1)',
+    padding:'7px',
+    border: '1px solid rgba(42, 129, 163, 1)'
+    
+  },
+  
 })
 
 
@@ -81,18 +90,18 @@ function MainContainer() {
                             </Grid>
                             
                       </Grid>
-               <Grid item container  spacing={2} justifyContent="flex-end" direction='row' >
+               <Grid item container  spacing={4} justifyContent="flex-end" direction='row' >
            
                
                       <Grid item>
-                            <Button variant="contained" color="primary" >
+                            <Button   className={classes.mainBtn}>
                                 Home
                                 
                             </Button>
                       </Grid>
                       <Grid item>
-                            <Button variant="contained" color="primary" >
-                                Recommendation
+                            <Button    className={classes.mainBtn}>
+                                Recommendations
                                 
                             </Button>
                       </Grid>
@@ -109,7 +118,7 @@ function MainContainer() {
     </Grid>
       <Container className={classes.container}>
         
-          <Grid  container spacing={8} > 
+          <Grid  container spacing={8}  > 
                 
                 <Grid item xs={6}  sm={4}  m={6} >
                   {true && <Tile 

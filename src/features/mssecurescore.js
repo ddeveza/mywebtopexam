@@ -4,10 +4,7 @@ const initialValue ={
     Title:"MICROSOFT SECURE SCORE",
     about:"Below are the top consideration for your environment",
     value: "",
-    securityControl:"",
-    description:"" ,
-    status:"",
-    toggle:false, 
+    securityControl:[]
 }
 const msSecureScoreSlice = createSlice({
     name:'MSSecureScore',

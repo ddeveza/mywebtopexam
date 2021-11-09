@@ -146,11 +146,11 @@ export async function countBreachEmail  (data) {
         const controlScores = await res.data.value[0].controlScores;
         const {currentScore : MSSecureScore} = await (res.data.value[0]);
         
-        const identityOneAdminMFA =await controlScores.filter((eachControlSource, index)=>{
+      /*   const identityOneAdminMFA =await controlScores.filter((eachControlSource, index)=>{
           return (eachControlSource.controlCategory === 'Identity' && (eachControlSource.controlName=== 'OneAdmin' ||eachControlSource.controlName=== 'MFARegistrationV2' ))
         })
-        
-        return {...identityOneAdminMFA, MSSecureScore};
+         */
+        return {controlScores, MSSecureScore};
         
       })
       .catch(function (error) {

@@ -1,15 +1,24 @@
 import React from 'react'
 
 const SecurityAPIBody = ({data}) => {
-    const {description,status,securityControl} = data;
+
+    
         
     return (
-        <div>
-          <br/>  {`Security Control: ${securityControl}`} 
-          <br/> {`Description: ${description}`}
-          <br/> {`Status:${status}`}
-        </div>
-    )
+      
+       !(data.Title==="MICROSOFT SECURE SCORE") ?  
+            <div>
+              <br/>  {`Security Control: ${data.securityControl}`} 
+              <br/> {`Description: ${data.description}`}
+              <br/> {`Status:${data.status}`}
+            </div>
+          : <div>
+               {data.securityControl.map(eachData=><li>{eachData.controlName}</li>)}
+            </div>
+            
+          
+    );
+    
 }
 
 export default SecurityAPIBody

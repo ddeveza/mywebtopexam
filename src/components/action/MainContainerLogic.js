@@ -77,25 +77,34 @@ useEffect(()=>{
     
        getSecurityAPI().then(async (res)=>{
     
-         const {count : numGlobalAcct} = await res[0];
-         const {scoreInPercentage : percentAcctMFA} = await res[1];
+         //const {count : numGlobalAcct} = await res[0];
+         const controlScores = res.controlScores;
+
+         const {count :numGlobalAcct ,
+                controlName : controlNameGlobalAcct,
+                description : descriptionGlobalAcct} = await controlScores.filter(data => data.controlCategory === 'Identity' && data.controlName=== 'OneAdmin')[0];
+
+         const {scoreInPercentage : percentAcctMFA,
+                controlName :controlNameMFA,
+                description:descriptionMFA,
+                count: countMFA,
+                total:totalMFA} = await controlScores.filter(data => data.controlCategory === 'Identity' && data.controlName=== 'MFARegistrationV2')[0];
          
          let dataMFA = {
              value: `${Math.trunc(percentAcctMFA)}%`,
-             securityControl:res[1].controlName,
-             description:res[1].description ,
-             status:`You have ${res[1].count} out of ${res[1].total} users registered and protected with MFA`
+             securityControl:controlNameMFA,
+             description:descriptionMFA ,
+             status:`You have ${countMFA} out of ${totalMFA} users registered and protected with MFA`
          }
          let dataMSSecureScore = {
                 value: `${Math.trunc(res.MSSecureScore)}%`,
-                securityControl:res[0].controlName,
-                description:res[0].description ,
-                status:`You currently have ${res[0].count} golbal admins`
+                securityControl:res.controlScores,
+                
          }
          let dataGlobalAdminAcct = {
                 value: numGlobalAcct,
-                securityControl:res[0].controlName,
-                description:res[0].description ,
+                securityControl:controlNameGlobalAcct,
+                description:descriptionGlobalAcct ,
                 status:`You currently have ${numGlobalAcct} golbal admins`
          }
 

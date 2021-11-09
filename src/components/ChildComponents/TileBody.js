@@ -44,6 +44,7 @@ const TileBody = ({data}) => {
             togglePhoneNum = true;
             break;
         }
+       
         default :{
             toggleSecurityAPi = true;
             break;
@@ -58,7 +59,7 @@ const TileBody = ({data}) => {
             
                 {toggleBreachEmail&&<BreachEmailBody data={data}/>}
                 {togglePhoneNum&&<BreachPhoneBody   data={data}/>}
-                {toggleSecurityAPi&&<SecurityAPIBody data={data}/>}
+                {toggleSecurityAPi&&<SecurityAPIBody data={data} title={data.Title}/>}
                 {toggleDormant&&<DormantBody data={data}/>}
            
             

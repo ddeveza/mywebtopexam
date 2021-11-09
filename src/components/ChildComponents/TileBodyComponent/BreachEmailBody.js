@@ -5,8 +5,8 @@ const BreachEmailBody = ({data}) => {
    
     return (
         <div>
-           {data&&emails.map(email=>{
-               return <li>{email[0].userPrincipalName}</li>
+           {!(emails==undefined)&&emails.map(email=>{
+               return (!(email[0].userPrincipalName === undefined)&&<li>{email[0].userPrincipalName}</li>)
            })}
         </div>
     )

@@ -3,7 +3,7 @@ import {Image } from 'react-bootstrap';
 import Logo from '../logo/Assets/BeCloudSafe Logo Cropped.png'
 import MSButton from '../logo/Assets/ms-symbollockup_signin_dark.png'
 import './LoginForm.css';
-import {Paper , Button} from '@material-ui/core'
+import {Paper , Button, makeStyles} from '@material-ui/core'
 import LoginFormLogic from './action/LoginFormLogic';
 
 
