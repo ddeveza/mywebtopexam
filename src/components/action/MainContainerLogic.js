@@ -27,7 +27,7 @@ const MainContainerLogic = (isAuthenticated) => {
     const [numOfBreachEmail,setNumOfBreachEmail] = useState(0);
     const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
     
-useLayoutEffect(()=>{
+/* useLayoutEffect(()=>{
     if (isAuthenticated) {
         getAllUsers()
         .then(async res=>{
@@ -42,7 +42,7 @@ useLayoutEffect(()=>{
 
         .catch(err => console.log('Unable to get the list of users'));
     }
-},[isAuthenticated])
+},[isAuthenticated]) */
 
 useEffect(()=>{
     const getAllData = async () =>  { 
