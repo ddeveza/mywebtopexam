@@ -30,10 +30,8 @@ const SecurityAPIBody = ({data}) => {
          
           
         }
-
         
     }
-
     const _backwardClick = (data) =>{
       if (dataLength > 1 ) {
         setIndex(currentVal => {
