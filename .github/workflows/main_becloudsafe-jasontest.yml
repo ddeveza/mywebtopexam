@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'BeCloudSafe-JasonTest'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2FE85D3EA3A24EC4B334397802704C5E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FE0289FC4C3F4525B803587261CAD69E }}
           package: .
