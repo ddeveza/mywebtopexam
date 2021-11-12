@@ -100,7 +100,7 @@ async function _hibpQuery (email , name){
 
   const options = await{
     headers: headers,
-    timeout:3000,
+    timeout:5000,
     
   };
 
