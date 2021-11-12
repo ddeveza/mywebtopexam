@@ -1,6 +1,7 @@
 import {graphConfig, msalConfig , loginRequest}  from '../src/authConfig';
 import { PublicClientApplication } from "@azure/msal-browser";
 import axios from "axios";
+import {baseURL} from './utility/reusableFunctions'
 const instance = new PublicClientApplication(msalConfig);
 //const accounts = instance.getAllAccounts();
 /**
@@ -65,7 +66,7 @@ export async function getAllUsers() {
       return axios
         .get(graphConfig.users, options)
         .then(async (res) => {
-          //console.log(res.data);
+          
          
          return res.data;
          
@@ -83,8 +84,9 @@ export function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
 }
 
-export async function countBreachEmail  (data) {
-   
+
+async function _hibpQuery (email , name){
+
   const accounts =  await instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token =  await instance.acquireTokenSilent(requestMsal);
@@ -97,23 +99,36 @@ export async function countBreachEmail  (data) {
   };
 
   const options = await{
-    headers: headers
+    headers: headers,
+    timeout:3000,
+    
   };
-  
-  const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{
 
-                                const apiUrl = `api/v3/breachedaccount/${userPrincipalName}?truncateResponse=false`;
-                                 
-                                await timeout(1500);
-                                return await axios.get(apiUrl,options)
-                                                  .then(async res=>await {...res.data, userPrincipalName,displayName})
-                                                  .catch(err=>console.log(err.message));
+  const apiUrl = `${baseURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
+ 
+       return await axios.get(apiUrl,options)
+                         .then(async ({data})=>{
+                          
+                          const response = await{data, email,name};
+                          //console.log(response)
+                          return response;
+                          
+                          })
+                         .catch(err=>console.log(err.message));
+     
+
+   
+    
+}
+
+export async function countBreachEmail  (data) {
+  const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{  
+      return    _hibpQuery(userPrincipalName,displayName).then(async data => data)                            
     });
 
-    
-     
     return axios.all(consolidateApiRequest)
          .then(axios.spread(async (...response1)=>{
+                  //console.log(...response1);
                   let breachEmails = await response1.filter(breachEmail=>breachEmail !== undefined);
                   return await breachEmails;}))
          .catch(err=> console.log('not working axios all'));
@@ -146,10 +161,6 @@ export async function countBreachEmail  (data) {
         const controlScores = await res.data.value[0].controlScores.filter(eachData => eachData.controlCategory==='Identity');
         const {currentScore : MSSecureScore} = await (res.data.value[0]);
         
-      /*   const identityOneAdminMFA =await controlScores.filter((eachControlSource, index)=>{
-          return (eachControlSource.controlCategory === 'Identity' && (eachControlSource.controlName=== 'OneAdmin' ||eachControlSource.controlName=== 'MFARegistrationV2' ))
-        })
-         */
         return {controlScores, MSSecureScore};
         
       })

@@ -50,12 +50,12 @@ useEffect(()=>{
                 .then(async res=>await setUser(res.displayName))
                 .catch(err => console.log('Unable to get the User Profile'));
         
-       getAllUsers()
+    await   getAllUsers()
          .then(async res=>{
    
            await countBreachEmail(res.value)
                 .then(async response=>{
-                    //console.log(response);
+                    console.log(response);
 
                     let data = {
                         value:response.length,
