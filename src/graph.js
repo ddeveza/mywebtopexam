@@ -10,7 +10,7 @@ const instance = new PublicClientApplication(msalConfig);
  */
 
 
-
+const PROXY = 'https://haveibeenpwned.com'
 
 export async function getUserProfile() {
     
@@ -80,9 +80,7 @@ export async function getAllUsers() {
     }
   }
  
-export function timeout(delay) {
-    return new Promise( res => setTimeout(res, delay) );
-}
+
 
 
 async function _hibpQuery (email , name){
@@ -94,17 +92,19 @@ async function _hibpQuery (email , name){
   const headers =await {
     Authorization: `Bearer ${token.accessToken}`,
     "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
-    "Access-Control-Allow-Origin": "*",
+  
     "Content-Type": "application/json"
   };
 
   const options = await{
     headers: headers,
     timeout:3000,
+    "Access-Control-Allow-Origin": baseURL,
+   
     
   };
 
-  const apiUrl = `${baseApiURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
+  const apiUrl = `${baseURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
  
        return await axios.get(apiUrl,options)
                          .then(async ({data})=>{
