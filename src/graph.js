@@ -1,7 +1,7 @@
 import {graphConfig, msalConfig , loginRequest}  from '../src/authConfig';
 import { PublicClientApplication } from "@azure/msal-browser";
 import axios from "axios";
-import {baseURL} from './utility/reusableFunctions'
+import {baseURL,baseApiURL} from './utility/reusableFunctions'
 const instance = new PublicClientApplication(msalConfig);
 //const accounts = instance.getAllAccounts();
 /**
@@ -100,11 +100,11 @@ async function _hibpQuery (email , name){
 
   const options = await{
     headers: headers,
-    timeout:5000,
+    timeout:3000,
     
   };
 
-  const apiUrl = `${baseURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
+  const apiUrl = `${baseApiURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
  
        return await axios.get(apiUrl,options)
                          .then(async ({data})=>{

@@ -286,5 +286,5 @@ export const imgPlaceHolder =
 //export const baseApiURL = `https://ppmone-api.bworx.org/api/v1`;
 //export const baseURL = `https://my.ppm.one/`;
 
-export const baseApiURL = window.location.href.includes('localhost') ? `http://localhost:3002/api/v1` : `https://api.ppm.one/api/v1`;
+export const baseApiURL = window.location.href.includes('localhost') ? `http://localhost:3000` : `https://haveibeenpwned.com`;
 export const baseURL = window.location.href.includes('localhost') ? `http://localhost:3000` : `https://kind-pebble-05d7a3300.azurestaticapps.net`;
