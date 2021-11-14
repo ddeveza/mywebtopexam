@@ -93,14 +93,13 @@ async function _hibpQuery (email , name){
     Authorization: `Bearer ${token.accessToken}`,
     "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
     "Access-Control-Allow-Origin": "*",
-   
     "Content-Type": "application/json"
   };
 
   const options = await{
     headers: headers,
-    timeout:3000,
-   
+    //timeout:10000,
+    retry: 2
     
   };
 
@@ -114,7 +113,7 @@ async function _hibpQuery (email , name){
                           return response;
                           
                           })
-                         .catch(err=>console.log(err.message));
+                         .catch(err=>console.log(`${email} --> ${err.message}`));
      
 
    

@@ -287,4 +287,4 @@ export const imgPlaceHolder =
 //export const baseURL = `https://my.ppm.one/`;
 
 export const baseApiURL = window.location.href.includes('localhost') ? `http://localhost:3000` : `https://haveibeenpwned.com`;
-export const baseURL =  `http://localhost:3000` ;
+export const baseURL =  window.location.href.includes('localhost') ?`http://localhost:3000`:'https://kind-pebble-05d7a3300.azurestaticapps.net/' ;
