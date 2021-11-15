@@ -2,6 +2,7 @@ import {graphConfig, msalConfig , loginRequest}  from '../src/authConfig';
 import { PublicClientApplication } from "@azure/msal-browser";
 import axios from "axios";
 import {baseURL,baseApiURL} from './utility/reusableFunctions'
+import { PromptValue } from '@azure/msal-common';
 const instance = new PublicClientApplication(msalConfig);
 //const accounts = instance.getAllAccounts();
 /**
@@ -94,41 +95,66 @@ async function _hibpQuery (email , name){
     "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
-    "Retry-After":3
+    "Retry-After" :2
+    
   };
 
   const options = await{
     headers: headers,
-    timeout:2000,
+    
  
     
   };
 
-  const apiUrl = `${baseURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
- 
-       return await axios.get(apiUrl,options)
-                         .then(async ({data})=>{
-                          
-                          const response = await{data, email,name};
-                          //console.log(response)
-                          return response;
-                          
-                          })
-                         .catch(err=>console.log(`${email} --> ${err.message}`));
+  
+
+   let promise = new Promise (async (resolve,reject)=>{
+    const apiUrl = await `${baseURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
+      setTimeout(async() => {
+        await axios.get(apiUrl,options)
+        .then(async ({data})=>{
+        
+        const response = await{data, email,name};
+        //console.log(response)
+         await resolve( response);
+        //return await response;
+
+        
+        })
+        .catch(err=>console.log(reject(`${email} --> ${err.message}`)));
+    
+      }, 5000);
+
      
+   });
+
+   return promise;
+        
+       
+       
 
    
     
 }
 
-export async function countBreachEmail  (data) {
-  const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{  
-      return    _hibpQuery(userPrincipalName,displayName).then(async data => data)                            
-    });
 
-    return axios.all(consolidateApiRequest)
+
+export async function countBreachEmail  (data) {
+  
+  const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{  
+    
+     return await    _hibpQuery(userPrincipalName,displayName).then(async data => {
+        
+           // console.log(data);
+            return await data;
+      }).catch(err=>console.log(err))                            
+  
+    
+    });
+    
+    return await axios.all(consolidateApiRequest)
          .then(axios.spread(async (...response1)=>{
-                  //console.log(...response1);
+                 // console.log(...response1);
                   let breachEmails = await response1.filter(breachEmail=>breachEmail !== undefined);
                   return await breachEmails;}))
          .catch(err=> console.log('not working axios all'));
