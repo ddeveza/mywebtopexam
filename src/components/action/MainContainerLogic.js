@@ -150,7 +150,7 @@ useEffect(()=>{
            }
     }
     
-}, [isAuthenticated])   
+}, [isAuthenticated,dispatch])   
 
 return {user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
 

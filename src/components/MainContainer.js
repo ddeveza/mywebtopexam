@@ -93,7 +93,7 @@ function MainContainer() {
                                <Typography className={classes.userName}> Welcome  , {user} </Typography>
                             </Grid>
                             <Grid item>
-                                <img  src={avatar} alt="avatar photo" className={classes.userAvatar}/>
+                                <img  src={avatar}  className={classes.userAvatar} alt='avatar'/>
                             </Grid>
                             
                       </Grid>

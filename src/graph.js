@@ -1,8 +1,8 @@
 import {graphConfig, msalConfig , loginRequest}  from '../src/authConfig';
 import { PublicClientApplication } from "@azure/msal-browser";
 import axios from "axios";
-import {baseURL,baseApiURL} from './utility/reusableFunctions'
-import { PromptValue } from '@azure/msal-common';
+import {baseURL} from './utility/reusableFunctions'
+
 const instance = new PublicClientApplication(msalConfig);
 //const accounts = instance.getAllAccounts();
 /**
@@ -11,7 +11,7 @@ const instance = new PublicClientApplication(msalConfig);
  */
 
 
-const PROXY = 'https://haveibeenpwned.com'
+
 
 export async function getUserProfile() {
     

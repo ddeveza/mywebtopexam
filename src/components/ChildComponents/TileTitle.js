@@ -13,9 +13,9 @@ const styles = makeStyles({
         
     },
     mainTitle: {
+        fontFamily: "Lato, sans-serif",
         fontSize:'28px',
-        fontWeight:'10px',
-        letterSpacing:'2px',
+        letterSpacing:'1px',
         textTransform: 'uppercase',
         color:'rgba(42, 129, 163, 1)'
     },
