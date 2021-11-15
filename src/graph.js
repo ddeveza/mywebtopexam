@@ -123,7 +123,7 @@ async function _hibpQuery (email , name){
         })
         .catch(err=>console.log(reject(`${email} --> ${err.message}`)));
     
-      }, 5000);
+      }, 1000);
 
      
    });
