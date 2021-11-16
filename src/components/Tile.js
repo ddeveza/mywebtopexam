@@ -1,10 +1,15 @@
 import React from 'react'
-import { Paper , Grid, Typography } from '@material-ui/core';
+
 import logo from '../logo/hibp cropped.png'
 import MainChild from './ChildComponents/MainChild';
-import {Modal} from '@material-ui/core'
 import TileLogic from './action/TileLogic';
-import {makeStyles} from '@material-ui/core'
+
+import {makeStyles,
+        Backdrop,
+        Modal,
+        Paper,
+        Grid,
+        Typography} from '@material-ui/core'
 
 
 const useStyles = makeStyles({
@@ -116,6 +121,10 @@ function Tile({count,title,boolHipb,percentSign}) {
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                          timeout: 500,
+                        }}
                         >
                   
                          <MainChild data={renderData}/> 

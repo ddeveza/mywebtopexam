@@ -2,19 +2,28 @@ import React from 'react'
 import TileBody from './TileBody'
 import TileTitle from './TileTitle'
 import TileButton  from './TileButton'
-import {Grid, Box} from '@material-ui/core'
+import { Box} from '@material-ui/core'
 
 const style = {
-    position: 'fixed',
-    top: '55%',
+    position: 'absolute',
+    top: '60%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '900px',
+    width: '1000px',
     height: '600px',
     bgcolor: 'background.paper',
-    //border: '2px solid #000',
-   // boxShadow: 24,
-    p:2
+    display: 'flex',
+    flexDirection:'column',
+    p:1,
+    paddingTop:'0px',
+    boxSizing:'content-box', 
+    WebkitFilter:'drop-shadow(2px 2px 5px  rgb(120 196 217))',
+   
+    
+    
+  
+    
+    
   };
 
    
@@ -23,24 +32,18 @@ const MainChild = ({data}) => {
     return (
        
            <Box sx={style}>
+               <Box >
+                    <TileTitle title={data.Title} value={data.value} about={data.about}/>
+               </Box>
+               <Box>
+                    <TileBody data={data}/>
+               </Box>
+               <Box sx={{display:'flex' , flexDirection:'row' , justifyContent:'flex-end'}}>
+                                <TileButton desc={'DOWNLOAD'}/>
+                                <TileButton desc={'CLOSE'}/> 
+               </Box>
                
-                <Grid container direction='column'  >
-                        <Grid item xs={12}>
-                            <TileTitle title={data.Title} value={data.value} about={data.about}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TileBody data={data}/>
-                           
-                        </Grid>
-                        <Grid  container  direction="column" alignItems="flex-end">
-                            <Grid item xs={12}>
-                               {/*  <TileButton desc={'DOWNLOAD'}/>
-                                <TileButton desc={'CLOSE'}/> */}
-                            </Grid>
-                          
-                        </Grid>
-                    
-                    </Grid>
+
                 
             </Box>
       

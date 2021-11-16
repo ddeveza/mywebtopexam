@@ -12,15 +12,8 @@ const TileBody = ({data}) => {
   
     const style = {
         position: 'relative',
-        //transform: 'translate(-50%, -50%)',
-       height:'300px',
+        height:'370px',
         bgcolor: 'background.paper',
-       // border: '2px solid red',
-       
-       // boxShadow: 24,
-       
-     
-        
       };
 
     let toggleBreachEmail = false ;

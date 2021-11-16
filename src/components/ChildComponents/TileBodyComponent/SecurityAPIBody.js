@@ -8,13 +8,14 @@ const styles = makeStyles({
       boldStyle:{
         fontWeight: '650',
         fontSize:'17px',
-        color: 'rgba(112, 112, 112, 1)'
+        color: 'rgba(112, 112, 112, 1)',
+        display:'inline-block'
       },
 
       textStyle:{
         fontSize:'17px',
         color: 'rgba(112, 112, 112, 1)',
-        display:'inline-block'
+        display:'contents'
       }
       
 })
@@ -72,9 +73,31 @@ const SecurityAPIBody = ({data}) => {
       
        !(data.Title==="MICROSOFT SECURE SCORE") ?  
             <div>
-              <br/>  {`Security Control: ${data.securityControl}`} 
+            {/*   <br/>  {`Security Control: ${data.securityControl}`} 
               <br/> {`Description: ${data.description}`}
-              <br/> {`Status:${data.status}`}
+              <br/> {`Status:${data.status}`} */}
+                <Box sx={{display:'flex' ,flexDirection:'column', paddingLeft:'60px',paddingRight:'60px',marginTop:'40px'}}>
+
+                  <Box sx={{display:'flex',flexDirection:'row', paddingBottom:'40px'}}>
+                      <Typography className={classes.boldStyle}>Security Control : </Typography>
+                      <Typography className={classes.textStyle}> {data.securityControl}</Typography>      
+                  </Box>
+
+                  <Box sx={{paddingBottom:'40px'}}>
+                    
+                          <Typography className={classes.boldStyle}>Description:</Typography>
+                          <Typography className={classes.textStyle}>{data.description}</Typography>
+                      
+                    
+                  </Box>
+
+                  <Box >
+                      <Typography className={classes.boldStyle}>Status:</Typography>
+                      <Typography className={classes.textStyle}>{data.status}</Typography>
+                  </Box>
+
+                </Box>
+
             </div>
           : <div>
                {/*data.securityControl.map(eachData=><li>{eachData.controlName}</li>)*/}
@@ -89,18 +112,22 @@ const SecurityAPIBody = ({data}) => {
                           <Grid item xs={8}>
                               <Box sx={{display:'flex' ,flexDirection:'column'}}>
 
-                                  <Box sx={{display:'flex',flexDirection:'row', paddingBottom:'60px'}}>
+                                  <Box sx={{display:'flex',flexDirection:'row', paddingBottom:'40px',paddingTop:'40px'}}>
                                       <Typography className={classes.boldStyle}>Security Control : </Typography>
                                       <Typography className={classes.textStyle}> {data.securityControl[index].controlName}</Typography>      
                                   </Box>
 
-                                  <Box sx={{paddingBottom:'60px'}}>
-                                      <Typography className={classes.boldStyle}> Description: </Typography>
-                                      <Typography className={classes.textStyle}>{data.securityControl[index].description}</Typography>
+                                  <Box sx={{paddingBottom:'40px'}}>
+                                     
+                                          <Typography className={classes.boldStyle}>Description:</Typography>
+                                          <Typography className={classes.textStyle}>{data.securityControl[index].description}</Typography>
+                                      
+                                     
                                   </Box>
                                 
                                   <Box >
                                       <Typography className={classes.boldStyle}>Status:</Typography>
+                                      <Typography className={classes.textStyle}>{data.securityControl[index].implementationStatus}</Typography>
                                   </Box>
                               
                               </Box>
