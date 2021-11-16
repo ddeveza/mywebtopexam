@@ -13,13 +13,13 @@ const TileBody = ({data}) => {
     const style = {
         position: 'relative',
         //transform: 'translate(-50%, -50%)',
-        
+       height:'300px',
         bgcolor: 'background.paper',
-        border: '2px solid red',
+       // border: '2px solid red',
        
        // boxShadow: 24,
        
-        p: 2,
+     
         
       };
 
@@ -58,10 +58,10 @@ const TileBody = ({data}) => {
         <Grid container>
                  <Box sx={style}>
                 
-                {toggleBreachEmail&&<BreachEmailBody data={data}/>}
-                {togglePhoneNum&&<BreachPhoneBody   data={data}/>}
-                {toggleSecurityAPi&&<SecurityAPIBody data={data} title={data.Title}/>}
-                {toggleDormant&&<DormantBody data={data}/>}
+                        {toggleBreachEmail&&<BreachEmailBody data={data}/>}
+                        {togglePhoneNum&&<BreachPhoneBody   data={data}/>}
+                        {toggleSecurityAPi&&<SecurityAPIBody data={data} title={data.Title}/>}
+                        {toggleDormant&&<DormantBody data={data}/>}
         
             
             

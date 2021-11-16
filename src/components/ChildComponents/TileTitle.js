@@ -24,6 +24,7 @@ const styles = makeStyles({
         color:'rgb(100 101 101)',
         fontWeight:'5px',
         letterSpacing:'1px',
+        
     }
 });
 
@@ -43,13 +44,13 @@ const TileTitle = ({title,value,about}) => {
         display:'flex' , 
         flexDirection: 'column',
         justifyContent:'center' ,
-       
+        flexWrap: 'wrap',
         paddingLeft:'20px' 
     }
 
     const styleTitle = {
         marginBottom :'10px',
-        marginTop:'20px',
+        marginTop:'10px',
     }
 
   

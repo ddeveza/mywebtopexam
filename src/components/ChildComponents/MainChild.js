@@ -34,8 +34,8 @@ const MainChild = ({data}) => {
                         </Grid>
                         <Grid  container  direction="column" alignItems="flex-end">
                             <Grid item xs={12}>
-                                <TileButton desc={'DOWNLOAD'}/>
-                                <TileButton desc={'CLOSE'}/>
+                               {/*  <TileButton desc={'DOWNLOAD'}/>
+                                <TileButton desc={'CLOSE'}/> */}
                             </Grid>
                           
                         </Grid>
