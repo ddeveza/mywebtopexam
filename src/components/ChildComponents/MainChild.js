@@ -18,6 +18,7 @@ const style = {
     paddingTop:'0px',
     boxSizing:'content-box', 
     WebkitFilter:'drop-shadow(2px 2px 5px  rgb(120 196 217))',
+    borderRadius:'1%'
    
     
     

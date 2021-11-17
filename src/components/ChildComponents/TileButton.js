@@ -10,7 +10,10 @@ const styles = makeStyles({
                 height:'40px',
                 WebkitFilter:'drop-shadow(2px 5px 3px rgba(112, 112, 112, 1))',
                 color:'rgba(255, 255, 255, 1)',
-                fontWeight:'500'
+                fontWeight:'500',
+                '&:hover': {
+                    backgroundColor:'rgb(95 165 193)'                    
+                }
 
 
         }
