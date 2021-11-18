@@ -16,6 +16,7 @@ import globalAdminAcctReducer from './features/globaladminacct';
 import mfaReducer from './features/mfa';
 import dormantReducer from './features/dormant';
 import breachPhoneReducer from './features/breachedphone';
+import modalTileReducer from './features/modal';
 
 const store = configureStore({
   reducer:{
@@ -26,7 +27,8 @@ const store = configureStore({
     globalAdmin: globalAdminAcctReducer,
     mfa:mfaReducer,
     dormant:dormantReducer,
-    breachPhone: breachPhoneReducer
+    breachPhone: breachPhoneReducer,
+    modalTile : modalTileReducer,
 
   }
 })

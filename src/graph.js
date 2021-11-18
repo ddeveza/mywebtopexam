@@ -1,7 +1,6 @@
 import {graphConfig, msalConfig , loginRequest}  from '../src/authConfig';
 import { PublicClientApplication } from "@azure/msal-browser";
 import axios from "axios";
-import {baseURL} from './utility/reusableFunctions'
 
 const instance = new PublicClientApplication(msalConfig);
 //const accounts = instance.getAllAccounts();
@@ -15,10 +14,7 @@ const instance = new PublicClientApplication(msalConfig);
 
 
  export async function getUsers(accessToken) {
-  //const headers = new Headers();
-  const bearer = `Bearer ${accessToken}`;
-
- // headers.append("Authorization", bearer);
+ 
 
   const headers = {
     Authorization: `Bearer ${accessToken}`,

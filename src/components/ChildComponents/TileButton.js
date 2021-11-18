@@ -19,11 +19,11 @@ const styles = makeStyles({
         }
 })
 
- const TileButton = ({desc}) => {
+ const TileButton = ({desc,close,download}) => {
         const classes = styles();
     return (
         
-            <Button className={classes.buttonStyle} >{desc}</Button>
+            <Button className={classes.buttonStyle} onClick={desc !=='CLOSE' ? download:close}>{desc}</Button>
         
     )
 }

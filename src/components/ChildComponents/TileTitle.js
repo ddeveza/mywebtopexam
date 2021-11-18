@@ -57,7 +57,7 @@ const TileTitle = ({title,value,about}) => {
 
     return (
         <Box sx={style}>
-            <Grid container spacing={12} >
+            <Grid container  >
                 <Grid item xs={2} >
                     <Box sx={{display:'flex' ,justifyContent:'center'}}>
                         <Typography className={classes.titleValue} >  {value}</Typography>

@@ -1,8 +1,10 @@
-import React from 'react'
+import React ,{forwardRef, useState} from 'react'
 import TileBody from './TileBody'
 import TileTitle from './TileTitle'
 import TileButton  from './TileButton'
 import { Box} from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import { closeModal } from '../../features/modal'
 
 const style = {
     position: 'absolute',
@@ -27,33 +29,38 @@ const style = {
     
   };
 
+
+
    
     
-const MainChild = ({data}) => {
+const MainChild = forwardRef(({data},ref) => {
+   const dispatch = useDispatch();
+   const close = () =>{
+       dispatch(closeModal());
+   }
+   
+
     return (
        
-           <Box sx={style}>
-               <Box >
+        
+            <Box sx={style}>
+                <Box >
                     <TileTitle title={data.Title} value={data.value} about={data.about}/>
-               </Box>
-               <Box>
+                </Box>
+                <Box>
                     <TileBody data={data}/>
-               </Box>
-               <Box sx={{display:'flex' , flexDirection:'row' , justifyContent:'flex-end'}}>
-                                <TileButton desc={'DOWNLOAD'}/>
-                                <TileButton desc={'CLOSE'}/> 
-               </Box>
-               
+                </Box>
+                <Box sx={{display:'flex' , flexDirection:'row' , justifyContent:'flex-end'}}>
+                                <TileButton desc={'DOWNLOAD'} download={()=>console.log('download')}/>
+                                <TileButton desc={'CLOSE'}  close={close}/> 
+                </Box>
 
-                
             </Box>
-      
-            
-               
-         
-           
+     
+          
+     
         
     )
-}
+})
 
 export default MainChild

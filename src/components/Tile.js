@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 
 import logo from '../logo/hibp cropped.png'
 import MainChild from './ChildComponents/MainChild';
@@ -69,15 +69,15 @@ const useStyles = makeStyles({
 function Tile({count,title,boolHipb,percentSign}) {
     
     const classes = useStyles();
-
+    
+    
     const { renderData,
-            handleClose,
-            handleOpen,
-            title1,
-            title2,
-            toggleChildTile} = TileLogic(title);
-
-   
+        handleClose,
+        handleOpen,
+        title1,
+        title2,
+        toggleChildTile} = TileLogic(title);
+        
  
     return (
        <>
@@ -116,7 +116,7 @@ function Tile({count,title,boolHipb,percentSign}) {
                 </Paper>
 
 
-                <Modal
+                 <Modal
                         open={toggleChildTile}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
@@ -125,12 +125,15 @@ function Tile({count,title,boolHipb,percentSign}) {
                         BackdropProps={{
                           timeout: 500,
                         }}
+                       
                         >
                   
-                         <MainChild data={renderData}/> 
+                         <MainChild data={renderData} /> 
                          
                     
-                </Modal>    
+                </Modal>     
+
+               
         </>
     
     )
