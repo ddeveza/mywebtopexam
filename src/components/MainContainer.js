@@ -74,7 +74,7 @@ function MainContainer() {
           percentMFA,
           mailBreaches,
           numOfDormantAccount,
-          phoneBreaches} = MainContainerLogic(isAuthenticated);
+          phoneBreaches,profile} = MainContainerLogic(isAuthenticated);
   
   
  
@@ -91,7 +91,7 @@ function MainContainer() {
           <Grid item xs={8} container direction='column' justifyContent="flex-end" spacing={2}>
                       <Grid item container justifyContent="flex-end" alignItems="center">
                             <Grid item>
-                               <Typography className={classes.userName}> Welcome  , {user} </Typography>
+                               <Typography className={classes.userName}> Welcome  , {profile} </Typography>
                             </Grid>
                             <Grid item>
                                 <img  src={avatar}  className={classes.userAvatar} alt='avatar'/>

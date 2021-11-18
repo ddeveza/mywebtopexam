@@ -12,6 +12,7 @@ const TileBody = ({data}) => {
 
   
     const style = {
+        display:'flex',
         position: 'relative',
         height:'370px',
         bgcolor: 'background.paper',
@@ -69,8 +70,8 @@ useEffect(() => {
 
 
     return (
-        <Grid container>
-                 <Box sx={style}>
+       
+            <>      
                 
                         {toggleBreachEmail&&<BreachEmailBody data={data}/>}
                         {togglePhoneNum&&<BreachPhoneBody   data={data}/>}
@@ -79,9 +80,9 @@ useEffect(() => {
         
             
             
-                </Box>
+              
 
-        </Grid>
+            </>
            
            
        
