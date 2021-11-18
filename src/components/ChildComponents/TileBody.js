@@ -33,7 +33,7 @@ const TileBody = ({data}) => {
             toggleDormant = true;
             break;
         }
-        case 'Breached Phone Number' :{
+        case 'Breached Phone Numbers' :{
             togglePhoneNum = true;
             break;
         }

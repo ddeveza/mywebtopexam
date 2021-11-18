@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux'
 const TileLogic = (title) => {
    
     const breachEmailData = useSelector(state=>state.breachEmail.data)
+    const breachPhoneData = useSelector(state=>state.breachPhone.data);
     const msSecureData = useSelector(state=>state.msSecure.data);
     const globalAdminData = useSelector(state=>state.globalAdmin.data)
     const mfaData = useSelector(state=>state.mfa.data)
@@ -29,7 +30,7 @@ const TileLogic = (title) => {
            break;
         }
         case 'Phone Numbers':{
-            renderData = breachEmailData;
+            renderData = breachPhoneData;
             break
         }
         case'Administrator Accounts':{

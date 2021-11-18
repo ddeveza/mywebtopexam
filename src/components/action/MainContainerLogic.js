@@ -7,6 +7,7 @@ import { setMFA } from '../../features/mfa';
 import { setMSSecureScore } from '../../features/mssecurescore';
 import { setGlobalAdminAcct} from '../../features/globaladminacct'
 import { setDormant } from '../../features/dormant';
+import { setBreachPhoneData } from '../../features/breachedphone';
 import Swal from 'sweetalert2'
 import {  useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authConfig";
@@ -29,6 +30,7 @@ const MainContainerLogic = (isAuthenticated) => {
     const [percentMFA, setPercentMFA] = useState(0);
     const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
     const [mailBreaches, setMailBreaches] = useState([]);
+    const [phoneBreaches, setPhoneBreaches] = useState([])
 
 
 
@@ -63,23 +65,41 @@ const wait = (ms) => new Promise((resolve, reject) => setTimeout(resolve, ms));
 const __checkBreaches = async () => {
         //setInProgress(true);
         let resultMail = [];
+        let resultPhone = [];
         for (const user of users) {
-          if (await user.userPrincipalName) {
+          if (await user.mail ) {
             const result = await __checkBreach(user.mail);
-            console.log(user.userPrincipalName, result ? true : false);
-            resultMail = [...resultMail, { email: user.userPrincipalName, breached: result ? true : false, data: result }];
-            await wait(2000);
+            console.log(user.mail, result ? true : false);
+            resultMail = [...resultMail, { email: user.mail, breached: result ? true : false, data: result }];
+            await wait(1500);
+           
+          }
+
+          if ( user.mobilePhone ) {
+            
+            const result2 = await __checkBreach(user.mobilePhone.trim());
+            console.log(user.mobilePhone, result2? true: false );
+            resultPhone = [...resultPhone , {phone: user.mobilePhone, breached:result2 ? true: false , data :result2}] 
+            await wait(1500)
           }
         }
         const breachedResult = resultMail.filter(eachMail=>eachMail.breached);
+        const breachedResultPhone = resultPhone.filter(eachPhone=>eachPhone.breached);
         setMailBreaches(breachedResult.length);
+        setPhoneBreaches(breachedResultPhone.length);
         
         await Swal.fire("Welcome to BeCloudSafe!", "a product by mywebtop", "success");
+
+
         let data = {
             value:breachedResult.length,
             emails:[breachedResult]
         }
-
+        let dataPhone = {
+            value:breachedResultPhone.length,
+            phones:[breachedResultPhone]
+        }
+        dispatch(setBreachPhoneData(dataPhone));
         dispatch(setBreachEmailData(data));
 };
 
@@ -189,7 +209,7 @@ useEffect(()=>{
     
 }, [profile])   
 
-return {profile,currentScore,numOfGlbalAccts,percentMFA,mailBreaches,numOfDormantAccount};
+return {profile,currentScore,numOfGlbalAccts,percentMFA,mailBreaches,numOfDormantAccount, phoneBreaches};
 
     
 }

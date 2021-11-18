@@ -14,7 +14,8 @@ import breachEmailReducer from './features/breachedemail';
 import msSecureScoreReducer from './features/mssecurescore';
 import globalAdminAcctReducer from './features/globaladminacct';
 import mfaReducer from './features/mfa';
-import dormantReducer from './features/dormant'
+import dormantReducer from './features/dormant';
+import breachPhoneReducer from './features/breachedphone';
 
 const store = configureStore({
   reducer:{
@@ -24,7 +25,8 @@ const store = configureStore({
     msSecure: msSecureScoreReducer,
     globalAdmin: globalAdminAcctReducer,
     mfa:mfaReducer,
-    dormant:dormantReducer
+    dormant:dormantReducer,
+    breachPhone: breachPhoneReducer
 
   }
 })
