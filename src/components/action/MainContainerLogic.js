@@ -8,25 +8,80 @@ import { setMSSecureScore } from '../../features/mssecurescore';
 import { setGlobalAdminAcct} from '../../features/globaladminacct'
 import { setDormant } from '../../features/dormant';
 import Swal from 'sweetalert2'
+import {  useMsal } from "@azure/msal-react";
+import { loginRequest } from "../../authConfig";
 
 //API request functions
-import {getUserProfile, 
-    getAllUsers,
-    countBreachEmail,
+import {__checkBreach,
+    getUsers ,
     getSecurityAPI,
-    getDormantAcct } from '../../graph';
+    getDormantAcct ,
+    getUserProfile} from '../../graph';
 //End of API request functions
 
 const MainContainerLogic = (isAuthenticated) => {
-   
+   const { instance, accounts } = useMsal();
    const dispatch = useDispatch();
-    const [user, setUser] = useState("");
+    const [profile, setProfile]= useState('');
+    const [users, setUsers] = useState([]);
     const [currentScore, setCurrentScore] = useState(0);
     const [numOfGlbalAccts, setNumOfGlbalAccts] = useState(0);
     const [percentMFA, setPercentMFA] = useState(0);
-    const [numOfBreachEmail,setNumOfBreachEmail] = useState(0);
     const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
-    const _isMounted = useRef(false);
+    const [mailBreaches, setMailBreaches] = useState([]);
+
+
+
+const _isMounted = useRef(false);
+
+
+const __getAllUsers = async () => {
+        console.log("getting users...");
+        const request = {
+          ...loginRequest,
+          account: accounts[0],
+        };
+    
+        instance
+          .acquireTokenSilent(request)
+          .then((response) => {
+            getUsers(response.accessToken).then(({data}) => {
+              setUsers(data.value);
+            });
+          })
+          .catch((e) => {
+            instance.acquireTokenPopup(request).then((response) => {
+              getUsers(response.accessToken).then(({data}) => {
+                setUsers(data.value);
+              });
+            });
+          });
+};
+    
+const wait = (ms) => new Promise((resolve, reject) => setTimeout(resolve, ms));
+
+const __checkBreaches = async () => {
+        //setInProgress(true);
+        let resultMail = [];
+        for (const user of users) {
+          if (await user.userPrincipalName) {
+            const result = await __checkBreach(user.mail);
+            console.log(user.userPrincipalName, result ? true : false);
+            resultMail = [...resultMail, { email: user.userPrincipalName, breached: result ? true : false, data: result }];
+            await wait(2000);
+          }
+        }
+        const breachedResult = resultMail.filter(eachMail=>eachMail.breached);
+        setMailBreaches(breachedResult.length);
+        
+        await Swal.fire("Welcome to BeCloudSafe!", "a product by mywebtop", "success");
+        let data = {
+            value:breachedResult.length,
+            emails:[breachedResult]
+        }
+
+        dispatch(setBreachEmailData(data));
+};
 
 
 useEffect(() => {
@@ -36,38 +91,31 @@ useEffect(() => {
     }
 }, [])
 
+
+useEffect( () => {
+   if(_isMounted.current && isAuthenticated){
+        getUserProfile().then( res=>setProfile(res.displayName))
+                        .catch(err => console.log('Unable to get the User Profile'));
+     
+   }
+   
+}, [isAuthenticated])
+
+
+useEffect( () => {
+    if(_isMounted.current && isAuthenticated)__getAllUsers();
+ }, [profile])
+
+
+useEffect(() => {
+    if(_isMounted.current && users.length >0 ){
+        __checkBreaches();
+    }
+}, [users])
+
 useEffect(()=>{
-    if (_isMounted.current){
-        const getAllData = async () =>  { 
-            await getUserProfile()
-                       .then(async res=>await setUser(res.displayName))
-                       .catch(err => console.log('Unable to get the User Profile'));
-               
-           await   getAllUsers()
-                .then(async res=>{
-          
-                  await countBreachEmail(res.value)
-                       .then(async response=>{
-                           console.log(response);
-       
-                           let data = {
-                               value:response.length,
-                               emails:[response]
-                           }
-       
-                           dispatch(setBreachEmailData(data));
-       
-                             setNumOfBreachEmail(response.length)
-       
-                       })})
-                       .catch(err=>console.log('Unable to count breach email'))
-       
-                .catch(err => console.log('Unable to get the list of users'));
-            
-          
-              
-          
-           
+    if (_isMounted.current && isAuthenticated){
+     
               getSecurityAPI().then(async (res)=>{
            
                 //const {count : numGlobalAcct} = await res[0];
@@ -108,9 +156,9 @@ useEffect(()=>{
                 dispatch(setGlobalAdminAcct(dataGlobalAdminAcct));
        
                 
-           await     setNumOfGlbalAccts(numGlobalAcct)
-           await    setCurrentScore(Math.trunc(res.MSSecureScore))
-           await    setPercentMFA(Math.trunc(percentAcctMFA))    
+                setNumOfGlbalAccts(numGlobalAcct)
+                setCurrentScore(Math.trunc(res.MSSecureScore))
+                setPercentMFA(Math.trunc(percentAcctMFA))    
                     
               });
           
@@ -130,29 +178,18 @@ useEffect(()=>{
                        details:newData,
                    }
                    dispatch(setDormant(dataDormant));
-                   await     setNumOfDormantAccount(res.length)
+                   setNumOfDormantAccount(res.length)
                
                
                
                    });
-       
-             await      Swal.fire(
-                       'Welcome to BeCloudSafe!',
-                       'a product by mywebtop',
-                       'success'
-                     )
-               }
           
-           if (isAuthenticated){
-              getAllData();
-            
-       
-           }
+          
     }
     
-}, [isAuthenticated,dispatch])   
+}, [profile])   
 
-return {user,currentScore,numOfGlbalAccts,percentMFA,numOfBreachEmail,numOfDormantAccount};
+return {profile,currentScore,numOfGlbalAccts,percentMFA,mailBreaches,numOfDormantAccount};
 
     
 }

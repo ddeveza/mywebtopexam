@@ -72,7 +72,7 @@ function MainContainer() {
           currentScore,
           numOfGlbalAccts,
           percentMFA,
-          numOfBreachEmail,
+          mailBreaches,
           numOfDormantAccount} = MainContainerLogic(isAuthenticated);
   
   
@@ -129,7 +129,7 @@ function MainContainer() {
                 
                 <Grid item >
                   {true && <Tile 
-                                      count={numOfBreachEmail} 
+                                      count={mailBreaches} 
                                       
                                       title={'Number of Breached ,Email Account'} 
                                       boolHipb = {true}/>}
@@ -147,7 +147,7 @@ function MainContainer() {
                   
                 </Grid>
                 <Grid item >
-                  {true && <Tile count={numOfBreachEmail} 
+                  {true && <Tile count={mailBreaches} 
                                        
                                        title={'Number of Breached,Phone Numbers'} 
                                        boolHipb = {true}/>}

@@ -11,6 +11,51 @@ const instance = new PublicClientApplication(msalConfig);
  */
 
 
+//Applied harris code
+
+
+ export async function getUsers(accessToken) {
+  //const headers = new Headers();
+  const bearer = `Bearer ${accessToken}`;
+
+ // headers.append("Authorization", bearer);
+
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json"
+  };
+  
+  const options = {
+    
+    headers: headers,
+  };
+
+  return axios.get(graphConfig.users, options)
+    .then((response) => response)
+    .catch((error) => console.log(error));
+}
+
+
+
+export async function __checkBreach  (value)  {
+  const myHeaders = new Headers();
+  myHeaders.append("Access-Control-Allow-Origin", "*");
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  const eUrl = Buffer.from(`https://haveibeenpwned.com/api/v3/breachedaccount/${value}?truncateResponse=false`).toString("base64");
+
+  return fetch(`https://api.ppm.one/hibp/?url=${eUrl}`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => result)
+    .catch((error) => console.log(error));
+};
+
+// end of harris code
 
 
 export async function getUserProfile() {
@@ -46,120 +91,6 @@ export async function getUserProfile() {
   }
 
 
-export async function getAllUsers() {
-    
-    const accounts = await instance.getAllAccounts();
-    const requestMsal = { ...loginRequest, account: accounts[0] };
-    const token = await instance.acquireTokenSilent(requestMsal);
-
-    
-    if (token !== undefined) {
-      const headers = {
-        Authorization: `Bearer ${token.accessToken}`,
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"
-      };
-  
-      const options = {
-        headers: headers
-      };
-      
-      return axios
-        .get(graphConfig.users, options)
-        .then(async (res) => {
-          
-         
-         return res.data;
-         
-          
-        })
-        .catch(function (error) {
-          return { error: error };
-        });
-    } else {
-      return { error: "Something went wrong during API Call" };
-    }
-  }
- 
-
-
-
-async function _hibpQuery (email , name){
-
-  const accounts =  await instance.getAllAccounts();
-  const requestMsal = { ...loginRequest, account: accounts[0] };
-  const token =  await instance.acquireTokenSilent(requestMsal);
-  
-  const headers =await {
-    Authorization: `Bearer ${token.accessToken}`,
-    "hibp-api-key": "bfed6a051ef3436aa3f16e546d7faa45",
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "Retry-After" :2
-    
-  };
-
-  const options = await{
-    headers: headers,
-    
- 
-    
-  };
-
-  
-
-   let promise = new Promise (async (resolve,reject)=>{
-    const apiUrl = await `${baseURL}/api/v3/breachedaccount/${email}?truncateResponse=false`;
-      setTimeout(async() => {
-        await axios.get(apiUrl,options)
-        .then(async ({data})=>{
-        
-        const response = await{data, email,name};
-        //console.log(response)
-         await resolve( response);
-        //return await response;
-
-        
-        })
-        .catch(err=>console.log(reject(`${email} --> ${err.message}`)));
-    
-      }, 1000);
-
-     
-   });
-
-   return promise;
-        
-       
-       
-
-   
-    
-}
-
-
-
-export async function countBreachEmail  (data) {
-  
-  const consolidateApiRequest = await  data.map( async ({userPrincipalName,displayName},i)=>{  
-    
-     return await    _hibpQuery(userPrincipalName,displayName).then(async data => {
-        
-           // console.log(data);
-            return await data;
-      }).catch(err=>console.log(err))                            
-  
-    
-    });
-    
-    return await axios.all(consolidateApiRequest)
-         .then(axios.spread(async (...response1)=>{
-                 // console.log(...response1);
-                  let breachEmails = await response1.filter(breachEmail=>breachEmail !== undefined);
-                  return await breachEmails;}))
-         .catch(err=> console.log('not working axios all'));
-    
- }
 
 
 
