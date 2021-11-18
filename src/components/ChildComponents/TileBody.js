@@ -1,5 +1,4 @@
 import React  from 'react'
-import {Box, Grid} from '@material-ui/core'
 import BreachEmailBody from './TileBodyComponent/BreachEmailBody';
 import BreachPhoneBody from './TileBodyComponent/BreachPhoneBody';
 import SecurityAPIBody from './TileBodyComponent/SecurityAPIBody';

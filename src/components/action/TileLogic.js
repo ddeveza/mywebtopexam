@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import { useRef } from 'react';
 
 
@@ -81,7 +81,7 @@ useEffect(() => {
     
     } 
     
-}, [toggleChildTile])
+}, [toggleChildTile,breachEmailData,msSecureData,globalAdminData,mfaData,dormantData,breachPhoneData,title2])
 
 return {renderData,handleClose,handleOpen,title1,title2,toggleChildTile}
     

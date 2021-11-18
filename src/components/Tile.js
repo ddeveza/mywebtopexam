@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from 'react'
+import React from 'react'
 
 import logo from '../logo/hibp cropped.png'
 import MainChild from './ChildComponents/MainChild';
@@ -9,7 +9,8 @@ import {makeStyles,
         Modal,
         Paper,
         Grid,
-        Typography} from '@material-ui/core'
+        Typography,
+        CircularProgress} from '@material-ui/core'
 
 
 const useStyles = makeStyles({
@@ -66,7 +67,7 @@ const useStyles = makeStyles({
 })
 
 
-function Tile({count,title,boolHipb,percentSign}) {
+function Tile({count,title,boolHipb,percentSign,loading}) {
     
     const classes = useStyles();
     
@@ -77,8 +78,7 @@ function Tile({count,title,boolHipb,percentSign}) {
         handleOpen,
         title1,
         title2,
-        toggleChildTile,
-        setToggleChildTile} = TileLogic(title);
+        toggleChildTile} = TileLogic(title);
 
     
         
@@ -100,7 +100,8 @@ function Tile({count,title,boolHipb,percentSign}) {
                        
                        
                         <Grid item > 
-                            <Typography className={classes.tileValue}>{count}{percentSign && "%"} </Typography>
+                            {loading && <CircularProgress sx={{marginTop:'1000px'}}/>}
+                            {count? <Typography className={classes.tileValue}>{count}{percentSign && "%"} </Typography>:<CircularProgress/>}
                            
                         </Grid>
                        

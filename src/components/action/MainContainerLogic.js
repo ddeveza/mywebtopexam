@@ -30,7 +30,8 @@ const MainContainerLogic = (isAuthenticated) => {
     const [percentMFA, setPercentMFA] = useState(0);
     const [numOfDormantAccount, setNumOfDormantAccount] = useState(0);
     const [mailBreaches, setMailBreaches] = useState([]);
-    const [phoneBreaches, setPhoneBreaches] = useState([])
+    const [phoneBreaches, setPhoneBreaches] = useState([]);
+    const [inProgress, setInProgress] = useState(false)
 
 
 
@@ -63,7 +64,7 @@ const __getAllUsers = async () => {
 const wait = (ms) => new Promise((resolve, reject) => setTimeout(resolve, ms));
 
 const __checkBreaches = async () => {
-        //setInProgress(true);
+        setInProgress(true);
         let resultMail = [];
         let resultPhone = [];
         for (const user of users) {
@@ -83,6 +84,7 @@ const __checkBreaches = async () => {
             await wait(1500)
           }
         }
+        setInProgress(false);
         const breachedResult = resultMail.filter(eachMail=>eachMail.breached);
         const breachedResultPhone = resultPhone.filter(eachPhone=>eachPhone.breached);
         setMailBreaches(breachedResult.length);
@@ -207,9 +209,9 @@ useEffect(()=>{
           
     }
     
-}, [profile])   
+}, [profile,dispatch,isAuthenticated])   
 
-return {profile,currentScore,numOfGlbalAccts,percentMFA,mailBreaches,numOfDormantAccount, phoneBreaches};
+return {profile,currentScore,numOfGlbalAccts,percentMFA,mailBreaches,numOfDormantAccount, phoneBreaches , inProgress};
 
     
 }

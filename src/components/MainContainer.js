@@ -68,13 +68,13 @@ function MainContainer() {
   
   //Custom hooks
   const { 
-          user,
+         
           currentScore,
           numOfGlbalAccts,
           percentMFA,
           mailBreaches,
           numOfDormantAccount,
-          phoneBreaches,profile} = MainContainerLogic(isAuthenticated);
+          phoneBreaches,profile,inProgress} = MainContainerLogic(isAuthenticated);
   
   
  
@@ -133,7 +133,9 @@ function MainContainer() {
                                       count={mailBreaches} 
                                       
                                       title={'Number of Breached ,Email Account'} 
-                                      boolHipb = {true}/>}
+                                      boolHipb = {true}
+                                      loading={inProgress}/>
+                                      }
 
                
                   
@@ -151,7 +153,8 @@ function MainContainer() {
                   {true && <Tile count={phoneBreaches} 
                                        
                                        title={'Number of Breached,Phone Numbers'} 
-                                       boolHipb = {true}/>}
+                                       boolHipb = {true}
+                                       loading={inProgress}/>}
 
                   
                   
