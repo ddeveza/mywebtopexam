@@ -1,4 +1,4 @@
-import React  from 'react'
+import React ,{useState,useEffect} from 'react'
 
 import logo from '../logo/hibp cropped.png'
 import MainChild from './ChildComponents/MainChild';
@@ -71,12 +71,16 @@ function Tile({count,title,boolHipb,percentSign}) {
     const classes = useStyles();
     
     
+    
     const { renderData,
         handleClose,
         handleOpen,
         title1,
         title2,
-        toggleChildTile} = TileLogic(title);
+        toggleChildTile,
+        setToggleChildTile} = TileLogic(title);
+
+    
         
  
     return (
@@ -128,7 +132,7 @@ function Tile({count,title,boolHipb,percentSign}) {
                        
                         >
                   
-                         <MainChild data={renderData} /> 
+                         <MainChild data={renderData}  close={()=>handleClose()}/> 
                          
                     
                 </Modal>     

@@ -23,7 +23,7 @@ const styles = makeStyles({
         const classes = styles();
     return (
         
-            <Button className={classes.buttonStyle} onClick={desc !=='CLOSE' ? download:close}>{desc}</Button>
+            <Button className={classes.buttonStyle} onClick={desc !=='CLOSE' ? download:()=>close()}>{desc}</Button>
         
     )
 }

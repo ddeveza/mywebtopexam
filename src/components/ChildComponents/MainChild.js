@@ -3,8 +3,7 @@ import TileBody from './TileBody'
 import TileTitle from './TileTitle'
 import TileButton  from './TileButton'
 import { Box} from '@material-ui/core'
-import { useDispatch } from 'react-redux'
-import { closeModal } from '../../features/modal'
+
 
 const style = {
     position: 'absolute',
@@ -33,12 +32,8 @@ const style = {
 
    
     
-const MainChild = forwardRef(({data},ref) => {
-   const dispatch = useDispatch();
-   const close = () =>{
-       dispatch(closeModal());
-   }
-   
+const MainChild = forwardRef(({data , close},ref) => {
+  
 
     return (
        
