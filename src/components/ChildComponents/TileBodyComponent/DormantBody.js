@@ -1,7 +1,21 @@
-import React from 'react'
+import React from 'react';
+import {Box , Typography ,makeStyles} from '@material-ui/core'
+
+
+const styles = makeStyles({
+    header : {
+        fontWeight : '700',
+        fontSize : '20px',
+        color :'rgba(42, 129, 163, 1)'
+    },
+
+    body :{
+        color :'rgb(100 101 101)'
+    }
+})
 
 const DormantBody = ({data}) => {
-
+    const classes = styles();
 
     const formatDate = (value)=> {
         let date = new Date(value);
@@ -12,38 +26,44 @@ const DormantBody = ({data}) => {
     }
 
 
+   
 
+    const tableContainer = {
+            height:'400px',
+            width:'800px',
+            paddingLeft:'100px',
+            paddingRight:'100px',
+            display:'flex',
+            justifyContent: 'space-around',
+            alignItems: 'flex-start',
+       
+    }
+    
+  
 
     const {details} = data;
     
     return (
-        <div>
-            <table>
-            <tr>
-                <th>Name</th>
-                <th>Last Sign in Date</th>
-                <th>Days since last sign in</th>
-            </tr>
-            
-                {details.map(detail=>{
-                    
-                    return (
-                        <>
-                            <tr>
-                                <td>{detail.mail}</td>
-                                <td>{formatDate(detail.lastSignIn)}</td>
-                                <td>{detail.daysLastSignIn}</td>
-                            </tr>
-                        </>    
-                     )
+     
+        <div style={tableContainer}>
+            <Box>
+                <Typography className={classes.header}>Name</Typography>
+                {details.map(detail=> <Typography className={classes.body}>{detail.mail}</Typography>)}      
+            </Box>
 
+            <Box sx={{display:'flex', flexDirection:'column',alignItems: 'center' }}>
+               <Typography className={classes.header}>Last Sign in Date</Typography>
+                {details.map(detail=> <Typography className={classes.body}>{formatDate(detail.lastSignIn)}</Typography>)}            
+            </Box>
 
-                })}
-            
-            </table>
-
+            <Box sx={{display:'flex', flexDirection:'column',alignItems: 'center' }}>
+                <Typography className={classes.header}>Days since last sign in</Typography>
+                {details.map(detail=> <Typography className={classes.body}>{detail.daysLastSignIn}</Typography>)}                  
+            </Box>
         </div>
     )
 }
 
 export default DormantBody
+
+  

@@ -73,9 +73,7 @@ const SecurityAPIBody = ({data}) => {
       
        !(data.Title==="MICROSOFT SECURE SCORE") ?  
             <div>
-            {/*   <br/>  {`Security Control: ${data.securityControl}`} 
-              <br/> {`Description: ${data.description}`}
-              <br/> {`Status:${data.status}`} */}
+ 
                 <Box sx={{display:'flex' ,flexDirection:'column', height:'350px',paddingLeft:'60px',paddingRight:'60px',marginTop:'40px'}}>
 
                   <Box sx={{display:'flex',flexDirection:'row', paddingBottom:'40px'}}>
@@ -100,7 +98,7 @@ const SecurityAPIBody = ({data}) => {
 
             </div>
           : <div>
-               {/*data.securityControl.map(eachData=><li>{eachData.controlName}</li>)*/}
+               
                <Box sx={{display:'flex', flexDirection:'row', height:'385px' }}>
                       <Grid container direction="row" >
                           <Grid item container xs={2} justifyContent="center" alignItems="center">

@@ -78,9 +78,9 @@ const __checkBreaches = async () => {
 
           if ( user.mobilePhone ) {
             
-            const result2 = await __checkBreach(user.mobilePhone.trim());
-            console.log(user.mobilePhone, result2? true: false );
-            resultPhone = [...resultPhone , {phone: user.mobilePhone, breached:result2 ? true: false , data :result2}] 
+            const result2 = await __checkBreach(user.mobilePhone.split(" ").join(""));
+            console.log(user.displayName ,user.mobilePhone.split(" ").join(""), result2? true: false );
+            resultPhone = [...resultPhone , {name:user.displayName, phone: user.mobilePhone.split(" ").join(""), breached:result2 ? true: false , data :result2}] 
             await wait(1500)
           }
         }

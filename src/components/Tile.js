@@ -100,9 +100,9 @@ function Tile({count,title,boolHipb,percentSign,loading}) {
                        
                        
                         <Grid item > 
-                            {loading && <CircularProgress sx={{marginTop:'1000px'}}/>}
-                            {count? <Typography className={classes.tileValue}>{count}{percentSign && "%"} </Typography>:<CircularProgress/>}
-                           
+                            
+                            {count? <Typography className={classes.tileValue}>{loading &&<CircularProgress/>}{count}{percentSign && "%"} </Typography>:<><CircularProgress/></>}
+            
                         </Grid>
                        
                     </Grid>

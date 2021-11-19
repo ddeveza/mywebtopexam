@@ -35,13 +35,16 @@ const useStyles = makeStyles({
     fontFamily:'Lato, sans-serif',
     fontSize:'1.2rem',
     color:'rgb(100 101 101)',
-    letterSpacing:'1px'
+    letterSpacing:'1px',
+    paddingRight:'10px'
       
   },
   userAvatar:{
-    width:'5vw',
-    height:'10vh',
-    borderRadius:'60%'
+    width:'80px',
+    height:'80px',
+    borderRadius:'50%',
+    border:'1px solid rgba(42, 129, 163, 1)',
+    margin: '1px'
   },
   mainBtn:{
     minWidth:'50%',
