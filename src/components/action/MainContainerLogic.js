@@ -81,7 +81,7 @@ const __checkBreaches = async () => {
             const result2 = await __checkBreach(user.mobilePhone.split(" ").join(""));
             console.log(user.displayName ,user.mobilePhone.split(" ").join(""), result2? true: false );
             resultPhone = [...resultPhone , {name:user.displayName, phone: user.mobilePhone.split(" ").join(""), breached:result2 ? true: false , data :result2}] 
-            //await wait(1500) //For revert back
+            await wait(1500) //For revert back
           }
         }
         setInProgress(false);
