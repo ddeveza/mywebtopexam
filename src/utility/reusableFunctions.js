@@ -48,7 +48,7 @@ export const mH = (min = 1, max = 5) => {
 export const nextDay = (date) => {
   if (!date) return;
   date = sDate(date);
-  return moment(date).add(1, 'd').format("DD-MMM-yyyy");
+  return moment(date).add(1, "d").format("DD-MMM-yyyy");
 };
 
 export const toDate = (date) => {
@@ -111,6 +111,14 @@ export const sortBurnDown = (items) => {
   return items.sort((a, b) => {
     return a.index > b.index ? 1 : a.index < b.index ? -1 : 0;
   });
+};
+
+export const timePast = (lastCheckDate) => {
+  if (!lastCheckDate) return;
+  const ms = moment(new Date(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(lastCheckDate), "DD/MM/YYYY HH:mm:ss"));
+  const d = moment.duration(ms).asMinutes();
+  //const s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+  return Math.floor(d);
 };
 
 export function toCurrency(input) {
@@ -286,5 +294,5 @@ export const imgPlaceHolder =
 //export const baseApiURL = `https://ppmone-api.bworx.org/api/v1`;
 //export const baseURL = `https://my.ppm.one/`;
 
-export const baseApiURL = window.location.href.includes('localhost') ? `http://localhost:3000` : `https://haveibeenpwned.com`;
-export const baseURL =  window.location.href.includes('localhost') ?`http://localhost:3000`:'https://kind-pebble-05d7a3300.azurestaticapps.net/' ;
+export const baseApiURL = window.location.href.includes("localhost") ? `http://localhost:3000` : `https://haveibeenpwned.com`;
+export const baseURL = window.location.href.includes("localhost") ? `http://localhost:3000` : "https://kind-pebble-05d7a3300.azurestaticapps.net/";
