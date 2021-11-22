@@ -1,4 +1,4 @@
-import React ,{forwardRef, useState} from 'react'
+import React ,{forwardRef, useState, useEffect, useRef} from 'react'
 import TileBody from './TileBody'
 import TileTitle from './TileTitle'
 import TileButton  from './TileButton'
@@ -33,7 +33,32 @@ const style = {
    
     
 const MainChild = forwardRef(({data , close},ref) => {
-  
+    const [buttonDesc, setButtonDesc] = useState("DOWNLOAD")
+    const _isMounted = useRef();
+    useEffect(() => {
+        _isMounted.current = true;
+        return () => {
+            _isMounted.current = false;
+        }
+    }, [])
+
+    useEffect(() => {
+        switch (data.Title) {
+            case 'Breached Email Accounts': {
+                setButtonDesc('Check another email address')
+                break;
+            }
+            case 'Breached Phone Numbers' : {
+                setButtonDesc('Check another phone number')
+                break;
+            }
+            default : {
+                break;
+            }
+        }
+        
+       
+    }, [data])
 
     return (
        
@@ -46,11 +71,13 @@ const MainChild = forwardRef(({data , close},ref) => {
                     <TileBody data={data}/>
                 </Box>
                 <Box sx={{display:'flex' , flexDirection:'row' , justifyContent:'flex-end'}}>
-                                <TileButton desc={'DOWNLOAD'} download={()=>console.log('download')}/>
+                                <TileButton desc={buttonDesc} />
                                 <TileButton desc={'CLOSE'}  close={close}/> 
                 </Box>
 
             </Box>
+
+            // Modal for Breach and Phone only
      
           
      

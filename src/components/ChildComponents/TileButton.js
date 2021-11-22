@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, makeStyles} from '@material-ui/core'
+import {Button, makeStyles, Typography} from '@material-ui/core'
 
 const styles = makeStyles({
         buttonStyle:{
@@ -13,8 +13,13 @@ const styles = makeStyles({
                 fontWeight:'500',
                 '&:hover': {
                     backgroundColor:'rgb(95 165 193)'                    
-                }
+                },
+                
 
+        },
+        descStyle :{
+                paddingLeft:'15px',
+                paddingRight:'15px'
 
         }
 })
@@ -23,7 +28,9 @@ const styles = makeStyles({
         const classes = styles();
     return (
         
-            <Button className={classes.buttonStyle} onClick={desc !=='CLOSE' ? download:()=>close()}>{desc}</Button>
+            <Button className={classes.buttonStyle} onClick={desc !=='CLOSE' ? download:()=>close()}>
+                      <Typography className={classes.descStyle}>  {desc} </Typography>
+            </Button>
         
     )
 }

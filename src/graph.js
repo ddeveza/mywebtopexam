@@ -10,7 +10,6 @@ const instance = new PublicClientApplication(msalConfig);
  */
 
 
-//Applied harris code
 
 
  export async function getUsers(accessToken) {
@@ -38,6 +37,8 @@ export async function __checkBreach  (value)  {
   const myHeaders = new Headers();
   myHeaders.append("Access-Control-Allow-Origin", "*");
 
+  
+
   const requestOptions = {
     method: "GET",
     headers: myHeaders,
@@ -51,7 +52,7 @@ export async function __checkBreach  (value)  {
     .catch((error) => console.log(error));
 };
 
-// end of harris code
+
 
 
 export async function getUserProfile() {
