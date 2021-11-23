@@ -49,7 +49,7 @@ const Main = (props) => {
       }
     >
         <Box sx={modalStyle}>
-            <Header />
+            <Header data={props.data}/>
             <Body data={props.data.data} />
             <Footer close={props.handleToggle}/>
         </Box>

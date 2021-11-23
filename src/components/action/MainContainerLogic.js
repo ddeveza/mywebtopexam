@@ -68,10 +68,11 @@ const __checkBreaches = async () => {
         let resultMail = [];
         let resultPhone = [];
         for (const user of users) {
+          let phone =user.mobilePhone && user.mobilePhone.split(" ").join("");
           if (await user.mail ) {
             const result = await __checkBreach(user.mail);
             console.log(user.mail, result ? true : false);
-            resultMail = [...resultMail, {name:user.displayName, email: user.mail, breached: result ? true : false, data: result }];
+            resultMail = [...resultMail, {name:user.displayName, email: user.mail,phone:phone, breached: result ? true : false, data: result }];
            await wait(1500); //For revert back
             
           }
