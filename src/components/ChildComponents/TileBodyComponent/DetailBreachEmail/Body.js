@@ -6,7 +6,7 @@ import "../DetailBreachEmail/BreachEmail.css";
 
 const Body = (props) => {
   const data1 = JSON.parse(props.data);
-  console.log(data1);
+
   const container = {
     display: "flex",
     flexDirection: "column",
@@ -39,13 +39,13 @@ const Body = (props) => {
                       logoWhite
                         ? {
                             backgroundColor: "rgba(42, 129, 163, 1)",
-                            width: "100px",
-                            heigh: "100px",
+                            width: "90px",
+                            heigh: "90px",
                             marginRight: "10px",
                           }
                         : {
-                            width: "100px",
-                            heigh: "100px",
+                            width: "90px",
+                            heigh: "90px",
                             marginRight: "10px",
                           }
                     }
@@ -61,15 +61,19 @@ const Body = (props) => {
                 </Typography>
 
                 <Typography
-                  style={{ color: "gray", display: "inline-block"  , marginTop:'15px', marginRight:'5px' , fontWeight:'700'}}
+                  style={{
+                    color: "gray",
+                    display: "inline-block",
+                    marginTop: "15px",
+                    marginRight: "5px",
+                    fontWeight: "700",
+                  }}
                 >{`Compromise Data: `}</Typography>
 
                 {value.DataClasses.map((eachVal, index) => {
-                  console.log (index+1)
-                  
                   return (
-                    <Typography style={{ display: "contents" , color:'gray'}}>
-                      {eachVal} { (index+1) !== value.DataClasses.length && `, `}
+                    <Typography style={{ display: "contents", color: "gray" }}>
+                      {eachVal} {index + 1 !== value.DataClasses.length && `, `}
                     </Typography>
                   );
                 })}
