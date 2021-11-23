@@ -1,5 +1,6 @@
-import React from 'react'
+import React , {useState}from 'react'
 import {Button, makeStyles, Typography} from '@material-ui/core'
+import SearchOtherBreach from '../ChildComponents/CheckOtherBreach/SearchOtherBreach'
 
 const styles = makeStyles({
         buttonStyle:{
@@ -24,14 +25,21 @@ const styles = makeStyles({
         }
 })
 
- const TileButton = ({desc,close,download}) => {
+ const TileButton = (props) => {
         const classes = styles();
+        const [openSearchBreach, setOpenSearchBreach] = useState(false)
+        const handleToggle = () =>{
+                setOpenSearchBreach(!openSearchBreach);
+              }
+        
     return (
-        
-            <Button className={classes.buttonStyle} onClick={desc !=='CLOSE' ? download:()=>close()}>
-                      <Typography className={classes.descStyle}>  {desc} </Typography>
+        <>
+            <Button className={classes.buttonStyle} onClick={props.desc !=='CLOSE' ?()=>setOpenSearchBreach(!openSearchBreach):()=>props.close()}>
+                      <Typography className={classes.descStyle}>  {props.desc} </Typography>
             </Button>
-        
+
+            {openSearchBreach&&  <SearchOtherBreach isOpen={openSearchBreach} handleToggle={handleToggle}/>}
+        </>
     )
 }
 

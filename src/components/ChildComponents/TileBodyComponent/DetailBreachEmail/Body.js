@@ -6,25 +6,22 @@ import "../DetailBreachEmail/BreachEmail.css";
 
 const Body = (props) => {
   const data1 = JSON.parse(props.data);
-
+  console.log(data1);
   const container = {
     display: "flex",
     flexDirection: "column",
     // overflow: "hidden",
     // overflowY: "scroll", // added scroll
-   
-   
 
     width: "80%",
     height: "70%",
     placeSelf: "center",
     margin: "auto",
-    '&::-webkit-scrollbar': { width: '10px', }
+    "&::-webkit-scrollbar": { width: "10px" },
   };
   return (
-   
-      <Box sx={container}>
-       <Scrollbars >
+    <Box sx={container}>
+      <Scrollbars>
         {data1.map((value, index) => {
           let logoWhite =
             value.LogoPath.includes("List") ||
@@ -56,19 +53,32 @@ const Body = (props) => {
                 }
               </Box>
               <Box>
-                <Typography style={{ fontWeight: "700" ,color: "gray" }}>
+                <Typography style={{ fontWeight: "700", color: "gray" }}>
                   {value.Name} :{" "}
                 </Typography>
-                <Typography style={{color: "gray"}}>
+                <Typography style={{ color: "gray" }}>
                   <Markup content={value.Description} />
                 </Typography>
+
+                <Typography
+                  style={{ color: "gray", display: "inline-block"  , marginTop:'15px', marginRight:'5px' , fontWeight:'700'}}
+                >{`Compromise Data: `}</Typography>
+
+                {value.DataClasses.map((eachVal, index) => {
+                  console.log (index+1)
+                  
+                  return (
+                    <Typography style={{ display: "contents" , color:'gray'}}>
+                      {eachVal} { (index+1) !== value.DataClasses.length && `, `}
+                    </Typography>
+                  );
+                })}
               </Box>
             </Box>
           );
         })}
-         </Scrollbars>
-      </Box>
-   
+      </Scrollbars>
+    </Box>
   );
 };
 
