@@ -10,6 +10,7 @@ const styles = makeStyles({
     fontSize: "17px",
     color: "rgba(112, 112, 112, 1)",
     display: "inline-block",
+    paddingRight:'8px'
   },
 
   textStyle: {
@@ -66,7 +67,7 @@ const SecurityAPIBody = ({ data }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          height: "350px",
+          height: "347px",
           paddingLeft: "60px",
           paddingRight: "60px",
           marginTop: "40px",
@@ -76,11 +77,11 @@ const SecurityAPIBody = ({ data }) => {
           sx={{ display: "flex", flexDirection: "row", paddingBottom: "40px" }}
         >
           <Typography className={classes.boldStyle}>
-            Security Control :{" "}
+            Security Control:
           </Typography>
           <Typography className={classes.textStyle}>
-            {" "}
-            {data.securityControl}
+            
+            {` ${data.securityControl}` }
           </Typography>
         </Box>
 
@@ -130,7 +131,7 @@ const SecurityAPIBody = ({ data }) => {
                 }}
               >
                 <Typography className={classes.boldStyle}>
-                  Security Control :{" "}
+                  Security Control:{" "}
                 </Typography>
                 <Typography className={classes.textStyle}>
                   {" "}

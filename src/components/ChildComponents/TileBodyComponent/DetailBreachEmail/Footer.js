@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, makeStyles, Typography} from '@material-ui/core'
+import {Button, makeStyles} from '@material-ui/core'
 
 const styles = makeStyles({
         buttonStyle:{

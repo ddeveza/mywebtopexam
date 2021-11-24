@@ -6,12 +6,7 @@ import DormantBody from "./TileBodyComponent/DormantBody";
 import { useEffect, useRef, useState } from "react";
 
 const TileBody = ({ data }) => {
-  const style = {
-    display: "flex",
-    position: "relative",
-    height: "370px",
-    bgcolor: "background.paper",
-  };
+  
 
   const [toggleBreachEmail, setToggleBreachEmail] = useState(false);
   const [toggleDormant, setToggleDormant] = useState(false);

@@ -50,7 +50,7 @@ useEffect(() => {
       
         
         switch(title2) {
-                case 'Email Account': {
+                case 'Email Accounts': {
                 
                     setRenderData(breachEmailData);
                 

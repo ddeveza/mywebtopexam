@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useRef  , useEffect, useState} from "react";
 import Tile from "../components/Tile";
 import LoginForm from "../components/LoginForm";
 
 import SignOut from "../components/SignOut";
 import { Button, Container, Grid, Typography } from "@material-ui/core";
 import logo from "../logo/Assets/BeCloudSafe Logo Cropped.png";
-import avatar from "../logo/Avatar.png";
+
 import MainContainerLogic from "./action/MainContainerLogic";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { makeStyles } from "@material-ui/core";
+
+import {getUserPhoto,
+  getUserAvatar,
+  blobToBase64,
+  imgPlaceHolder , getUserProfile} from '../graph'
 
 const useStyles = makeStyles({
   container: {
@@ -37,10 +42,10 @@ const useStyles = makeStyles({
     paddingRight: "10px",
   },
   userAvatar: {
-    width: "80px",
-    height: "80px",
+    width: "60px",
+    height: "60px",
     borderRadius: "50%",
-    border: "1px solid rgba(42, 129, 163, 1)",
+    //border: "1px solid rgba(42, 129, 163, 1)",
     margin: "1px",
   },
   mainBtn: {
@@ -58,8 +63,47 @@ const useStyles = makeStyles({
 function MainContainer() {
   const classes = useStyles();
   const isAuthenticated = useIsAuthenticated();
+  const isMounted = useRef(false);
+  const [userPhoto, setUserPhoto] = useState()
 
-  //Custom hooks
+ //Get Photo of User
+  const getPhoto = async () => {
+    let userDetails = await getUserProfile();
+    const photoBlob = await getUserPhoto();
+    if (photoBlob && !photoBlob?.error) {
+      const photo = await blobToBase64(photoBlob);
+      setUserPhoto( photo);
+    } else {
+      console.log("No user photo");
+      const name = userDetails.displayName
+        ? userDetails.displayName
+        : userDetails.userPrincipalName;
+      const result = await getUserAvatar(name);
+      if (result?.error) {
+        setUserPhoto(imgPlaceHolder);;
+      } else {
+        const photo = await blobToBase64(result);
+        setUserPhoto(photo);
+      }
+    }
+
+  }
+
+  useEffect(() => {
+    isMounted.current = true
+    return () => {
+      isMounted.current = false 
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isMounted.current && isAuthenticated)  getPhoto()
+    
+  }, [isAuthenticated])
+
+  //End of getting UserPhoto
+
+///BeCloud Safe Data Fetching 
   const {
     currentScore,
     numOfGlbalAccts,
@@ -103,7 +147,7 @@ function MainContainer() {
                 </Grid>
                 <Grid item>
                   <img
-                    src={avatar}
+                    src={userPhoto}
                     className={classes.userAvatar}
                     alt="avatar"
                   />
@@ -140,7 +184,7 @@ function MainContainer() {
                 {true && (
                   <Tile
                     count={mailBreaches}
-                    title={"Number of Breached ,Email Account"}
+                    title={"Number of Breached ,Email Accounts"}
                     boolHipb={true}
                     loading={inProgress}
                   />

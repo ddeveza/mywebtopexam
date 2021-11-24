@@ -29,7 +29,7 @@ const DormantBody = ({data}) => {
    
 
     const tableContainer = {
-            height:'400px',
+            height:'385px',
             width:'800px',
             paddingLeft:'100px',
             paddingRight:'100px',

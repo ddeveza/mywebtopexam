@@ -30,7 +30,7 @@ const Header = (props) => {
       </Box>
       <Box sx={{m:2}}>
         <Typography className={clasess.textStyle}>{props.data.name}</Typography>
-        <Typography className={clasess.textStyle}>{props.data.phone}</Typography>
+        <Typography className={clasess.textStyle}>{props.data.email}</Typography>
       </Box>
     </Box>
   );

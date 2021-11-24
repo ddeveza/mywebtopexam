@@ -1,5 +1,7 @@
 import React from "react";
-import { Modal, Backdrop, Box , Button} from "@material-ui/core";
+import { Modal, Backdrop, Box, Button, Typography } from "@material-ui/core";
+import emailLogo from "../../../logo/Assets/icons8-mail.png";
+
 
 const SearchOtherBreach = (props) => {
   const modalStyle = {
@@ -20,6 +22,11 @@ const SearchOtherBreach = (props) => {
     outline: "none",
   };
 
+  const mainTitle = {
+    fontSize: '36px',
+    fontWeight: '700'
+  }
+
   return (
     <Modal
       open={props.isOpen}
@@ -34,10 +41,26 @@ const SearchOtherBreach = (props) => {
     >
       <>
         <Box sx={modalStyle}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              marginTop: "10px",
+              marginLeft: "10px",
+            }}
+          >
             <Box>
-                <Button onClick={props.handleToggle}>CLOSE</Button>
+              <img src={emailLogo} alt="search logo" />
             </Box>
-        
+            <Box>
+              <Typography sx={mainTitle}>{props.desc.toUpperCase()}</Typography>
+            </Box>
+          </Box>
+          <Box>About</Box>
+          <Box>Search</Box>
+          <Box>
+            <Button onClick={props.handleToggle}>CLOSE</Button>
+          </Box>
         </Box>
       </>
     </Modal>

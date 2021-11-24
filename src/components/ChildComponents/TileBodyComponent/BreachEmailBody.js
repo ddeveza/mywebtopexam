@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Box, Typography, makeStyles } from "@material-ui/core";
 import Main from "./DetailBreachEmail/Main";
 const styles = makeStyles({
@@ -12,11 +12,11 @@ const styles = makeStyles({
   },
 });
 const BreachEmailBody = ({ data }) => {
-  const ref = useRef();
+
   const [toggle, setToggle] = useState(false);
   const { emails } = data;
   const classes = styles();
-  const fakeData = [
+  /* const fakeData = [
     "dennis@mywebtop.au.com",
     "admin@emmslab.com",
     "admin@emmslab.com",
@@ -41,14 +41,14 @@ const BreachEmailBody = ({ data }) => {
     "admin@emmslab.com",
     "admin@emmslab.com",
     "admin@emmslab.com",
-  ];
+  ]; */
 
   const boxStyle = {
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
     justifyContent: "stretch",
-    height: "400px",
+    height: "385px",
     width: "800px",
     alignContent: "space-around",
     paddingLeft: "100px",

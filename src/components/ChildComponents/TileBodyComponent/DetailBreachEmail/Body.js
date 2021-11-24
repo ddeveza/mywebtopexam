@@ -35,6 +35,7 @@ const Body = (props) => {
                 {
                   <img
                     src={value.LogoPath}
+                    alt='logo'
                     style={
                       logoWhite
                         ? {
