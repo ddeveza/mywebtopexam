@@ -18,6 +18,10 @@ import {
   getSecurityAPI,
   getDormantAcct,
   getUserProfile,
+  getMemberPhoto,
+  blobToBase64,
+  imgPlaceHolder,
+  getUserAvatar
  
 } from "../../graph";
 //End of API request functions
@@ -62,6 +66,28 @@ const MainContainerLogic =  (isAuthenticated) => {
       });
   };
 
+
+  //
+  const memberPhoto =async (user) =>{
+    const photo = await getMemberPhoto(user.id);
+    if (photo && !photo?.error) {
+      const avatarData = await blobToBase64(photo);
+      return  avatarData;
+    } else {
+      const name = user.displayName ? user.displayName : user.userPrincipalName;
+      const avatar = await getUserAvatar(name);
+      if (avatar?.error) {
+        return  imgPlaceHolder;
+      } else {
+        const avatarData = await blobToBase64(avatar);
+        return  avatarData;
+      }
+    }
+
+
+  }
+  
+
   const wait = (ms) =>
     new Promise((resolve, reject) => setTimeout(resolve, ms));
 
@@ -74,6 +100,7 @@ const MainContainerLogic =  (isAuthenticated) => {
       if (await user.mail) {
         const result = await __checkBreach(user.mail);
         console.log(user.mail, result ? true : false);
+        const photo = result&&await memberPhoto(user)
         resultMail = [
           ...resultMail,
           {
@@ -82,22 +109,18 @@ const MainContainerLogic =  (isAuthenticated) => {
             phone: phone,
             breached: result ? true : false,
             data: result,
+            photo: await photo
+            
+            
           },
         ];
         await wait(1500); //For revert back
       }
 
       if (user.mobilePhone) {
-        const result2 = await __checkBreach(
-          user.mobilePhone.split(" ").join("")
-        );
-        console.log(
-          user.displayName,
-          user.mobilePhone.split(" ").join(""),
-          result2 ? true : false
-        );
-        resultPhone = [
-          ...resultPhone,
+        const result2 = await __checkBreach(user.mobilePhone.split(" ").join(""));
+        console.log(user.displayName,user.mobilePhone.split(" ").join(""),result2 ? true : false);
+        resultPhone = [...resultPhone,
           {
             name: user.displayName,
             phone: user.mobilePhone.split(" ").join(""),
@@ -109,12 +132,16 @@ const MainContainerLogic =  (isAuthenticated) => {
       }
     }
     setInProgress(false);
+
+    //Export these breach email/phone data
     const breachedResult = resultMail.filter((eachMail) => eachMail.breached);
-    const breachedResultPhone = resultPhone.filter(
-      (eachPhone) => eachPhone.breached
-    );
+    const breachedResultPhone = resultPhone.filter((eachPhone) => eachPhone.breached);
+    //End export
+
+    //Count brechc email/phone 
     setMailBreaches(breachedResult.length);
     setPhoneBreaches(breachedResultPhone.length);
+    ///end
 
     await Swal.fire(
       "Welcome to BeCloudSafe!",

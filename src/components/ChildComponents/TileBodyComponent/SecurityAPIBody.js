@@ -67,7 +67,7 @@ const SecurityAPIBody = ({ data }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          height: "347px",
+          height: "348px",
           paddingLeft: "60px",
           paddingRight: "60px",
           marginTop: "40px",
