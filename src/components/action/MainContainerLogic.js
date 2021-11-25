@@ -8,7 +8,6 @@ import { setMSSecureScore } from "../../features/mssecurescore";
 import { setGlobalAdminAcct } from "../../features/globaladminacct";
 import { setDormant } from "../../features/dormant";
 import { setBreachPhoneData } from "../../features/breachedphone";
-import Swal from "sweetalert2";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authConfig";
 
@@ -212,7 +211,6 @@ const MainContainerLogic = (isAuthenticated) => {
       resultMail = localStorage.getItem("resultMail") ? JSON.parse(localStorage.getItem("resultMail")) : [];
       resultPhone = localStorage.getItem("resultPhone") ? JSON.parse(localStorage.getItem("resultPhone")) : [];
     }
-    setInProgress(false);
 
     //Export these breach email/phone data
     const breachedResult = resultMail.filter((eachMail) => eachMail.breached);
@@ -224,8 +222,6 @@ const MainContainerLogic = (isAuthenticated) => {
     setPhoneBreaches(breachedResultPhone.length);
     ///end
 
-    await Swal.fire("Welcome to BeCloudSafe!", "a product by mywebtop", "success");
-
     let data = {
       value: breachedResult.length,
       emails: [breachedResult],
@@ -236,6 +232,7 @@ const MainContainerLogic = (isAuthenticated) => {
     };
     dispatch(setBreachPhoneData(dataPhone));
     dispatch(setBreachEmailData(data));
+    setInProgress(false);
   };
 
   return {

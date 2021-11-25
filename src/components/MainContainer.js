@@ -9,6 +9,7 @@ import MainContainerLogic from "./action/MainContainerLogic";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { makeStyles } from "@material-ui/core";
 import WelcomeScreen from "./ChildComponents/WelcomeScreen";
+import Swal from "sweetalert2";
 
 import { getUserPhoto, getUserAvatar, blobToBase64, imgPlaceHolder, getUserProfile } from "../graph";
 
@@ -74,10 +75,13 @@ function MainContainer() {
 
   useEffect(() => {
     if (isMounted.current && isAuthenticated) {
+      console.log("starting up...");
       getPhoto();
       if (!wsDone) {
         if (!localStorage.getItem("wsDone")) {
           setWsOpen(true);
+        } else {
+          setWsDone(localStorage.getItem("wsDone") ? true : false);
         }
       }
     }
@@ -106,6 +110,16 @@ function MainContainer() {
 
   ///BeCloud Safe Data Fetching
   const { currentScore, numOfGlbalAccts, percentMFA, mailBreaches, numOfDormantAccount, phoneBreaches, profile, inProgress } = MainContainerLogic(isAuthenticated);
+
+  const __welcomeModal = async () => {
+    Swal.fire("Welcome to BeCloudSafe!", "a product by mywebtop", "success");
+  };
+
+  useEffect(() => {
+    if (isMounted && !inProgress && !wsOpen && wsDone && !Swal.isVisible()) {
+      __welcomeModal();
+    }
+  }, [wsOpen, wsDone, inProgress]);
 
   return (
     <>
