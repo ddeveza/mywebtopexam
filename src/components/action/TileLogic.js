@@ -35,9 +35,8 @@ const TileLogic = (title) => {
   useEffect(() => {
     if (_isMounted) {
       switch (title2) {
-        case "Email Account": {
+        case "Email Accounts": {
           setRenderData(breachEmailData);
-
           break;
         }
         case "Secure Score": {

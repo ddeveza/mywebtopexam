@@ -64,7 +64,7 @@ function Tile({ count, title, boolHipb, percentSign, loading }) {
               <Typography className={classes.tileText}> {title2} </Typography>
             </Grid>
           </Grid>
-          {/* Edited this section and removed typography */}
+
           <Grid item>
             {count ? (
               <div className={classes.tileValue}>
