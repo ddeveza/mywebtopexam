@@ -1,50 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./authConfig";
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import authReducer from './features/auth'
-import breachEmailReducer from './features/breachedemail';
-import msSecureScoreReducer from './features/mssecurescore';
-import globalAdminAcctReducer from './features/globaladminacct';
-import mfaReducer from './features/mfa';
-import dormantReducer from './features/dormant';
-import breachPhoneReducer from './features/breachedphone';
-import modalTileReducer from './features/modal';
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import authReducer from "./features/auth";
+import breachEmailReducer from "./features/breachedemail";
+import msSecureScoreReducer from "./features/mssecurescore";
+import globalAdminAcctReducer from "./features/globaladminacct";
+import mfaReducer from "./features/mfa";
+import dormantReducer from "./features/dormant";
+import breachPhoneReducer from "./features/breachedphone";
+import modalTileReducer from "./features/modal";
 
 const store = configureStore({
-  reducer:{
-    
-    auth:authReducer,
-    breachEmail:breachEmailReducer,
+  reducer: {
+    auth: authReducer,
+    breachEmail: breachEmailReducer,
     msSecure: msSecureScoreReducer,
     globalAdmin: globalAdminAcctReducer,
-    mfa:mfaReducer,
-    dormant:dormantReducer,
+    mfa: mfaReducer,
+    dormant: dormantReducer,
     breachPhone: breachPhoneReducer,
-    modalTile : modalTileReducer,
-
-  }
-})
+    modalTile: modalTileReducer,
+  },
+});
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
 ReactDOM.render(
-  
-
   <MsalProvider instance={msalInstance}>
     <Provider store={store}>
-        <App />
+      <App />
     </Provider>
-  </MsalProvider>
-  ,
-  document.getElementById('root')
+  </MsalProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

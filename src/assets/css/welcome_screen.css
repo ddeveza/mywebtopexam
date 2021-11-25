@@ -1,0 +1,16 @@
+.ws-container {
+  overflow: hidden !important;
+  background-color: #4c4c4c;
+}
+
+.ws-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4c4c4c;
+}
+
+.ws-footer {
+  background-color: #4c4c4c;
+  border: 0 !important;
+}

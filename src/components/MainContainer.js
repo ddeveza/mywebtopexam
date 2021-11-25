@@ -1,19 +1,16 @@
-import React, { useRef  , useEffect, useState} from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useRef, useEffect, useState } from "react";
 import Tile from "../components/Tile";
 import LoginForm from "../components/LoginForm";
-
 import SignOut from "../components/SignOut";
 import { Button, Container, Grid, Typography } from "@material-ui/core";
 import logo from "../logo/Assets/BeCloudSafe Logo Cropped.png";
-
 import MainContainerLogic from "./action/MainContainerLogic";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { makeStyles } from "@material-ui/core";
+import WelcomeScreen from "./ChildComponents/WelcomeScreen";
 
-import {getUserPhoto,
-  getUserAvatar,
-  blobToBase64,
-  imgPlaceHolder , getUserProfile} from '../graph'
+import { getUserPhoto, getUserAvatar, blobToBase64, imgPlaceHolder, getUserProfile } from "../graph";
 
 const useStyles = makeStyles({
   container: {
@@ -64,56 +61,51 @@ function MainContainer() {
   const classes = useStyles();
   const isAuthenticated = useIsAuthenticated();
   const isMounted = useRef(false);
-  const [userPhoto, setUserPhoto] = useState()
+  const [wsDone, setWsDone] = useState(false);
+  const [wsOpen, setWsOpen] = useState(false);
+  const [userPhoto, setUserPhoto] = useState();
 
- //Get Photo of User
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMounted.current && isAuthenticated) {
+      getPhoto();
+      if (!wsDone) {
+        if (!localStorage.getItem("wsDone")) {
+          setWsOpen(true);
+        }
+      }
+    }
+  }, [isAuthenticated]);
+
+  //Get Photo of User
   const getPhoto = async () => {
     let userDetails = await getUserProfile();
     const photoBlob = await getUserPhoto();
     if (photoBlob && !photoBlob?.error) {
       const photo = await blobToBase64(photoBlob);
-      setUserPhoto( photo);
+      setUserPhoto(photo);
     } else {
       console.log("No user photo");
-      const name = userDetails.displayName
-        ? userDetails.displayName
-        : userDetails.userPrincipalName;
+      const name = userDetails.displayName ? userDetails.displayName : userDetails.userPrincipalName;
       const result = await getUserAvatar(name);
       if (result?.error) {
-        setUserPhoto(imgPlaceHolder);;
+        setUserPhoto(imgPlaceHolder);
       } else {
         const photo = await blobToBase64(result);
         setUserPhoto(photo);
       }
     }
-
-  }
-
-  useEffect(() => {
-    isMounted.current = true
-    return () => {
-      isMounted.current = false 
-    }
-  }, [])
-
-  useEffect(() => {
-    if (isMounted.current && isAuthenticated)  getPhoto()
-    
-  }, [isAuthenticated])
-
+  };
   //End of getting UserPhoto
 
-///BeCloud Safe Data Fetching 
-  const {
-    currentScore,
-    numOfGlbalAccts,
-    percentMFA,
-    mailBreaches,
-    numOfDormantAccount,
-    phoneBreaches,
-    profile,
-    inProgress,
-  } = MainContainerLogic(isAuthenticated);
+  ///BeCloud Safe Data Fetching
+  const { currentScore, numOfGlbalAccts, percentMFA, mailBreaches, numOfDormantAccount, phoneBreaches, profile, inProgress } = MainContainerLogic(isAuthenticated);
 
   return (
     <>
@@ -125,41 +117,22 @@ function MainContainer() {
             <Grid item xs={4}>
               <img className={classes.MyWebTopLogo} src={logo} alt="Logo" />
             </Grid>
-            <Grid
-              item
-              xs={8}
-              container
-              direction="column"
-              justifyContent="flex-end"
-              spacing={2}
-            >
-              <Grid
-                item
-                container
-                justifyContent="flex-end"
-                alignItems="center"
-              >
+            <Grid item xs={8} container direction="column" justifyContent="flex-end" spacing={2}>
+              <Grid item container justifyContent="flex-end" alignItems="center">
                 <Grid item>
                   <Typography className={classes.userName}>
                     {" "}
-                    Welcome , {profile}{" "}
+                    <span style={{ cursor: "pointer" }} onClick={() => setWsOpen(true)} title="Show welcome screen tutorial">
+                      Welcome
+                    </span>
+                    , {profile}{" "}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <img
-                    src={userPhoto}
-                    className={classes.userAvatar}
-                    alt="avatar"
-                  />
+                  <img src={userPhoto} className={classes.userAvatar} alt="avatar" />
                 </Grid>
               </Grid>
-              <Grid
-                item
-                container
-                spacing={4}
-                justifyContent="flex-end"
-                direction="row"
-              >
+              <Grid item container spacing={4} justifyContent="flex-end" direction="row">
                 <Grid item>
                   <Button className={classes.mainBtn}>Home</Button>
                 </Grid>
@@ -173,75 +146,19 @@ function MainContainer() {
             </Grid>
           </Grid>
           <Container className={classes.container}>
-            <Grid
-              container
-              justifyContent="space-evenly"
-              alignItems="center"
-              spacing={5}
-              className={classes.tileContainer}
-            >
-              <Grid item>
-                {true && (
-                  <Tile
-                    count={mailBreaches}
-                    title={"Number of Breached ,Email Accounts"}
-                    boolHipb={true}
-                    loading={inProgress}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {true && (
-                  <Tile
-                    count={currentScore}
-                    percentSign={true}
-                    title={"Microsoft,Secure Score"}
-                    boolHipb={false}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {true && (
-                  <Tile
-                    count={phoneBreaches}
-                    title={"Number of Breached,Phone Numbers"}
-                    boolHipb={true}
-                    loading={inProgress}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {true && (
-                  <Tile
-                    count={numOfGlbalAccts}
-                    title={"Number of Global,Administrator Accounts"}
-                    boolHipb={false}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {true && (
-                  <Tile
-                    count={numOfDormantAccount}
-                    title={"Number of,Dormants Account"}
-                    boolHipb={false}
-                  />
-                )}
-              </Grid>
-              <Grid item>
-                {true && (
-                  <Tile
-                    count={percentMFA}
-                    percentSign={true}
-                    title={"Percentage of ,Accounts Using MFA"}
-                    boolHipb={false}
-                  />
-                )}
-              </Grid>
+            <Grid container justifyContent="space-evenly" alignItems="center" spacing={5} className={classes.tileContainer}>
+              <Grid item>{true && <Tile count={mailBreaches} title={"Number of Breached ,Email Accounts"} boolHipb={true} loading={inProgress} />}</Grid>
+              <Grid item>{true && <Tile count={currentScore} percentSign={true} title={"Microsoft,Secure Score"} boolHipb={false} />}</Grid>
+              <Grid item>{true && <Tile count={phoneBreaches} title={"Number of Breached,Phone Numbers"} boolHipb={true} loading={inProgress} />}</Grid>
+              <Grid item>{true && <Tile count={numOfGlbalAccts} title={"Number of Global,Administrator Accounts"} boolHipb={false} />}</Grid>
+              <Grid item>{true && <Tile count={numOfDormantAccount} title={"Number of,Dormants Account"} boolHipb={false} />}</Grid>
+              <Grid item>{true && <Tile count={percentMFA} percentSign={true} title={"Percentage of ,Accounts Using MFA"} boolHipb={false} />}</Grid>
             </Grid>
           </Container>
         </>
       )}
+      {/* Welcome Screen */}
+      <WelcomeScreen setWsOpen={setWsOpen} wsOpen={wsOpen} setWsDone={setWsDone} />
     </>
   );
 }
