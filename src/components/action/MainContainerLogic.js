@@ -204,6 +204,10 @@ const MainContainerLogic = (isAuthenticated) => {
           await wait(1500); //For revert back
         }
       }
+      //locally Store Breach Check results
+      localStorage.setItem("lastBreachCheck", new Date());
+      localStorage.setItem("resultMail", JSON.stringify(resultMail));
+      localStorage.setItem("resultPhone", JSON.stringify(resultPhone));
     } else {
       resultMail = localStorage.getItem("resultMail") ? JSON.parse(localStorage.getItem("resultMail")) : [];
       resultPhone = localStorage.getItem("resultPhone") ? JSON.parse(localStorage.getItem("resultPhone")) : [];
@@ -214,11 +218,6 @@ const MainContainerLogic = (isAuthenticated) => {
     const breachedResult = resultMail.filter((eachMail) => eachMail.breached);
     const breachedResultPhone = resultPhone.filter((eachPhone) => eachPhone.breached);
     //End export
-
-    //locally Store Breach Check results
-    localStorage.setItem("lastBreachCheck", new Date());
-    localStorage.setItem("resultMail", JSON.stringify(resultMail));
-    localStorage.setItem("resultPhone", JSON.stringify(resultPhone));
 
     //Count brechc email/phone
     setMailBreaches(breachedResult.length);
