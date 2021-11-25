@@ -37,8 +37,8 @@ const BreachPhoneBody = ({ data }) => {
     <Box sx={boxStyle}>
       {phones[0].map((data, id) => {
         return (
-          <Box sx={{ marginRight: "30px" }}>
-            <Typography className={classes.emailStyle} key={id}>
+          <Box key={id} sx={{ marginRight: "30px" }}>
+            <Typography className={classes.emailStyle}>
               {" "}
               {data.name}:{data.phone}{" "}
             </Typography>
