@@ -12,7 +12,7 @@ const styles = makeStyles({
   },
 });
 const BreachEmailBody = ({ data }) => {
- console.log(data)
+ 
   const [toggle, setToggle] = useState(false);
   const { emails } = data;
   const classes = styles();

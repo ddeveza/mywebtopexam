@@ -1,12 +1,75 @@
 import React, { useState } from "react";
-import { Modal, Backdrop, Box, Button, Typography } from "@material-ui/core";
+import {
+  Modal,
+  Backdrop,
+  Box,
+  Button,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 import emailLogo from "../../../logo/Assets/icons8-mail.png";
 import phoneLogo from "../../../logo/Assets/icons8-touchscreen.png";
 import SearchIcon from "@material-ui/icons/Search";
+import Main from "../TileBodyComponent/DetailBreachEmail/Main";
 
+import { __checkBreach } from "../../../graph";
+
+const styles = makeStyles({
+  buttonStylePhone: {
+    margin: "10px",
+    boxSizing: "content-box",
+    backgroundColor: "rgba(42, 129, 163, 1)",
+    width: "200px",
+    height: "40px",
+    WebkitFilter: "drop-shadow(2px 5px 3px rgba(112, 112, 112, 1))",
+    color: "rgba(255, 255, 255, 1)",
+    fontWeight: "500",
+    "&:hover": {
+      backgroundColor: "rgb(95 165 193)",
+    },
+    marginTop: " 250px",
+    marginRight: "20px",
+  },
+  buttonStyle: {
+    margin: "10px",
+    boxSizing: "content-box",
+    backgroundColor: "rgba(42, 129, 163, 1)",
+    width: "200px",
+    height: "40px",
+    WebkitFilter: "drop-shadow(2px 5px 3px rgba(112, 112, 112, 1))",
+    color: "rgba(255, 255, 255, 1)",
+    fontWeight: "500",
+    "&:hover": {
+      backgroundColor: "rgb(95 165 193)",
+    },
+    marginTop: " 278px",
+    marginRight: "20px",
+  },
+  descStyle: {
+    paddingLeft: "15px",
+    paddingRight: "15px",
+  },
+});
 const SearchOtherBreach = (props) => {
-  const [onClickSytle, setOnClickSytle] = useState();
-  const searchHandle = () => {};
+  const classes = styles();
+  const [value, setValue] = useState();
+  const [toggle, setToggle] = useState(false);
+  const [result, setResult] = useState([]);
+  const handleToggle1 = () => {
+    setToggle(!toggle);
+  };
+  const searchHandle = async (email) => {
+    //1. get the email address / phone number
+    //2. search for the api
+    //3. set data
+    //5. set modal
+    //6. pass to detailBreach email
+    const data = __checkBreach(email);
+    console.log(JSON.parse(await data))
+
+
+    
+  };
   const modalStyle = {
     position: "absolute",
     top: "60%",
@@ -39,112 +102,139 @@ const SearchOtherBreach = (props) => {
   };
 
   return (
-    <Modal
-      open={props.isOpen}
-      onClose={props.handleToggle}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-      hideBackdrop={true}
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <>
-        <Box sx={modalStyle}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              marginTop: "10px",
-              marginLeft: "10px",
-              alignItems: "center",
-            }}
-          >
-            <Box sx={{ display: "flex", marginLeft: "19px" }}>
-              <img
-                src={props.desc.search("email") !== -1 ? emailLogo : phoneLogo}
-                alt="search logo"
-                style={{ width: "130px", height: "130px" }}
-              />
-            </Box>
-            <Box sx={{ display: "flex", paddingLeft: "30px" }}>
-              <Typography style={mainTitle}>
-                {props.desc.toUpperCase()}
-              </Typography>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignSelf: "center",
-              flexDirection: "column",
-            }}
-          >
-            {props.desc.search("email") !== -1 ? (
-              <Typography
-                style={{ fontSize: "20px", color: "rgba(112, 112, 112, 1)" }}
-              >
-                Enter email address to be checked
-              </Typography>
-            ) : (
-              <>
-                {" "}
-                <Typography
-                  style={{ fontSize: "20px", color: "rgba(112, 112, 112, 1)" }}
-                >
-                  Enter the phone number to be checked including the country
-                  code
-                </Typography>
-                <Typography
-                  style={{ fontSize: "20px", color: "rgba(112, 112, 112, 1)" }}
-                >
-                  Eg:+61412333555`
-                </Typography>
-              </>
-            )}
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignSelf: "center",
-              marginTop: "20px",
-              border: "1px solid rgba(112, 112, 112, 1) ",
-              width: "auto",
-              height: "60px",
-            }}
-          >
-            <input
-              type={props.desc.search("email") !== -1 && "email"}
-              style={searchBox}
-            />
-            <Button
-              style={{
-                
-                padding:'0px',
-                "&:hover": { backgroundColor: "rgb(242 242 242 / 38%)" },
+    <>
+      <Modal
+        open={props.isOpen}
+        onClose={props.handleToggle}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        hideBackdrop={true}
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <>
+         
+          <Box sx={modalStyle}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: "10px",
+                marginLeft: "10px",
+                alignItems: "center",
               }}
             >
-              <SearchIcon
-                onClick={searchHandle}
-                style={{
-                  cursor: "pointer",
-                  width: "60px",
-                  height: "auto",
-                  color: "#5181b1",
-                  borderLeft: "1px solid rgba(112, 112, 112, 1)",
-                  padding:'5px'
-                }}
+              <Box sx={{ display: "flex", marginLeft: "19px" }}>
+                <img
+                  src={
+                    props.desc.search("email") !== -1 ? emailLogo : phoneLogo
+                  }
+                  alt="search logo"
+                  style={{ width: "130px", height: "130px" }}
+                />
+              </Box>
+              <Box sx={{ display: "flex", paddingLeft: "30px" }}>
+                <Typography style={mainTitle}>
+                  {props.desc.toUpperCase()}
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignSelf: "center",
+                flexDirection: "column",
+              }}
+            >
+              {props.desc.search("email") !== -1 ? (
+                <Typography
+                  style={{ fontSize: "20px", color: "rgba(112, 112, 112, 1)" }}
+                >
+                  Enter email address to be checked
+                </Typography>
+              ) : (
+                <>
+                  {" "}
+                  <Typography
+                    style={{
+                      fontSize: "20px",
+                      color: "rgba(112, 112, 112, 1)",
+                    }}
+                  >
+                    Enter the phone number to be checked including the country
+                    code
+                  </Typography>
+                  <Typography
+                    style={{
+                      fontSize: "20px",
+                      color: "rgba(112, 112, 112, 1)",
+                    }}
+                  >
+                    Eg:+61412333555`
+                  </Typography>
+                </>
+              )}
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignSelf: "center",
+                marginTop: "20px",
+                border: "1px solid rgba(112, 112, 112, 1) ",
+                width: "auto",
+                height: "60px",
+              }}
+            >
+              <input
+                type={props.desc.search("email") !== -1 && "email"}
+                style={searchBox}
+                placeholder={
+                  props.desc.search("email") !== -1
+                    ? "Enter email address...."
+                    : "Enter phone number...."
+                }
+                onChange={(e) => setValue(e.target.value)}
               />
-            </Button>
+              <Button
+                style={{
+                  padding: "0px",
+                  "&:hover": { backgroundColor: "rgb(242 242 242 / 38%)" },
+                }}
+              >
+                <SearchIcon
+                  onClick={() => searchHandle(value)}
+                  style={{
+                    cursor: "pointer",
+                    width: "60px",
+                    height: "auto",
+                    color: "#5181b1",
+                    borderLeft: "1px solid rgba(112, 112, 112, 1)",
+                    padding: "5px",
+                  }}
+                />
+              </Button>
+            </Box>
+            <Box sx={{ display: "flex", alignSelf: "end" }}>
+              <Button
+                onClick={props.handleToggle}
+                className={
+                  props.desc.search("email") !== -1
+                    ? classes.buttonStyle
+                    : classes.buttonStylePhone
+                }
+              >
+                CLOSE
+              </Button>
+            </Box>
           </Box>
-          <Box>
-            <Button onClick={props.handleToggle} style={{}}>CLOSE</Button>
-          </Box>
-        </Box>
-      </>
-    </Modal>
+        </>
+      </Modal>
+
+      {/* <Main handleToggle={handleToggle1} data={result} isOpen={toggle} /> */}
+    </>
   );
 };
 
