@@ -45,7 +45,7 @@ const TileTitle = ({title,value,about}) => {
         flexDirection: 'column',
         justifyContent:'center' ,
         flexWrap: 'wrap',
-        paddingLeft:'20px' 
+        paddingLeft:'5px' 
     }
 
     const styleTitle = {

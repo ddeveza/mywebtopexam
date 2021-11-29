@@ -47,7 +47,7 @@ const BreachPhoneBody = ({ data }) => {
           <Box key={id} sx={{ marginRight: "30px" }}>
             <Typography className={classes.emailStyle} onClick={()=>setToggle(!toggle)}>
               {" "}
-              {data.name}:{data.phone}{" "}
+              {data.name}: {data.phone}{" "}
             </Typography>
 
             <Main handleToggle={handleToggle} data={data} isOpen={toggle} title="phone"/>

@@ -10,18 +10,15 @@ const Body = (props) => {
   const container = {
     display: "flex",
     flexDirection: "column",
-    // overflow: "hidden",
-    // overflowY: "scroll", // added scroll
-
     width: "80%",
     height: "70%",
     placeSelf: "center",
     margin: "auto" ,
-    "&::-webkit-scrollbar": { width: "10px" },
+   
   };
   return (
     <Box sx={container}>
-      <Scrollbars  style={{overflowX: 'hidden' /* Hide horizontal scrollbar */}}>
+      <Scrollbars  autoHide={false}   >
         {data1.map((value, index) => {
           let logoWhite =
             value.LogoPath.includes("List") ||
