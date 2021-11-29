@@ -16,12 +16,12 @@ const Body = (props) => {
     width: "80%",
     height: "70%",
     placeSelf: "center",
-    margin: "auto",
+    margin: "auto" ,
     "&::-webkit-scrollbar": { width: "10px" },
   };
   return (
     <Box sx={container}>
-      <Scrollbars>
+      <Scrollbars  style={{overflowX: 'hidden' /* Hide horizontal scrollbar */}}>
         {data1.map((value, index) => {
           let logoWhite =
             value.LogoPath.includes("List") ||
@@ -35,7 +35,7 @@ const Body = (props) => {
                 {
                   <img
                     src={value.LogoPath}
-                    alt='logo'
+                    alt="logo"
                     style={
                       logoWhite
                         ? {
@@ -53,7 +53,7 @@ const Body = (props) => {
                   />
                 }
               </Box>
-              <Box>
+              <Box  >
                 <Typography style={{ fontWeight: "700", color: "gray" }}>
                   {value.Name} :{" "}
                 </Typography>

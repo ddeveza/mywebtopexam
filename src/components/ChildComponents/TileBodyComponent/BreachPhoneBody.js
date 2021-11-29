@@ -25,6 +25,7 @@ const BreachPhoneBody = ({ data }) => {
     alignContent: "space-around",
     paddingLeft: "100px",
     paddingRight: "100px",
+    margin:'auto'
   };
   return (
     /*   <div>

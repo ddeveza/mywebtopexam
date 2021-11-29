@@ -53,6 +53,7 @@ const BreachEmailBody = ({ data }) => {
     alignContent: "space-around",
     paddingLeft: "100px",
     paddingRight: "100px",
+    margin:'auto'
   };
 
   const handleToggle = () => {
