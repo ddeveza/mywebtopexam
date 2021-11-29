@@ -161,7 +161,6 @@ const SecurityAPIBody = ({ data }) => {
             item
             xs={2}
             container
-            xs={2}
             justifyContent="center"
             alignItems="center"
           >

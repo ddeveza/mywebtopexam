@@ -73,7 +73,7 @@ const Body = (props) => {
 
                 {value.DataClasses.map((eachVal, index) => {
                   return (
-                    <Typography style={{ display: "contents", color: "gray" }}>
+                    <Typography key={index} style={{ display: "contents", color: "gray" }}>
                       {eachVal} {index + 1 !== value.DataClasses.length && `, `}
                     </Typography>
                   );

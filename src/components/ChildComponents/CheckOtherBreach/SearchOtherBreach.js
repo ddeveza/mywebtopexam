@@ -10,7 +10,6 @@ import {
 import emailLogo from "../../../logo/Assets/icons8-mail.png";
 import phoneLogo from "../../../logo/Assets/icons8-touchscreen.png";
 import SearchIcon from "@material-ui/icons/Search";
-import Main from "../TileBodyComponent/DetailBreachEmail/Main";
 import ModalResult from "./ModalResult";
 
 import { __checkBreach } from "../../../graph";
@@ -66,10 +65,10 @@ const SearchOtherBreach = (props) => {
     //3. set data
     //5. set modal
     //6. pass to detailBreach email
-    
+
     const data = __checkBreach(email);
     console.log(JSON.parse(await data));
-    
+
     setResult(await data);
     setEmail(email);
     setToggle(!toggle);
@@ -236,21 +235,14 @@ const SearchOtherBreach = (props) => {
         </>
       </Modal>
 
-     {/*  <Modal
-        open={toggle}
-        onClose={handleToggle1}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        hideBackdrop={true}
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <>{result}</>
-      </Modal> */}
+     
 
-      <ModalResult data={result} isOpen={toggle} handleToggle={handleToggle} email={email}/>
+      <ModalResult
+        data={result}
+        isOpen={toggle}
+        handleToggle={handleToggle}
+        email={email}
+      />
     </>
   );
 };

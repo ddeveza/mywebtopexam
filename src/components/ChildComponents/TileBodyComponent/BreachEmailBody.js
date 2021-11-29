@@ -71,7 +71,7 @@ const BreachEmailBody = ({ data }) => {
                 {data.email}{" "}
               </Typography>
 
-              <Main handleToggle={handleToggle} data={data} isOpen={toggle} />
+              <Main handleToggle={handleToggle} data={data} isOpen={toggle} title="email"/>
             </Box>
           );
 
