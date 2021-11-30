@@ -15,7 +15,7 @@ const TileLogic = (title) => {
   const [toggleChildTile, setToggleChildTile] = useState(false);
   const [renderData, setRenderData] = useState({});
 
-  const [title1, title2] = title.split(",");
+  const [title1, title2] =title.split(",");
 
   const handleClose = () => {
     //dispatch(closeModal())

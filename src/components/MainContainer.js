@@ -11,7 +11,10 @@ import { makeStyles } from "@material-ui/core";
 import WelcomeScreen from "./ChildComponents/WelcomeScreen";
 import Swal from "sweetalert2";
 
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import { getUserPhoto, getUserAvatar, blobToBase64, imgPlaceHolder, getUserProfile } from "../graph";
+import Recommendations from "./Recommendations";
 
 const useStyles = makeStyles({
   container: {
@@ -127,48 +130,67 @@ function MainContainer() {
         <LoginForm />
       ) : (
         <>
-          <Grid container direction="row" className={classes.headerMenu}>
-            <Grid item xs={4}>
-              <img className={classes.MyWebTopLogo} src={logo} alt="Logo" />
-            </Grid>
-            <Grid item xs={8} container direction="column" justifyContent="flex-end" spacing={2}>
-              <Grid item container justifyContent="flex-end" alignItems="center">
-                <Grid item>
-                  <Typography className={classes.userName}>
-                    {" "}
-                    <span style={{ cursor: "pointer" }} onClick={() => setWsOpen(true)} title="Show welcome screen tutorial">
-                      Welcome
-                    </span>
-                    , {profile}{" "}
-                  </Typography>
+          <Router>
+            <Grid container direction="row" className={classes.headerMenu}>
+              <Grid item xs={4}>
+                <img className={classes.MyWebTopLogo} src={logo} alt="Logo" />
+              </Grid>
+              <Grid item xs={8} container direction="column" justifyContent="flex-end" spacing={2}>
+                <Grid item container justifyContent="flex-end" alignItems="center">
+                  <Grid item>
+                    <Typography className={classes.userName}>
+                      {" "}
+                      <span style={{ cursor: "pointer" }} onClick={() => setWsOpen(true)} title="Show welcome screen tutorial">
+                        Welcome
+                      </span>
+                      , {profile}{" "}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <img src={userPhoto} className={classes.userAvatar} alt="avatar" />
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <img src={userPhoto} className={classes.userAvatar} alt="avatar" />
+
+                <Grid item container spacing={4} justifyContent="flex-end" direction="row">
+                  <Grid item>
+                    <Link to="/">
+                      <Button className={classes.mainBtn}>Home</Button>
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link to="/recommendations">
+                      <Button className={classes.mainBtn}>Recommendations</Button>
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <SignOut />
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item container spacing={4} justifyContent="flex-end" direction="row">
-                <Grid item>
-                  <Button className={classes.mainBtn}>Home</Button>
-                </Grid>
-                <Grid item>
-                  <Button className={classes.mainBtn}>Recommendations</Button>
-                </Grid>
-                <Grid item>
-                  <SignOut />
-                </Grid>
-              </Grid>
             </Grid>
-          </Grid>
-          <Container className={classes.container}>
-            <Grid container justifyContent="space-evenly" alignItems="center" spacing={5} className={classes.tileContainer}>
-              <Grid item>{true && <Tile count={mailBreaches} title={"Number of Breached ,Email Accounts"} boolHipb={true} loading={inProgress} />}</Grid>
-              <Grid item>{true && <Tile count={currentScore} percentSign={true} title={"Microsoft,Secure Score"} boolHipb={false} />}</Grid>
-              <Grid item>{true && <Tile count={phoneBreaches} title={"Number of Breached,Phone Numbers"} boolHipb={true} loading={inProgress} />}</Grid>
-              <Grid item>{true && <Tile count={numOfGlbalAccts} title={"Number of Global,Administrator Accounts"} boolHipb={false} />}</Grid>
-              <Grid item>{true && <Tile count={numOfDormantAccount} title={"Number of,Dormants Account"} boolHipb={false} />}</Grid>
-              <Grid item>{true && <Tile count={percentMFA} percentSign={true} title={"Percentage of ,Accounts Using MFA"} boolHipb={false} />}</Grid>
-            </Grid>
-          </Container>
+
+            <Switch>
+              <Route path="/" exact>
+                <Container className={classes.container}>
+                  <Grid container justifyContent="space-evenly" alignItems="center" spacing={5} className={classes.tileContainer}>
+                    <Grid item>{true && <Tile count={mailBreaches} title={"Number of Breached ,Email Accounts"} boolHipb={true} loading={inProgress} />}</Grid>
+                    <Grid item>{true && <Tile count={currentScore} percentSign={true} title={"Microsoft,Secure Score"} boolHipb={false} />}</Grid>
+                    <Grid item>{true && <Tile count={phoneBreaches} title={"Number of Breached,Phone Numbers"} boolHipb={true} loading={inProgress} />}</Grid>
+                    <Grid item>{true && <Tile count={numOfGlbalAccts} title={"Number of Global,Administrator Accounts"} boolHipb={false} />}</Grid>
+                    <Grid item>{true && <Tile count={numOfDormantAccount} title={"Number of,Dormants Account"} boolHipb={false} />}</Grid>
+                    <Grid item>{true && <Tile count={percentMFA} percentSign={true} title={"Percentage of ,Accounts Using MFA"} boolHipb={false} />}</Grid>
+                  </Grid>
+                </Container>
+              </Route>
+              <Route path="/recommendations" exact>
+                <Container className={classes.container}>
+                  <Grid container justifyContent="space-evenly" alignItems="center" spacing={5} className={classes.tileContainer}>
+                    <Recommendations />
+                  </Grid>
+                </Container>
+              </Route>
+            </Switch>
+          </Router>
         </>
       )}
       {/* Welcome Screen */}

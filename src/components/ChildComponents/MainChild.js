@@ -23,11 +23,8 @@ const style = {
 
 const MainChild = forwardRef(({ data, close }, ref) => {
   const [buttonDesc, setButtonDesc] = useState("DOWNLOAD");
- 
 
   const _isMounted = useRef();
-
-  
 
   useEffect(() => {
     _isMounted.current = true;
@@ -65,10 +62,9 @@ const MainChild = forwardRef(({ data, close }, ref) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "flex-end",
-          marginRight:'9px'
-        }}
-      >
-        {buttonDesc!=='DOWNLOAD'&&<TileButton desc={buttonDesc}  />}
+          marginRight: "9px",
+        }}>
+        {buttonDesc !== "DOWNLOAD" && <TileButton desc={buttonDesc} />}
         <TileButton desc={"CLOSE"} close={close} />
       </Box>
     </Box>
