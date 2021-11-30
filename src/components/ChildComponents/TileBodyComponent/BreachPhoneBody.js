@@ -28,9 +28,9 @@ const BreachPhoneBody = ({ data }) => {
     justifyContent: "stretch",
     height: "385px",
     width: "800px",
-    alignContent: "space-around",
-    paddingLeft: "100px",
-    paddingRight: "100px",
+    
+    paddingLeft: "77px",
+    paddingRight: "77px",
     margin:'auto'
   };
   return (

@@ -32,7 +32,7 @@ const DormantBody = ({data}) => {
     const tableContainer = {
             height:'331px',
             width:'800px',
-            paddingLeft:'50px',
+            paddingLeft:'57px',
             paddingRight:'50px',
             display:'flex',
             justifyContent: 'space-around',
@@ -47,7 +47,7 @@ const DormantBody = ({data}) => {
     
     return (
         <>
-        <Box sx={{display:'flex', justifyContent:'space-around', marginTop:'20px', marginBottom:'10px'}}>
+        <Box sx={{display:'flex', justifyContent:'flex-start', marginTop:'20px', marginBottom:'12px', paddingLeft:'177px'}}>
            <Typography style={{color:'rgb(100 101 101)'}}> The Accounts below have not logged into your environment for 30 or more days </Typography>
         </Box>
         <div style={tableContainer}>
