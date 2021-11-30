@@ -2,3 +2,6 @@
     color : rgba(42, 129, 163, 1)  !important;
     text-decoration: none  !important;
 }
+.scroll{
+    overflow: auto !important;
+}
