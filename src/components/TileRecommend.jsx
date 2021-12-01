@@ -1,5 +1,6 @@
-import React from "react";
-import { makeStyles, Paper, Box, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import { makeStyles, Paper, Box, Typography, Modal, Backdrop } from "@material-ui/core";
+import HTMLFlipBook from "react-pageflip";
 
 const styles = makeStyles({
   tile: {
@@ -18,19 +19,23 @@ const styles = makeStyles({
     fontSize: "18px",
     letterSpacing: "1px",
     margin: "0.001em",
-    textAlign:'center'
+    textAlign: "center",
+  },
+  demo: {
+    backgroundColor: "white",
+    margin: "auto",
+    marginTop: "150px",
   },
 });
 
-const handleToggle = () => {};
-
 const TileRecommend = (props) => {
+  const [toggle, setToggle] = useState(false);
   const classes = styles();
-
+  const handleToggle = () => setToggle(!toggle);
   return (
     <>
       <Paper onClick={handleToggle} className={classes.tile}>
-        <Box sx={{display:'flex' ,flexDirection:'column', alignItems:'center'}}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box>
             <Typography className={classes.tileText}>{props.title}</Typography>
           </Box>
@@ -39,6 +44,27 @@ const TileRecommend = (props) => {
           </Box>
         </Box>
       </Paper>
+
+      <Modal
+        open={toggle}
+        onClose={handleToggle}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <>
+          {" "}
+          <HTMLFlipBook width={300} height={500}   maxShadowOpacity={1} showCover={false} mobileScrollSupport={true} className={classes.demo}>
+            <div className="demoPage">{props.title}</div>
+            <div className="demoPage">Demo 2text</div>
+            <div className="demoPage">Demo 3text</div>
+            <div className="demoPage">Demo 4text</div>
+          </HTMLFlipBook>
+        </>
+      </Modal>
     </>
   );
 };
