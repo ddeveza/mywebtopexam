@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles, Paper, Box, Typography, Modal, Backdrop } from "@material-ui/core";
-import HTMLFlipBook from "react-pageflip";
+import FlipPage from "./CyberSecureHomePage/FlipPage";
 
 const styles = makeStyles({
   tile: {
@@ -57,12 +57,7 @@ const TileRecommend = (props) => {
       >
         <>
           {" "}
-          <HTMLFlipBook width={300} height={500}   maxShadowOpacity={1} showCover={false} mobileScrollSupport={true} className={classes.demo}>
-            <div className="demoPage">{props.title}</div>
-            <div className="demoPage">Demo 2text</div>
-            <div className="demoPage">Demo 3text</div>
-            <div className="demoPage">Demo 4text</div>
-          </HTMLFlipBook>
+          <FlipPage handleToggle={handleToggle}/>
         </>
       </Modal>
     </>
