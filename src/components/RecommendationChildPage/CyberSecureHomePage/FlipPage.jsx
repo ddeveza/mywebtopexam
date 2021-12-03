@@ -2,13 +2,13 @@ import React from "react";
 import Page from "./Page";
 import EndPage from "./EndPage";
 import HTMLFlipBook from "react-pageflip";
-import one from '../../logo/Creating a Cyber Secure Home/1.png'
-import two from '../../logo/Creating a Cyber Secure Home/2.png'
-import three from '../../logo/Creating a Cyber Secure Home/3.png'
-import four from '../../logo/Creating a Cyber Secure Home/4.png'
-import five from '../../logo/Creating a Cyber Secure Home/5.png'
-import six from '../../logo/Creating a Cyber Secure Home/6.png'
-import seven from '../../logo/Creating a Cyber Secure Home/7.png'
+import one from '../../../logo/Creating a Cyber Secure Home/1.png'
+import two from '../../../logo/Creating a Cyber Secure Home/2.png'
+import three from '../../../logo/Creating a Cyber Secure Home/3.png'
+import four from '../../../logo/Creating a Cyber Secure Home/4.png'
+import five from '../../../logo/Creating a Cyber Secure Home/5.png'
+import six from '../../../logo/Creating a Cyber Secure Home/6.png'
+import seven from '../../../logo/Creating a Cyber Secure Home/7.png'
 
 const FlipPage = (props) => {
   const bookStyle = {

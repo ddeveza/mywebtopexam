@@ -42,7 +42,7 @@ const BreachPhoneBody = ({ data }) => {
         </div> */
 
     <Box sx={boxStyle}>
-      {phones[0].map((data, id) => {
+      {phones[0]?.map((data, id) => {
         return (
           <Box key={id} sx={{ marginRight: "30px" }}>
             <Typography className={classes.emailStyle} onClick={()=>setToggle(!toggle)}>

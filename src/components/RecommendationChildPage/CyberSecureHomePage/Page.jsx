@@ -17,7 +17,7 @@ const Page = forwardRef((props,ref) => {
                 <img src={props.photo} alt="cyber phot" style={imageStyle}/>
             </Box>
             <Box sx={{m:2 , display:'flex' , alignSelf:'center', justifyContent:'center'}}>
-               <Typography>Page: {props.number} out of 8</Typography>
+               <Typography style={{color:'rgb(100 101 101)'}}>Page: {props.number} out of 8</Typography>
             </Box>
 
         </Paper>
