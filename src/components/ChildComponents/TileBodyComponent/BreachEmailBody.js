@@ -85,7 +85,7 @@ const BreachEmailBody = ({ data }) => {
   return (
     <>
       <Box sx={boxStyle} className="scroll">
-        {emails[0].map((data, index) => {
+        {emails[0]?.map((data, index) => {
           return (
             <Box sx={{ marginRight: "30px", overFlow: "auto" }} key={index}>
               <Typography className={classes.emailStyle} onClick={handleToggle}>

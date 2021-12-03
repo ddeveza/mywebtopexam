@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, Paper, Box, Typography, Modal, Backdrop } from "@material-ui/core";
-import FlipPage from "./CyberSecureHomePage/FlipPage";
+import FlipPage from "./RecommendationChildPage/CyberSecureHomePage/FlipPage";
+import ChildPage from "./RecommendationChildPage/OtherPage/ChildPage";
+import { useToggleModal } from "../customhook/useToggleModal";
 
 const styles = makeStyles({
   tile: {
@@ -29,9 +31,9 @@ const styles = makeStyles({
 });
 
 const TileRecommend = (props) => {
-  const [toggle, setToggle] = useState(false);
   const classes = styles();
-  const handleToggle = () => setToggle(!toggle);
+  const [toggle, handleToggle] = useToggleModal(false);
+
   return (
     <>
       <Paper onClick={handleToggle} className={classes.tile}>
@@ -39,8 +41,8 @@ const TileRecommend = (props) => {
           <Box>
             <Typography className={classes.tileText}>{props.title}</Typography>
           </Box>
-          <Box>
-            <img src={props.photo} alt="photo" />
+          <Box sx={{display:'flex' , height:'110px', alignItems:'center'}}>
+            <img src={props.photo} alt="recommendation logo" style={{height:'100px', width:'100px'}}/>
           </Box>
         </Box>
       </Paper>
@@ -57,7 +59,8 @@ const TileRecommend = (props) => {
       >
         <>
           {" "}
-          <FlipPage handleToggle={handleToggle}/>
+          {props.id === "tile1" && <FlipPage handleToggle={handleToggle} />}
+          {(props.id !== "tile1" && props.id !== "tile2") && <ChildPage handleToggle={handleToggle} title={props.title} id={props.id} photo={props.photo}/>}
         </>
       </Modal>
     </>
