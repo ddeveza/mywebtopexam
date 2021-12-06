@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  Backdrop,
-  Box,
-  Button,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { Modal, Backdrop, Box, Button, Typography, makeStyles , LinearProgress} from "@material-ui/core";
 import emailLogo from "../../../logo/Assets/icons8-mail.png";
 import phoneLogo from "../../../logo/Assets/icons8-touchscreen.png";
 import SearchIcon from "@material-ui/icons/Search";
 import ModalResult from "./ModalResult";
+
 
 import { __checkBreach } from "../../../graph";
 
@@ -56,22 +50,55 @@ const SearchOtherBreach = (props) => {
   const [toggle, setToggle] = useState(false);
   const [result, setResult] = useState([]);
   const [email, setEmail] = useState("");
+  const [searching, setSearching] = useState(false)
   const handleToggle = () => {
     setToggle(!toggle);
   };
-  const searchHandle = async (email) => {
+  const searchHandle = async (input) => {
     //1. get the email address / phone number
     //2. search for the api
     //3. set data
     //5. set modal
     //6. pass to detailBreach email
+    if (input === null || input === undefined) {
+      props.desc.search("email") !== -1 ? alert("Please enter a valid email address.") : alert("Please enter a valid phone number.");
+    } else {
+      if (props.desc.search("email") !== -1) {
+        if (input.match(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/)) {
+          setSearching(true)
+          const data = await __checkBreach(input);
+         
+          if ( data!=='') {
+            setResult(data);
+            setEmail(input);
+            setSearching(false)
+            setToggle(!toggle);
+          } else {
+            setSearching(false)
+            alert("No result found.");
+          }
+        } else {
+          alert("Enter a valid email address.");
+        }
+      } else {
+        if (input.match(/^[+]?[(]?[0-9]{3}[)]?[-\s]?[0-9]{3}[-\s]?[0-9]{4,6}$/im)) {
+          setSearching(true)
+          const data = await __checkBreach(input);
 
-    const data = __checkBreach(email);
-    console.log(JSON.parse(await data));
-
-    setResult(await data);
-    setEmail(email);
-    setToggle(!toggle);
+          if (data !== '') {
+            setResult(data);
+            setEmail(input);
+            setSearching(false)
+            setToggle(!toggle);
+          } else {
+            setSearching(false)
+            alert("No result found");
+          }
+        } else {
+          alert("Enter a valid phone number.");
+        }
+      }
+    }
   };
   const modalStyle = {
     position: "absolute",
@@ -129,18 +156,10 @@ const SearchOtherBreach = (props) => {
               }}
             >
               <Box sx={{ display: "flex", marginLeft: "19px" }}>
-                <img
-                  src={
-                    props.desc.search("email") !== -1 ? emailLogo : phoneLogo
-                  }
-                  alt="search logo"
-                  style={{ width: "130px", height: "130px" }}
-                />
+                <img src={props.desc.search("email") !== -1 ? emailLogo : phoneLogo} alt="search logo" style={{ width: "130px", height: "130px" }} />
               </Box>
               <Box sx={{ display: "flex", paddingLeft: "30px" }}>
-                <Typography style={mainTitle}>
-                  {props.desc.toUpperCase()}
-                </Typography>
+                <Typography style={mainTitle}>{props.desc.toUpperCase()}</Typography>
               </Box>
             </Box>
             <Box
@@ -151,11 +170,7 @@ const SearchOtherBreach = (props) => {
               }}
             >
               {props.desc.search("email") !== -1 ? (
-                <Typography
-                  style={{ fontSize: "20px", color: "rgba(112, 112, 112, 1)" }}
-                >
-                  Enter email address to be checked
-                </Typography>
+                <Typography style={{ fontSize: "20px", color: "rgba(112, 112, 112, 1)" }}>Enter email address to be checked</Typography>
               ) : (
                 <>
                   {" "}
@@ -165,8 +180,7 @@ const SearchOtherBreach = (props) => {
                       color: "rgba(112, 112, 112, 1)",
                     }}
                   >
-                    Enter the phone number to be checked including the country
-                    code
+                    Enter the phone number to be checked including the country code
                   </Typography>
                   <Typography
                     style={{
@@ -190,16 +204,7 @@ const SearchOtherBreach = (props) => {
                 height: "60px",
               }}
             >
-              <input
-                type={props.desc.search("email") !== -1 && "email"}
-                style={searchBox}
-                placeholder={
-                  props.desc.search("email") !== -1
-                    ? "Enter email address...."
-                    : "Enter phone number...."
-                }
-                onChange={(e) => setValue(e.target.value)}
-              />
+              <input type={props.desc.search("email") !== -1 && "email"} style={searchBox} placeholder={props.desc.search("email") !== -1 ? "Enter email address...." : "Enter phone number...."} onChange={(e) => setValue(e.target.value)} />
               <Button
                 style={{
                   padding: "0px",
@@ -218,16 +223,11 @@ const SearchOtherBreach = (props) => {
                   }}
                 />
               </Button>
+              
             </Box>
+            {searching && <LinearProgress style={{width:478,margin:'auto', color:'rgb(42, 129, 163)'}}/>}
             <Box sx={{ display: "flex", alignSelf: "end" }}>
-              <Button
-                onClick={props.handleToggle}
-                className={
-                  props.desc.search("email") !== -1
-                    ? classes.buttonStyle
-                    : classes.buttonStylePhone
-                }
-              >
+              <Button onClick={props.handleToggle} className={props.desc.search("email") !== -1 ? classes.buttonStyle : classes.buttonStylePhone}>
                 CLOSE
               </Button>
             </Box>
@@ -235,14 +235,7 @@ const SearchOtherBreach = (props) => {
         </>
       </Modal>
 
-     
-
-      <ModalResult
-        data={result}
-        isOpen={toggle}
-        handleToggle={handleToggle}
-        email={email}
-      />
+      <ModalResult data={result} isOpen={toggle} handleToggle={handleToggle} email={email} />
     </>
   );
 };
