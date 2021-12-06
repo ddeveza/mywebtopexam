@@ -1,5 +1,5 @@
 import React from "react";
-import {  Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import ImplementMultiFactor from "./BodyPage/ImplementMultiFactor";
 import SecureYourPassword from "./BodyPage/SecureYourPassword";
 import SecurityGateway from "./BodyPage/SecurityGateway";
@@ -7,10 +7,9 @@ import SecurityUpdates from "./BodyPage/SecurityUpdates";
 import Title from "./Title";
 import ButtonPage from "./ButtonPage";
 
-
 const ChildPage = (props) => {
   const style = {
-    position: "absolute",
+    position: "relative",
     top: "57%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -33,7 +32,10 @@ const ChildPage = (props) => {
       {props.id === "tile4" && <ImplementMultiFactor />}
       {props.id === "tile5" && <SecurityUpdates />}
       {props.id === "tile6" && <SecurityGateway />}
-      <ButtonPage close={props.handleToggle} />
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent:'flex-end', position:'absolute', right:'40px' , bottom:'30px'}}>
+        {props.id === "tile6" && <ButtonPage desc="MORE INFO" />}
+        <ButtonPage close={props.handleToggle} desc="CLOSE" />
+      </Box>
     </Box>
   );
 };
