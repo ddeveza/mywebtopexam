@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Modal, Backdrop, Box, Button, Typography, makeStyles , LinearProgress} from "@material-ui/core";
+import { Modal, Backdrop, Box, Button, Typography, makeStyles, LinearProgress } from "@material-ui/core";
 import emailLogo from "../../../logo/Assets/icons8-mail.png";
 import phoneLogo from "../../../logo/Assets/icons8-touchscreen.png";
 import SearchIcon from "@material-ui/icons/Search";
 import ModalResult from "./ModalResult";
-
 
 import { __checkBreach } from "../../../graph";
 
@@ -50,7 +49,7 @@ const SearchOtherBreach = (props) => {
   const [toggle, setToggle] = useState(false);
   const [result, setResult] = useState([]);
   const [email, setEmail] = useState("");
-  const [searching, setSearching] = useState(false)
+  const [searching, setSearching] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -65,16 +64,16 @@ const SearchOtherBreach = (props) => {
     } else {
       if (props.desc.search("email") !== -1) {
         if (input.match(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/)) {
-          setSearching(true)
+          setSearching(true);
           const data = await __checkBreach(input);
-         
-          if ( data!=='') {
+
+          if (data !== "") {
             setResult(data);
             setEmail(input);
-            setSearching(false)
+            setSearching(false);
             setToggle(!toggle);
           } else {
-            setSearching(false)
+            setSearching(false);
             alert("No result found.");
           }
         } else {
@@ -82,16 +81,16 @@ const SearchOtherBreach = (props) => {
         }
       } else {
         if (input.match(/^[+]?[(]?[0-9]{3}[)]?[-\s]?[0-9]{3}[-\s]?[0-9]{4,6}$/im)) {
-          setSearching(true)
+          setSearching(true);
           const data = await __checkBreach(input);
 
-          if (data !== '') {
+          if (data !== "") {
             setResult(data);
             setEmail(input);
-            setSearching(false)
+            setSearching(false);
             setToggle(!toggle);
           } else {
-            setSearching(false)
+            setSearching(false);
             alert("No result found");
           }
         } else {
@@ -223,9 +222,8 @@ const SearchOtherBreach = (props) => {
                   }}
                 />
               </Button>
-              
             </Box>
-            {searching && <LinearProgress style={{width:478,margin:'auto', color:'rgb(42, 129, 163)'}}/>}
+            {searching && <LinearProgress style={{ width: 478, margin: "auto", color: "rgb(42, 129, 163)" }} />}
             <Box sx={{ display: "flex", alignSelf: "end" }}>
               <Button onClick={props.handleToggle} className={props.desc.search("email") !== -1 ? classes.buttonStyle : classes.buttonStylePhone}>
                 CLOSE

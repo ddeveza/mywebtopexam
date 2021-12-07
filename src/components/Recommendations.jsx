@@ -15,7 +15,7 @@ const Recommendations = () => {
         <TileRecommend id="tile1" title="CREATE A CYBER SECURE HOME" photo={home} />
       </Grid>
       <Grid item>
-        <TileRecommend id="tile2" title="BECOME CYBER AWARE" photo={learnMore} />
+        <TileRecommend id="tile2" title="BECOME CYBER AWARE" photo={learnMore}/>
       </Grid>
       <Grid item>
         <TileRecommend id="tile3" title="SECURE YOUR PASSWORDS WITH A PASSWORD MANAGER" photo={password} />

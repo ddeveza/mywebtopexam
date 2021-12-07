@@ -4,7 +4,7 @@ export const useToggleModal = (initialVal) => {
 
     const [toggle, setToggle] = useState(initialVal)
     const handleToggle = ()=>{
-        setToggle(!toggle)
+        setToggle(prev => !prev)
     }
 
 
