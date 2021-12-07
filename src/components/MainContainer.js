@@ -10,7 +10,6 @@ import { useIsAuthenticated } from "@azure/msal-react";
 import { makeStyles } from "@material-ui/core";
 import WelcomeScreen from "./ChildComponents/WelcomeScreen";
 import Swal from "sweetalert2";
-
 import { getUserPhoto, getUserAvatar, blobToBase64, imgPlaceHolder, getUserProfile } from "../graph";
 
 const useStyles = makeStyles({
