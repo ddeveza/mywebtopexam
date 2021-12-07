@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialValue ={
     Title:"NUMBER OF DORMANT ACCOUNTS",
-    about:`Dormant accounts can be a security risk to you business as these accounts may
+    about:`Dormant accounts can be a security risk to your business as these accounts may
            belong to someone who no longer works for the organisation`,
     value: "",
     details:[],

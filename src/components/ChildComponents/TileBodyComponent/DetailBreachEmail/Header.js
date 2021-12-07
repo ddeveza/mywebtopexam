@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
 import { Box, Typography , makeStyles} from "@material-ui/core";
 
-import avatar from "../../../../logo/Avatar.png";
+
 const styles = makeStyles({
     textStyle :{
         color:'gray',
@@ -13,7 +13,6 @@ const styles = makeStyles({
 })
 const Header = (props) => {
   const clasess = styles()
-  const [photo, setphoto] = useState();
   const userAvatar = {
     width: "80px",
     height: "80px",
@@ -26,7 +25,6 @@ const Header = (props) => {
   
   
 
-  console.log(props);
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <Box>
@@ -34,7 +32,7 @@ const Header = (props) => {
       </Box>
       <Box sx={{m:2}}>
         <Typography className={clasess.textStyle}>{props.data.name}</Typography>
-        <Typography className={clasess.textStyle}>{props.data.email}</Typography>
+        <Typography className={clasess.textStyle}>{props.title !=='email'?props.data.phone : props.data.email}</Typography>
       </Box>
     </Box>
   );

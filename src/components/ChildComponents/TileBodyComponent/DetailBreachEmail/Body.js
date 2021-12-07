@@ -10,18 +10,15 @@ const Body = (props) => {
   const container = {
     display: "flex",
     flexDirection: "column",
-    // overflow: "hidden",
-    // overflowY: "scroll", // added scroll
-
     width: "80%",
     height: "70%",
     placeSelf: "center",
-    margin: "auto",
-    "&::-webkit-scrollbar": { width: "10px" },
+    margin: "auto" ,
+   
   };
   return (
     <Box sx={container}>
-      <Scrollbars>
+      <Scrollbars  autoHide={false}   >
         {data1.map((value, index) => {
           let logoWhite =
             value.LogoPath.includes("List") ||
@@ -35,7 +32,7 @@ const Body = (props) => {
                 {
                   <img
                     src={value.LogoPath}
-                    alt='logo'
+                    alt="logo"
                     style={
                       logoWhite
                         ? {
@@ -53,7 +50,7 @@ const Body = (props) => {
                   />
                 }
               </Box>
-              <Box>
+              <Box  >
                 <Typography style={{ fontWeight: "700", color: "gray" }}>
                   {value.Name} :{" "}
                 </Typography>
@@ -73,7 +70,7 @@ const Body = (props) => {
 
                 {value.DataClasses.map((eachVal, index) => {
                   return (
-                    <Typography style={{ display: "contents", color: "gray" }}>
+                    <Typography key={index} style={{ display: "contents", color: "gray" }}>
                       {eachVal} {index + 1 !== value.DataClasses.length && `, `}
                     </Typography>
                   );

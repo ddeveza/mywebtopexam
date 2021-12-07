@@ -6,7 +6,8 @@ const styles = makeStyles({
     header : {
         fontWeight : '700',
         fontSize : '20px',
-        color :'rgba(42, 129, 163, 1)'
+        color :'rgba(42, 129, 163, 1)',
+       
     },
 
     body :{
@@ -31,11 +32,12 @@ const DormantBody = ({data}) => {
     const tableContainer = {
             height:'331px',
             width:'800px',
-            paddingLeft:'100px',
-            paddingRight:'100px',
+            paddingLeft:'57px',
+            paddingRight:'50px',
             display:'flex',
             justifyContent: 'space-around',
             alignItems: 'flex-start',
+            margin:'auto'
        
     }
     
@@ -45,25 +47,25 @@ const DormantBody = ({data}) => {
     
     return (
         <>
-        <Box sx={{display:'flex', justifyContent:'space-around', marginTop:'20px', marginBottom:'10px'}}>
+        <Box sx={{display:'flex', justifyContent:'flex-start', marginTop:'20px', marginBottom:'12px', paddingLeft:'177px'}}>
            <Typography style={{color:'rgb(100 101 101)'}}> The Accounts below have not logged into your environment for 30 or more days </Typography>
         </Box>
         <div style={tableContainer}>
            
             <Box>
                 <Typography className={classes.header}>Name</Typography>
-                {details.map(detail=> <Typography className={classes.body}>{detail.mail}</Typography>)}      
+                {details.map((detail, index)=> <Typography key={index} className={classes.body}>{detail.mail}</Typography>)}      
             </Box>
 
             <Box sx={{display:'flex', flexDirection:'column',alignItems: 'center' }}>
                <Typography className={classes.header}>Last Sign in Date</Typography>
-                {details.map(detail=> <Typography className={classes.body}>{formatDate(detail.lastSignIn)}</Typography>)}            
+                {details.map((detail,index)=> <Typography key={index} className={classes.body}>{formatDate(detail.lastSignIn)}</Typography>)}            
             </Box>
            
 
             <Box sx={{display:'flex', flexDirection:'column',alignItems: 'center' }}>
                 <Typography className={classes.header}>Days since last sign in</Typography>
-                {details.map(detail=> <Typography className={classes.body}>{detail.daysLastSignIn}</Typography>)}                  
+                {details.map((detail, index)=> <Typography key={index} className={classes.body}>{detail.daysLastSignIn}</Typography>)}                  
             </Box>
         </div>
         </>

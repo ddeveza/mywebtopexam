@@ -191,6 +191,7 @@ const MainContainerLogic = (isAuthenticated) => {
         if (user.mobilePhone) {
           const result2 = await __checkBreach(user.mobilePhone.split(" ").join(""));
           console.log(user.displayName, user.mobilePhone.split(" ").join(""), result2 ? true : false);
+          const photo = result2 && (await memberPhoto(user));
           resultPhone = [
             ...resultPhone,
             {
@@ -198,6 +199,7 @@ const MainContainerLogic = (isAuthenticated) => {
               phone: user.mobilePhone.split(" ").join(""),
               breached: result2 ? true : false,
               data: result2,
+              photo: await photo,
             },
           ];
           await wait(1500); //For revert back

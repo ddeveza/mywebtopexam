@@ -1,5 +1,6 @@
-import React from "react";
+import React , {useState}from "react";
 import { Box, Typography, makeStyles } from "@material-ui/core";
+import Main from '../TileBodyComponent/DetailBreachEmail/Main'
 const styles = makeStyles({
   emailStyle: {
     fontSize: "20px",
@@ -13,6 +14,11 @@ const styles = makeStyles({
 
 const BreachPhoneBody = ({ data }) => {
   const { phones } = data;
+  const [toggle, setToggle] = useState(false);
+  const handleToggle = () => {
+    setToggle(!toggle);
+  };
+
   const classes = styles();
   //const fakeData=['Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209','Dennis Deveza:+639323596209',];
   const boxStyle = {
@@ -22,9 +28,10 @@ const BreachPhoneBody = ({ data }) => {
     justifyContent: "stretch",
     height: "385px",
     width: "800px",
-    alignContent: "space-around",
-    paddingLeft: "100px",
-    paddingRight: "100px",
+    
+    paddingLeft: "77px",
+    paddingRight: "77px",
+    margin:'auto'
   };
   return (
     /*   <div>
@@ -38,10 +45,12 @@ const BreachPhoneBody = ({ data }) => {
       {phones[0].map((data, id) => {
         return (
           <Box key={id} sx={{ marginRight: "30px" }}>
-            <Typography className={classes.emailStyle}>
+            <Typography className={classes.emailStyle} onClick={()=>setToggle(!toggle)}>
               {" "}
-              {data.name}:{data.phone}{" "}
+              {data.name}: {data.phone}{" "}
             </Typography>
+
+            <Main handleToggle={handleToggle} data={data} isOpen={toggle} title="phone"/>
           </Box>
         );
       })}

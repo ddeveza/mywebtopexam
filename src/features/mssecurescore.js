@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialValue ={
     Title:"MICROSOFT SECURE SCORE",
-    about:"Below are the top consideration for your environment",
+    about:"Below are the top considerations for your environment",
     value: "",
     securityControl:[]
 }
