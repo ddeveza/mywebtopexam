@@ -29,14 +29,16 @@ const styles = makeStyles({
     marginTop: "150px",
   },
 });
-
+const openCyberSecurity = ()=>{
+  window.location.href = 'https://cyber.mywebtop.com.au/free';
+}
 const TileRecommend = (props) => {
   const classes = styles();
   const [toggle, handleToggle] = useToggleModal(false);
 
   return (
     <>
-      <Paper onClick={handleToggle} className={classes.tile}>
+      <Paper onClick={props.id !== "tile2"?handleToggle:openCyberSecurity} className={classes.tile}>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box>
             <Typography className={classes.tileText}>{props.title}</Typography>
@@ -60,7 +62,7 @@ const TileRecommend = (props) => {
         <>
           {" "}
           {props.id === "tile1" && <FlipPage handleToggle={handleToggle} />}
-          {(props.id !== "tile1" && props.id !== "tile2") && <ChildPage handleToggle={handleToggle} title={props.title} id={props.id} photo={props.photo}/>}
+          {(props.id !== "tile1" && props.id !== "tile2") && <ChildPage handleToggle={handleToggle} title={props.title} id={props.id} photo={props.photo} toggle={toggle}/>}
         </>
       </Modal>
     </>
