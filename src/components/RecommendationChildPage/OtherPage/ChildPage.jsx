@@ -26,6 +26,7 @@ const ChildPage = (props) => {
   };
 
   return (
+    
     <Box sx={style}>
       <Title photo={props.photo} title={props.title} />
       {props.id === "tile3" && <SecureYourPassword />}
@@ -33,7 +34,7 @@ const ChildPage = (props) => {
       {props.id === "tile5" && <SecurityUpdates />}
       {props.id === "tile6" && <SecurityGateway />}
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", position: "absolute", right: "40px", bottom: "30px" }}>
-          {props.id === "tile6" && <ButtonPage desc="MORE INFO" close={props.handleToggle}/>}
+         {props.id === "tile6" && <ButtonPage desc="MORE INFO"  close={props.handleToggle} />}
           <ButtonPage close={props.handleToggle} desc="CLOSE" />
 
 
