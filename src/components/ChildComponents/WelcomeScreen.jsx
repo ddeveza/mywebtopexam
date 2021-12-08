@@ -19,7 +19,6 @@ function WelcomeScreen(props) {
   const maxPage = 9;
 
   const __wsDone = () => {
-    localStorage.setItem("wsDone", true);
     props.setWsDone(true);
     props.setWsOpen(false);
     setWsPage(0);

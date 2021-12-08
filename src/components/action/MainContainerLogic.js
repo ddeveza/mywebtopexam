@@ -10,15 +10,15 @@ import { setDormant } from "../../features/dormant";
 import { setBreachPhoneData } from "../../features/breachedphone";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authConfig";
+import { _backend } from "../../utility/api";
 
 //API request functions
-import { __checkBreach, getUsers, getSecurityAPI, getDormantAcct, getUserProfile, getMemberPhoto, blobToBase64, imgPlaceHolder, getUserAvatar } from "../../graph";
+import { __checkBreach, getUsers, getSecurityAPI, getDormantAcct, getMemberPhoto, blobToBase64, imgPlaceHolder, getUserAvatar } from "../../graph";
 //End of API request functions
 
-const MainContainerLogic = (isAuthenticated) => {
+const MainContainerLogic = (isAuthenticated, tenant, profile) => {
   const { instance, accounts } = useMsal();
   const dispatch = useDispatch();
-  const [profile, setProfile] = useState("");
   const [users, setUsers] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [numOfGlbalAccts, setNumOfGlbalAccts] = useState(0);
@@ -37,30 +37,25 @@ const MainContainerLogic = (isAuthenticated) => {
   }, []);
 
   useEffect(() => {
-    if (isMounted.current && isAuthenticated) {
-      getUserProfile()
-        .then((res) => setProfile(res.displayName))
-        .catch((err) => console.log("Unable to get the User Profile"));
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    if (isMounted.current && isAuthenticated) __getAllUsers();
+    if (isMounted.current && isAuthenticated && profile) __getAllUsers();
   }, [profile]);
 
   useEffect(() => {
-    if (isMounted.current && users.length > 0) {
-      const lastChecked = localStorage.getItem("lastBreachCheck");
+    if (isMounted.current && users.length > 0 && tenant) {
+      if (!tenant?.license_key) return;
+      const lastChecked = tenant?.last_check;
       const timePastLastCheck = lastChecked ? timePast(lastChecked) : 1440;
       console.log("Time Past: ", timePastLastCheck);
       setTimeout(() => {
         __checkBreaches(timePastLastCheck);
       }, 300);
     }
-  }, [users]);
+  }, [users, tenant]);
 
   useEffect(() => {
-    if (isMounted.current && isAuthenticated) {
+    if (isMounted.current && isAuthenticated && profile) {
+      if (!tenant?.license_key) return;
+      console.log("Getting MS Secure Score");
       getSecurityAPI().then(async (res) => {
         //const {count : numGlobalAcct} = await res[0];
         const controlScores = res.controlScores;
@@ -118,7 +113,7 @@ const MainContainerLogic = (isAuthenticated) => {
         setNumOfDormantAccount(res.length);
       });
     }
-  }, [profile, dispatch, isAuthenticated]);
+  }, [profile, dispatch, isAuthenticated, tenant]);
 
   const __getAllUsers = async () => {
     console.log("getting users...");
@@ -206,12 +201,19 @@ const MainContainerLogic = (isAuthenticated) => {
         }
       }
       //locally Store Breach Check results
-      localStorage.setItem("lastBreachCheck", new Date());
-      localStorage.setItem("resultMail", JSON.stringify(resultMail));
-      localStorage.setItem("resultPhone", JSON.stringify(resultPhone));
+      const tenantData = {};
+      tenantData.data_emails = JSON.stringify(resultMail);
+      tenantData.data_phones = JSON.stringify(resultPhone);
+      tenantData.last_check = new Date();
+      await _backend.update("Tenant", profile.tenantid, tenantData);
     } else {
-      resultMail = localStorage.getItem("resultMail") ? JSON.parse(localStorage.getItem("resultMail")) : [];
-      resultPhone = localStorage.getItem("resultPhone") ? JSON.parse(localStorage.getItem("resultPhone")) : [];
+      const existingTenant = await _backend.get("Tenant", profile.tenantid);
+      if (!existingTenant || existingTenant?.error) {
+        console.log("Error getting backend data for Tenant");
+      } else {
+        resultMail = existingTenant.data_emails ? JSON.parse(existingTenant.data_emails) : [];
+        resultPhone = existingTenant.data_phones ? JSON.parse(existingTenant.data_phones) : [];
+      }
     }
 
     //Export these breach email/phone data
