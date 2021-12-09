@@ -187,7 +187,7 @@ const SearchOtherBreach = (props) => {
                       color: "rgba(112, 112, 112, 1)",
                     }}
                   >
-                    Eg:+61412333555`
+                    Eg:+61412333555
                   </Typography>
                 </>
               )}
