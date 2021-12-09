@@ -122,7 +122,11 @@ export const getSecurityAPI = async () => {
       .get(graphConfig.numGlobalAdminAcct, options)
       .then(async (res) => {
         const controlScores = await res.data.value[0].controlScores.filter((eachData) => eachData.controlCategory === "Identity");
-        const { currentScore: MSSecureScore } = await res.data.value[0];
+        
+        const { currentScore } = await res.data.value[0]; 
+        const { maxScore } = await res.data.value[0];
+        
+        const MSSecureScore = currentScore / maxScore; //calculate the actual Secure score
 
         return { controlScores, MSSecureScore };
       })
