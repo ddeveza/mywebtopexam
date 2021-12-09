@@ -10,7 +10,7 @@ const LoginFormLogic = () => {
       await instance
         .loginPopup(loginRequest)
         .then((response) => {
-          //console.log(response);
+          console.log(response);
         })
         .catch((e) => {
           const error = JSON.stringify(e);

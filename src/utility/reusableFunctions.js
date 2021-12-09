@@ -45,6 +45,11 @@ export const mH = (min = 1, max = 5) => {
   };
 };
 
+export const addDays = (days) => {
+  if (!days) return;
+  return moment(new Date()).add(days, "d").format("YYYY-MM-DD");
+};
+
 export const nextDay = (date) => {
   if (!date) return;
   date = sDate(date);
@@ -117,6 +122,14 @@ export const timePast = (lastCheckDate) => {
   if (!lastCheckDate) return;
   const ms = moment(new Date(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(lastCheckDate), "DD/MM/YYYY HH:mm:ss"));
   const d = moment.duration(ms).asMinutes();
+  //const s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+  return Math.floor(d);
+};
+
+export const daysRemaining = (expiryDate) => {
+  if (!expiryDate) return;
+  const ms = moment(new Date(expiryDate), "DD/MM/YYYY").diff(moment(new Date(), "DD/MM/YYYY"));
+  const d = moment.duration(ms).asDays();
   //const s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
   return Math.floor(d);
 };

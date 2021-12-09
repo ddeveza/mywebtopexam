@@ -42,7 +42,7 @@ const MainContainerLogic = (isAuthenticated, tenant, profile) => {
 
   useEffect(() => {
     if (isMounted.current && users.length > 0 && tenant) {
-      if (!tenant?.license_key) return;
+      if (!tenant?.keyValid) return;
       const lastChecked = tenant?.last_check;
       const timePastLastCheck = lastChecked ? timePast(lastChecked) : 1440;
       console.log("Time Past: ", timePastLastCheck);
@@ -54,7 +54,7 @@ const MainContainerLogic = (isAuthenticated, tenant, profile) => {
 
   useEffect(() => {
     if (isMounted.current && isAuthenticated && profile) {
-      if (!tenant?.license_key) return;
+      if (!tenant?.keyValid) return;
       console.log("Getting MS Secure Score");
       getSecurityAPI().then(async (res) => {
         //const {count : numGlobalAcct} = await res[0];

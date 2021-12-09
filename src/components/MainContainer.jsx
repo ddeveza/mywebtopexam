@@ -10,9 +10,11 @@ import { useIsAuthenticated } from "@azure/msal-react";
 import { makeStyles } from "@material-ui/core";
 import WelcomeScreen from "./ChildComponents/WelcomeScreen";
 import { _backend } from "../utility/api";
+import { addDays, daysRemaining } from "../utility/reusableFunctions";
 import Swal from "sweetalert2";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { getUserPhoto, getUserAvatar, blobToBase64, imgPlaceHolder, getUserProfile, getUserTenant } from "../graph";
+import { Modal, Button as ButtonX, Form } from "react-bootstrap";
 import Recommendations from "./Recommendations";
 
 const useStyles = makeStyles({
@@ -68,6 +70,9 @@ function MainContainer() {
   const [wsOpen, setWsOpen] = useState(false);
   const [profile, setProfile] = useState();
   const [tenant, setTenant] = useState();
+  const [keyModal, setKeyModal] = useState(false);
+  const [enteredKey, setEnteredKey] = useState("");
+  const [keyDaysLeft, setKeyDaysLeft] = useState("");
 
   useEffect(() => {
     isMounted.current = true;
@@ -161,6 +166,7 @@ function MainContainer() {
           console.log("Tenant created");
           setTenant(createTenantResult);
         } else {
+          existingTenant.keyValid = existingTenant.license_key ? __validateKey(existingTenant.key_expiration, existingTenant.license_key) : false;
           setTenant(existingTenant);
           await _backend.update("Tenant", profile.tenantid, tenantData);
           console.log("Tenant updated");
@@ -194,6 +200,51 @@ function MainContainer() {
     await _backend.update("User", profile?.id, { wsDone: 1 });
   };
 
+  const __initKey = async () => {
+    const existingKey = await _backend.get("License", enteredKey);
+    console.log(existingKey);
+    if (!existingKey || existingKey.error || existingKey.duration_days <= 0) {
+      console.log("Invalid key");
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Key!",
+        text: "Make sure you entered the key correctly. If you think this is a mistake, contact us!",
+        footer: '<a href="">Contact Us</a>',
+      });
+    } else {
+      await _backend.update("Tenant", profile.tenantid, { license_key: enteredKey, key_expiration: addDays(existingKey.duration_days) });
+      await _backend.update("License", existingKey.id, { isUsed: 1 });
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Your key has been validated",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+    setEnteredKey("");
+    setKeyModal(false);
+  };
+
+  const __validateKey = (key_expiration, license_key) => {
+    let daysLeft = null;
+    if (license_key && key_expiration) {
+      daysLeft = daysRemaining(key_expiration);
+      console.log("Days Left: ", daysLeft);
+      if (daysLeft < 0) {
+        setKeyDaysLeft("Expired key");
+      } else {
+        if (daysLeft > 36500) {
+          setKeyDaysLeft("Lifetime");
+        } else {
+          setKeyDaysLeft(`${daysLeft} days left`);
+        }
+      }
+    }
+    return daysLeft && daysLeft >= 0;
+  };
+
   return (
     <>
       {!isAuthenticated ? (
@@ -217,7 +268,9 @@ function MainContainer() {
                       {tenant?.displayName && (
                         <>
                           <br />
-                          <small style={{ fontSize: "0.8em", marginLeft: "1em" }}>{tenant?.displayName}</small>
+                          <small style={{ fontSize: "0.8em", marginLeft: "1em" }}>
+                            {tenant?.displayName} {keyDaysLeft && `(${keyDaysLeft})`}
+                          </small>
                         </>
                       )}
                     </Typography>
@@ -244,7 +297,7 @@ function MainContainer() {
                 </Grid>
               </Grid>
             </Grid>
-            {tenant?.license_key ? (
+            {tenant?.keyValid ? (
               <Switch>
                 <Route path="/" exact>
                   <Container className={classes.container}>
@@ -267,13 +320,68 @@ function MainContainer() {
                 </Route>
               </Switch>
             ) : (
-              <>{tenant ? <center className="mt-5">Your company has no license key for BeCloudSafe</center> : <center className="mt-5">Processing your tenancy...</center>}</>
+              <>
+                {tenant ? (
+                  <center className="mt-5">
+                    <div>
+                      <div className="mb-3">
+                        Your company <b>{tenant?.displayName}</b> has no license key for BeCloudSafe
+                      </div>
+                      <div>
+                        <ButtonX variant="primary" onClick={() => window.open("https://buy.stripe.com/test_dR6dTQfoz7TPfKM9AA", "_blank")}>
+                          I don't have a key
+                        </ButtonX>
+                        <ButtonX variant="success" style={{ marginLeft: "1em" }} onClick={() => setKeyModal(true)}>
+                          Enter Key
+                        </ButtonX>
+                      </div>
+                    </div>
+                  </center>
+                ) : (
+                  <center className="mt-5">Processing your tenancy...</center>
+                )}
+              </>
             )}
           </Router>
         </>
       )}
       {/* Welcome Screen */}
       <WelcomeScreen setWsOpen={setWsOpen} wsOpen={wsOpen} setWsDone={setWsDone} />
+      {/* Licensing Modal */}
+      <Modal
+        show={keyModal}
+        onHide={() => {
+          setKeyModal(false);
+          setEnteredKey("");
+        }}
+        centered
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Enter License Key</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="mb-3">The license key was sent to the email used in purchasing.</div>
+          <Form.Group controlId="license.key">
+            <Form.Control type="text" placeholder="Enter license key..." value={enteredKey} onChange={(e) => setEnteredKey(e.target.value)} />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <ButtonX
+            variant="danger"
+            onClick={() => {
+              setKeyModal(false);
+              setEnteredKey("");
+            }}
+          >
+            Close
+          </ButtonX>
+          <ButtonX variant="success" onClick={__initKey} disabled={enteredKey.length < 10}>
+            Validate
+          </ButtonX>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
