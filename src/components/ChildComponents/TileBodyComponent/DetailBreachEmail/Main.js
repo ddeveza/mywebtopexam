@@ -13,7 +13,7 @@ import { Modal, Backdrop, Box } from "@material-ui/core";
 const Main = (props) => {
     
     const modalStyle = {
-        position: "absolute",
+        position: "relative",
         top: "60%",
         left: "50%",
         transform: "translate(-50%, -50%)",

@@ -4,6 +4,7 @@ import SearchOtherBreach from "../ChildComponents/CheckOtherBreach/SearchOtherBr
 
 const styles = makeStyles({
   buttonStyle: {
+    
     margin: "10px",
     boxSizing: "content-box",
     backgroundColor: "rgba(42, 129, 163, 1)",

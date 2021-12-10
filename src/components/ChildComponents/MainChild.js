@@ -5,7 +5,7 @@ import TileButton from "./TileButton";
 import { Box } from "@material-ui/core";
 
 const style = {
-  position: "absolute",
+  position: "relative",
   top: "60%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -60,9 +60,12 @@ const MainChild = forwardRef(({ data, close }, ref) => {
       <Box
         sx={{
           display: "flex",
+          position:'absolute',
           flexDirection: "row",
           justifyContent: "flex-end",
-          marginRight: "9px",
+          right:'19px',
+          bottom:'15px'
+         
         }}>
         {buttonDesc !== "DOWNLOAD" && <TileButton desc={buttonDesc} />}
         <TileButton desc={"CLOSE"} close={close} />
