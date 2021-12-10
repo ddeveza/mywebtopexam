@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, makeStyles ,Box} from "@material-ui/core";
+import { Button, makeStyles ,Box, Typography} from "@material-ui/core";
 
 const styles = makeStyles({
   buttonStyle: {
@@ -28,7 +28,7 @@ const Footer = (props) => {
   return (
     <Box sx={{display:'flex' , position: 'absolute', right: '255px',bottom: '16px'}}>
       <Button onClick={props.close} className={classes.buttonStyle}>
-        Close
+        <Typography>Close</Typography>
       </Button>
     </Box>
   );
