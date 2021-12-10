@@ -125,8 +125,8 @@ export const getSecurityAPI = async () => {
         
         const { currentScore } = await res.data.value[0]; 
         const { maxScore } = await res.data.value[0];
-        console.log(currentScore)
-        console.log(maxScore)
+        //console.log(currentScore)
+        //console.log(maxScore)
         const MSSecureScore = (currentScore / maxScore)*100; //calculate the actual Secure score
         
         return { controlScores, MSSecureScore };
