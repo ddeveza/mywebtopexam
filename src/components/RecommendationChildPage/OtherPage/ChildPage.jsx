@@ -33,7 +33,7 @@ const ChildPage = (props) => {
       {props.id === "tile4" && <ImplementMultiFactor />}
       {props.id === "tile5" && <SecurityUpdates />}
       {props.id === "tile6" && <SecurityGateway />}
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", position: "absolute", right: "40px", bottom: "30px" }}>
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", position: "absolute", right: "25px", bottom: "20px" }}>
          {props.id === "tile6" && <ButtonPage desc="MORE INFO"  close={props.handleToggle} />}
           <ButtonPage close={props.handleToggle} desc="CLOSE" />
 

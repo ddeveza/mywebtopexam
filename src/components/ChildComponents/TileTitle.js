@@ -24,6 +24,7 @@ const styles = makeStyles({
         color:'rgb(100 101 101)',
         fontWeight:'5px',
         letterSpacing:'1px',
+        paddingRight:'75px'
         
     }
 });
@@ -45,12 +46,24 @@ const TileTitle = ({title,value,about}) => {
         flexDirection: 'column',
         justifyContent:'center' ,
         flexWrap: 'wrap',
-        paddingLeft:'5px' 
+        paddingLeft:'5px' ,
+        paddingTop: '30px'
+    }
+
+
+    const styleTitleContainerMFA= {
+        display:'flex' , 
+        flexDirection: 'column',
+        justifyContent:'center' ,
+        flexWrap: 'wrap',
+        paddingLeft:'5px' ,
+        
     }
 
     const styleTitle = {
         marginBottom :'10px',
         marginTop:'10px',
+     
     }
 
   
@@ -64,7 +77,7 @@ const TileTitle = ({title,value,about}) => {
                     </Box>
                 </Grid>
                 <Grid  item xs={10} container >
-                    <Box sx={styleTitleContainer}>
+                    <Box sx={title.search('MFA') === -1 ? styleTitleContainer:styleTitleContainerMFA}>
                             <Box sx={styleTitle}>
                                 <Typography className={classes.mainTitle}> {title}</Typography>
                             </Box>

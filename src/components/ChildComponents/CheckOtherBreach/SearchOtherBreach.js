@@ -118,8 +118,12 @@ const SearchOtherBreach = (props) => {
   };
 
   const mainTitle = {
-    fontSize: "40px",
-    color: "rgba(42, 129, 163, 1)",
+   
+    color: 'rgba(42, 129, 163, 1)',
+    fontSize: '28px',
+    fontFamily:'Lato, sans-serif',
+    letterSpacing: '1px',
+   
   };
 
   const searchBox = {
@@ -226,7 +230,7 @@ const SearchOtherBreach = (props) => {
             {searching && <LinearProgress style={{ width: 478, margin: "auto", color: "rgb(42, 129, 163)" }} />}
             <Box sx={{ display: "flex", alignSelf: "end" }}>
               <Button onClick={props.handleToggle} className={props.desc.search("email") !== -1 ? classes.buttonStyle : classes.buttonStylePhone}>
-                CLOSE
+                <Typography>CLOSE</Typography>
               </Button>
             </Box>
           </Box>

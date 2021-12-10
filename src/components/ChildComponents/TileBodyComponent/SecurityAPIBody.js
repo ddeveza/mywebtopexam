@@ -121,7 +121,7 @@ const SecurityAPIBody = ({ data }) => {
           </Grid>
 
           <Grid item xs={8}>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: "flex", flexDirection: "column" ,paddingLeft: '9px'}}>
               <Box
                 sx={{
                   display: "flex",

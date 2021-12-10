@@ -13,7 +13,7 @@ const Body = (props) => {
     width: "80%",
     height: "70%",
     placeSelf: "center",
-    margin: "auto" ,
+    margin: "0 70px 0 70px" ,
    
   };
   return (
