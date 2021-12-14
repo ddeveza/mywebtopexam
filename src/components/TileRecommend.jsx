@@ -29,22 +29,22 @@ const styles = makeStyles({
     marginTop: "150px",
   },
 });
-const openCyberSecurity = ()=>{
-  window.location.href = 'https://cyber.mywebtop.com.au/free';
-}
+const openCyberSecurity = () => {
+  window.location.href = "https://cyber.mywebtop.com.au/free";
+};
 const TileRecommend = (props) => {
   const classes = styles();
   const [toggle, handleToggle] = useToggleModal(false);
 
   return (
     <>
-      <Paper onClick={props.id !== "tile2"?handleToggle:openCyberSecurity} className={classes.tile}>
+      <Paper onClick={props.id !== "tile2" ? handleToggle : openCyberSecurity} className={classes.tile}>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Box>
+          <Box sx={{ height: "55px" }}>
             <Typography className={classes.tileText}>{props.title}</Typography>
           </Box>
-          <Box sx={{display:'flex' , height:'110px', alignItems:'center'}}>
-            <img src={props.photo} alt="recommendation logo" style={{height:'100px', width:'100px'}}/>
+          <Box sx={{ display: "flex", /* height: "110px", */ alignItems: "center" }}>
+            <img src={props.photo} alt="recommendation logo" style={{ height: "100px", width: "100px" }} />
           </Box>
         </Box>
       </Paper>
@@ -62,7 +62,7 @@ const TileRecommend = (props) => {
         <>
           {" "}
           {props.id === "tile1" && <FlipPage handleToggle={handleToggle} />}
-          {(props.id !== "tile1" && props.id !== "tile2") && <ChildPage handleToggle={handleToggle} title={props.title} id={props.id} photo={props.photo} toggle={toggle}/>}
+          {props.id !== "tile1" && props.id !== "tile2" && <ChildPage handleToggle={handleToggle} title={props.title} id={props.id} photo={props.photo} toggle={toggle} />}
         </>
       </Modal>
     </>
